@@ -16,15 +16,17 @@ With the rising popularity of Docker the question presents itself: why Docker? W
 understood LXC, what's the difference? Why pick one over the other?
 
 What you have to understand that there is a fundamental, **philosophical difference** between LXC and Docker.
-Containerization itself has a long history in the BSD world, but was introduced to the mainstream Linux community in the
-form of [OpenVZ](https://openvz.org/).
 
-Before OpenVZ the Linux kernel had no means to create any sort of containerization, apart from the `chroot()`
-functionality that allowed a process to be run using a different view of the filesystem. At first, the OpenVZ team
-developed patches for the Linux kernel to implement these features, which then made their way into the Linux kernel
-thanks to the efforts of the OpenVZ team, IBM, Google, and others. These features in the Linux kernel, which I have
-written about in my article about [Dockers internals](/blog/under-the-hood-of-docker), are utilized by the LXC,
-Linux-Vserver, and indeed Docker to create containers.
+Containerization itself has a long history in the BSD world, but was introduced to the mainstream Linux community in the
+form of [OpenVZ](https://openvz.org/). Before OpenVZ the Linux kernel had no means to create any sort of
+containerization, apart from the `chroot()` functionality that allowed a process to be run using a different view of the
+filesystem.
+
+At first, the OpenVZ team developed patches for the Linux kernel to implement these features, which then
+made their way into the Linux kernel thanks to the efforts of the OpenVZ team, IBM, Google, and others.
+These features in the Linux kernel, which I have written about in [my article about
+Dockers internals](/blog/under-the-hood-of-docker), are utilized by the LXC, Linux-Vserver, and indeed Docker to create
+containers.
 
 **LXC** itself is a spiritual successor of OpenVZ. While OpenVZ is still around, mostly in the Redhat world with older
 kernels, LXC is the tool of choice for many who who wish to **run a full operating system in a container**. As such, LXC
@@ -33,11 +35,13 @@ run, configuration management is much needed for keeping the madness at bay.
 
 **Docker** on the other hand adopts a much different approach. Instead of running a VM-like container with a full
 software stack, including an init system, a syslog server, cron daemon and all the other stuff that one may have, it
-**is built for running one application**. Not only that, but the recipe to create the environment for that application
-is an executable piece of documentation itself, called the `Dockerfile`. Docker uses this `Dockerfile` to build an image
-(basically a bunch of tar files) of the application and the libraries it needs, then ships these to a production
-environment. This image is then run, and some kernel magic (via OverlayFS, AUFS or DeviceMapper) takes care of the files
-that are written temporarily as a result of the container running.
+**is built for running one application**.
+
+Not only that, but the recipe to create the environment for that application is an executable piece of documentation
+itself, called the `Dockerfile`. Docker uses this `Dockerfile` to build an image (basically a bunch of tar files) of the
+application and the libraries it needs, then ships these to a production environment. This image is then run, and some
+kernel magic (via OverlayFS, AUFS or DeviceMapper) takes care of the files that are written temporarily as a result of
+the container running.
 
 When an update is needed, one does not SSH into a Docker container and install the updates by hand either. Instead of
 updating the OS, a new image is built with the updated software, and the old one is simply thrown away. Persistent data
