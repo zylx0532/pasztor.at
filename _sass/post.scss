@@ -51,6 +51,30 @@
     text-decoration:none;
     margin-left:10px;
     margin-right:10px;
+    height:36px;
+    position: relative;
+    display:inline-block;
+  }
+  &__sharecount {
+    transform: scale(0);
+    position: absolute;
+    background: #ff0000;
+    color: #fff;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    font-size: 9px;
+    text-align: center;
+    line-height: 21px;
+    vertical-align: middle;
+    top: -7px;
+    right:-7px;
+    font-family: $font-sans-serif;
+    border:1px solid #fff;
+  }
+  &__sharecount.post__sharecount--active {
+    transition: all .233s ease-in;
+    transform: scale(1);
   }
 
   &__bio {

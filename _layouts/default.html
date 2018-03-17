@@ -245,6 +245,7 @@ Feel free to learn from then and build your own!
     <!--suppress JSReferencingMutableVariableFromClosure -->
     <script>
         window.addEventListener('load', function () {
+            //region LQIP
             var images = document.getElementsByTagName("img");
             for (var i = 0; i < images.length; i++) {
                 if (images.hasOwnProperty(i)) {
@@ -256,7 +257,9 @@ Feel free to learn from then and build your own!
                     }
                 }
             }
+            //endregion
 
+            //region Privacy
             var privacyPolicyVersion = "February 7, 2018";
 
             function getCookie(cookieName) {
@@ -390,10 +393,43 @@ Feel free to learn from then and build your own!
             if (blockAnalytics) {
                 setCookie("analytics-block", 1, 365 * 24 * 3600);
             }
+            //endregion
 
+            //region Social Proof
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.open('GET', '/api/stats?url=' + encodeURIComponent(window.location.pathname), true);
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
+                    var response = JSON.parse(httpRequest.responseText);
+                    for (var socialNetwork in response) {
+                        if (response.hasOwnProperty(socialNetwork)) {
+                            var shareCount = response[socialNetwork]['count'];
+                            var shareUrl = response[socialNetwork]['url'];
+                            if (shareCount !== null && shareCount > 0) {
+                                var elements = document.querySelectorAll('[data-sharecount=' + socialNetwork + ']');
+                                for (var i = 0; i < elements.length; i++) {
+                                    elements[i].innerHTML = shareCount;
+                                    elements[i].classList.add("post__sharecount--active");
+                                }
+                            }
+                            if (shareUrl !== null) {
+                                var elements = document.querySelectorAll('[data-shareurl=' + socialNetwork + ']');
+                                for (var i = 0; i < elements.length; i++) {
+                                    elements[i].href = shareUrl;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            httpRequest.send();
+            //endregion
+
+            //region Console
             if (typeof console !== "undefined" && typeof console.log !== "undefined") {
                 console.log("Hey there! Looks like you are interested in the source code. The full source can be found at https://github.com/janoszen/pasztor.at")
             }
+            //endregion
         });
     </script>
   </body>

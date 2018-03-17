@@ -6,9 +6,11 @@
         <a title="Share on Hacker News"
            data-event-category="share"
            data-event="Hacker News"
+           data-shareurl="hackernews"
            target="_blank" rel="noopener noreferrer"
            href="https://news.ycombinator.com/submitlink?u={{ page.url | absolute_url | url_escape }}&t={{ page.title | url_escape }}"
            class="post__sharelink social__hackernews">
+            <span class="post__sharecount" data-sharecount="hackernews"></span>
             <img src="{% base64 /assets/share-icons/hackernews.svg %}" alt="Share on Hacker News" height="36" width="36" />
         </a>
         <a title="Share on Facebook"
@@ -17,6 +19,7 @@
            target="_blank" rel="noopener noreferrer"
            href="https://www.facebook.com/dialog/share?href={{ page.url | absolute_url | url_encode }}&amp;app_id=1916868571905927&amp;display=page&amp;redirect_uri={{ page.url | absolute_url | url_encode }}"
            class="post__sharelink social__facebook">
+            <span class="post__sharecount" data-sharecount="facebook"></span>
             <img src="{% base64 /assets/share-icons/facebook.svg %}" alt="Share on Facebook" height="36" width="36" />
         </a>
         <a title="Share on Reddit"
@@ -24,6 +27,7 @@
            data-event="Reddit"
            target="_blank" rel="noopener noreferrer"
            href="https://www.reddit.com/submit?url={{ page.url | absolute_url | url_encode }}&amp;title={{ page.title | url_encode }}" class="post__sharelink social__reddit">
+            <span class="post__sharecount" data-sharecount="reddit"></span>
             <img src="{% base64 /assets/share-icons/reddit.svg %}" alt="Share on Reddit" height="36" width="36" />
         </a>
         <a title="Share on Twitter"
@@ -32,6 +36,7 @@
            target="_blank" rel="noopener noreferrer"
            href="https://twitter.com/intent/tweet?url={{ page.url | absolute_url | url_encode }}&amp;text={{ page.title | url_encode }}&amp;via=janoszen"
            class="post__sharelink social__twitter">
+            <span class="post__sharecount" data-sharecount="twitter"></span>
             <img src="{% base64 /assets/share-icons/twitter.svg %}" alt="Share on Twitter" height="36" width="36" />
         </a>
         <a title="Save on GetPocket"
@@ -39,6 +44,7 @@
            data-event="GetPocket"
            target="_blank" rel="noopener noreferrer"
            href="https://getpocket.com/edit?url={{ page.url | absolute_url | url_encode }}" class="post__sharelink social__getpocket">
+            <span class="post__sharecount" data-sharecount="pocket"></span>
             <img src="{% base64 /assets/share-icons/pocket.svg %}" alt="Save on GetPocket" height="36" width="36" />
         </a>
         <a title="Share on Messenger"
@@ -46,6 +52,7 @@
            data-event="Messenger"
            target="_blank" rel="noopener noreferrer"
            href="https://www.facebook.com/dialog/send?link={{ page.url | absolute_url | url_encode }}&amp;app_id=1916868571905927&amp;redirect_uri={{ page.url | absolute_url | url_encode }}" class="post__sharelink social__messenger">
+            <span class="post__sharecount" data-sharecount="messenger"></span>
             <img src="{% base64 /assets/share-icons/messenger.svg %}" alt="Share on Messenger" height="36" width="36" />
         </a>
         <a title="Share on Google+"
@@ -53,6 +60,7 @@
            data-event="Google+"
            target="_blank" rel="noopener noreferrer"
            href="https://plus.google.com/share?url={{ page.url | absolute_url | url_encode }}&amp;hl=en" class="post__sharelink social__gplus">
+            <span class="post__sharecount" data-sharecount="gplus"></span>
             <img src="{% base64 /assets/share-icons/google-plus.svg %}" alt="Share on Google+" height="36" width="36" />
         </a>
         <a title="Share on Tumblr"
@@ -60,6 +68,7 @@
            data-event="Tumblr"
            target="_blank" rel="noopener noreferrer"
            href="https://tumblr.com/widgets/share/tool?canonicalUrl={{ page.url | absolute_url | url_encode }}" class="post__sharelink social__tumblr">
+            <span class="post__sharecount" data-sharecount="tumblr"></span>
             <img src="{% base64 /assets/share-icons/tumblr.svg %}" alt="Share on Tumblr" height="36" width="36" />
         </a>
         <a title="Share on Linkedin"
@@ -67,6 +76,7 @@
            data-event="Linkedin"
            target="_blank" rel="noopener noreferrer"
            href="https://www.linkedin.com/shareArticle?mini=true&url={{ page.url | absolute_url | url_encode }}" class="post__sharelink social__linkedin">
+            <span class="post__sharecount" data-sharecount="linkedin"></span>
             <img src="{% base64 /assets/share-icons/linkedin.svg %}" alt="Share on Linkedin" height="36" width="36" />
         </a>
         <a title="Share on VKontakte"
@@ -74,6 +84,7 @@
            data-event="VKontakte"
            target="_blank" rel="noopener noreferrer"
            href="http://vk.com/share.php?url={{ page.url | absolute_url | url_encode }}&amp;title={{ page.title | url_encode }}" class="post__sharelink social__vkontakte">
+            <span class="post__sharecount" data-sharecount="vk"></span>
             <img src="{% base64 /assets/share-icons/vk.svg %}" alt="Share on VKontakte" height="36" width="36" />
         </a>
         <a title="Share on Wordpress"
@@ -81,6 +92,7 @@
            data-event="Wordpress"
            target="_blank" rel="noopener noreferrer"
            href="http://wordpress.com/press-this.php?u={{ page.url | absolute_url | url_encode }}&amp;title={{ page.title | url_encode }}" class="post__sharelink social__wordpress">
+            <span class="post__sharecount" data-sharecount="wordpress"></span>
             <img src="{% base64 /assets/share-icons/wordpress.svg %}" alt="Share on Wordpress" height="36" width="36" />
         </a>
     </div>

@@ -21,8 +21,14 @@ eventUrl:           http://devopspro.lt/
 tags:               [DevOps, Docker, Development]
 ---
 
-Docker is the hot new thing, the technology that really brought the DevOps movement to a next level. Every other week a new tool comes out that claims to make Docker easier to use, but information and good advice is often hard to come by.
-This workshop aims to teach you how to use Docker from the ground up, from setting up your very first Docker container to getting your containers production ready.
+Docker is the hot new thing, the technology that really brought the DevOps movement to a next level. Every other week a
+new tool comes out that claims to make Docker easier to use, but information and good advice is often hard to come by.
+
+At this workshop we went from writing the first shell script to actually running a service
+with multiple containers in production using docker-compose and Docker Swarm.
+
+I had a blast making this workshop, in no small part due to the excellent work of the organizers
+and the volunteers at DevOps Pro Vilnius. 
 
 ## Agenda
 
@@ -43,8 +49,7 @@ This workshop aims to teach you how to use Docker from the ground up, from setti
    - Using a Continuous Integration to build Docker Containers
 5. Getting Docker into production
    - Production the simple way: docker-compose
-   - The new contender: Using Docker Swarm
-   - The mainstream: Using Kubernetes
+   - Using Docker Swarm
 
 ## Target Audience
 
