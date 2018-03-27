@@ -16,7 +16,7 @@ I don't normally talk about law and social issues on this blog. Partially, becau
 law and I may have no idea what I'm talking about. Please send me a [pull request on GitHub to fix any potential mistakes](https://github.com/janoszen/pasztor.at).
 But this time is an exception to my usual content, as it affects us all.
 
-A new EU proposal earmarked [COM(2016)593](http://eur-lex.europa.eu/legal-content/EN/ALL/?uri=COM:2016:593:FIN) would
+An EU proposal earmarked [COM(2016)593](http://eur-lex.europa.eu/legal-content/EN/ALL/?uri=COM:2016:593:FIN) would
 institute a requirement for all online platforms to implement an upload filter. To be fair, this proposal is still being
 negotiated, but the fact that it even exists is very worrying. 
 
@@ -116,6 +116,22 @@ I'm not even going into details like how fast you need to access the data to mat
 algorithms available on the market to do this. (Even YouTubes Content ID messes up all the time.) You can see the 
 insanity of this law unless we are talking of the largest of the large companies.
 
+But let’s not go that far, let’s take a look how much money a third party platform would cost. Although I have not been
+able to find such a platform, we can take a look at [Amazon Rekognition](https://aws.amazon.com/rekognition/pricing/)
+as an example that’s close enough. This system does a much simpler job of simply tracking an object in a video (e.g.
+face detection).
+
+Video analysis on this platform costs 0.1$ per minute of video (0.12$ for live video) at the time of writing. If one
+creator streams about 2 hours of video a day (an average metric for video game streams for example), each creator would
+cost the platform over 300 USD a month (2x60x30x0.1)
+
+The metrics platform [NoScope](http://noscope.io/) claims that there are 200.000 active streamers on
+[Twitch.tv](https://www.twitch.tv/). Assuming Twitch had to pay this amount of money for each active streamer, they
+would end up with a monthly bill of 72 million USD, or over 800 million USD per year. To put this into context,
+[Amazon paid 970 million USD for Twitch in 2014](https://en.wikipedia.org/wiki/Twitch.tv#Amazon_subsidiary_(2014%E2%80%93present)).
+In-house systems can, of course, make this vastly cheaper, but building in-house systems can only be afforded by
+companies with large engineering teams, and will still constitute a significant operational expense.
+
 You may, of course, say that the law requires a “proportionate” deployment of such scanning techniques, so a startup
 cannot be expected to implement these, but let me be the bearer of bad news: I once heard a judge define “proportionate”
 as being all the money a company makes right up until the point where they go bankrupt. Until that point, everything is
@@ -148,22 +164,24 @@ the Big Bad Corporation has access to the content filter and the Small Indie Dev
 
 This brings us to the next point in the law. It is written that:
 
-> 2. Member States shall ensure that the service providers referred to in paragraph 1 put in place complaints and
+> Member States shall ensure that the service providers referred to in paragraph 1 put in place complaints and
 > redress mechanisms that are available to users in case of disputes over the application of the measures referred to
 > in paragraph 1.
 
-So, according to this law, each EU member state has to work out what kind of recourse mechanism they will require. If
-I had to guess, most member states will require that you have one and that's it.
+So, according to this law, each EU member state has to work out what kind of recourse mechanism they will require. We 
+should move away from having a patchwork regulation across Europe, not create more of it. This way we will end up with
+a bunch of rules, each different, many of which are badly written and give service providers a loophole not to implement
+recourse mechanisms properly.
 
-So the Small Indie Developer now writes the Git Service Provider an e-mail, explaining the situation. The Git Service
-Provider now has to decide: do they believe the Small Indie Developer or not? If they do not and they are wrong... well,
-tough luck.
+Back to our story, the Small Indie Developer now writes the Git Service Provider an e-mail, explaining the situation.
+The Git Service Provider now has to decide: do they believe the Small Indie Developer or not? If they do not and they
+are wrong... well, tough luck.
 
 If they *do* believe the developer and the content *was* actually copyright infringement, the Git Service Provider is 
 now on the hook for allowing pirated content on their platform. The safe harbor exception is no longer valid, since they
 have actually seen the content and have decided it not to be infringement.
 
-So, with that in mind, which provider would put themselves on the line for a small developer? Or other types of content?
+With that in mind, which provider would put themselves on the line for a small developer? Or other types of content?
 
 ## Censorship, legalized
 
@@ -191,18 +209,23 @@ This means, the following could all be considered service providers:
 - Any site with a large enough comment section to be considered a *large amount of works*. Good thing I don't have a
   comment section I guess...
 
+Should we start coding exceptions into the law? I don't think so. As it stands, this regulation is way too broad and
+will seriously hamper innovation in Europe.
+
 ## Conclusion
 
-The law makers proposing this are thinking of large companies like Google and Facebook. What they are not thinking
-about are small companies (and there are a lot of those) that will have to spend most of their engineering budged on
-this monstrosity of a law.
+The law makers proposing this are probably thinking of large companies like Google and Facebook. What they are not
+thinking about are small companies (and there are a lot of those) that will have to spend most of their engineering
+budged on this monstrosity of a law.
 
 So, what can you do? First of all, inform yourself. I'm not a lawyer, policy maker or anything of the sort. [Read the
 actual proposal](http://eur-lex.europa.eu/legal-content/EN/ALL/?uri=COM:2016:593:FIN), and if I may suggest, the
 following resources:
 
 - [EU wants to require platforms to filter uploaded content (including code)](https://blog.github.com/2018-03-14-eu-proposal-upload-filters-code/)
-- [Julia Reda (Greens/EFA, Germany): Green light for upload filters: EU Parliament’s copyright rapporteur has learned nothing from year-long debate](https://juliareda.eu/2018/02/voss-upload-filters/) 
+- [Julia Reda (Greens/EFA, Germany): Green light for upload filters: EU Parliament’s copyright rapporteur has learned nothing from year-long debate](https://juliareda.eu/2018/02/voss-upload-filters/)
+- [Julia Reda (Greens/EFA, Germany): When filters fail: These cases show we can’t trust algorithms to clean up the internet](https://juliareda.eu/2017/09/when-filters-fail/)
+  
 
 Then, if you have gained sufficient insight into the topic, contact your [Members of EU Parliment](http://www.europarl.europa.eu/committees/en/juri/members.html), [Council Members](http://europa.eu/whoiswho/public/index.cfm?fuseaction=idea.hierarchy&nodeID=6623&lang=en) and [Commissioners](https://ec.europa.eu/commission/commissioners/2014-2019_en)
 and relay to them that you want the upload filters from this proposal gone.
