@@ -9,7 +9,7 @@ fbimage:       /assets/img/one-controller-one-action.png
 twitterimage:  /assets/img/one-controller-one-action.png
 googleimage:   /assets/img/one-controller-one-action.png
 twitter_card:  summary_large_image
-tags:          [Development, Theory, Clean Code, Functional programming, OOP]
+tags:          [Development, Clean Code, Functional programming, OOP]
 ---
 
 It is safe to say that most web applications have way too many action methods in their controllers. It starts out with

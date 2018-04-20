@@ -9,7 +9,7 @@ fbimage:       /assets/img/interfaces.png
 twitterimage:  /assets/img/interfaces.png
 googleimage:   /assets/img/interfaces.png
 twitter_card:  summary_large_image
-tags:          [Development, Clean Code, Theory, S.O.L.I.D.]
+tags:          [Development, Clean Code, S.O.L.I.D.]
 ---
 
 No matter what kind of object-oriented programming language you are using, you have a way to

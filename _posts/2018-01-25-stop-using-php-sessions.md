@@ -9,7 +9,7 @@ fbimage:       /assets/img/stop-using-php-sessions.png
 twitterimage:  /assets/img/stop-using-php-sessions.png
 googleimage:   /assets/img/stop-using-php-sessions.png
 twitter_card:  summary_large_image
-tags:          [PHP, Theory, Development]
+tags:          [PHP, Development]
 ---
 
 ## How do PHP sessions work?

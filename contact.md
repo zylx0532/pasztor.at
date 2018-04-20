@@ -9,7 +9,7 @@ description: Contact Janos Pasztor via social media
 ## Speaking Engagements
 
 {%raw%}
-<p>If you are organizing a converence, workshop event something alike, I'm always up for a new speaking or teaching
+<p>If you are organizing a conference, workshop event something alike, I'm always up for a new speaking or teaching
 opportunity. Please contact me at &#106;&#097;&#110;&#111;&#115;&#064;&#112;&#097;&#115;&#122;&#116;&#111;&#114;&#046;&#097;&#116; for more information.</p>
 {%endraw%}
 

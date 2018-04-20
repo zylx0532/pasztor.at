@@ -9,7 +9,7 @@ fbimage:       /assets/img/docker-101-anatomy.png
 twitterimage:  /assets/img/docker-101-anatomy.png
 googleimage:   /assets/img/docker-101-anatomy.png
 twitter_card:  summary_large_image
-tags:          [Docker, DevOps, Theory]
+tags:          [Docker, DevOps]
 ---
 
 If you are used to Windows system administration, you may be used to only being able to clone a system using
@@ -114,7 +114,7 @@ If you wanted, you could write this init program yourself. It could even be some
 However, this responsibility is not to be taken lightly as the init program has a few responsibilities:
 
 - If a process terminates, its child processes will be re-parented to the init program.
-- When a process terrminates, it must properly clean it up, so it doesn't stay in *zombie* mode. This is true not only
+- When a process terminates, it must properly clean it up, so it doesn't stay in *zombie* mode. This is true not only
   for programs the init program itself started, but also for the re-parented child processes.
 - It must handle signals correctly.
 

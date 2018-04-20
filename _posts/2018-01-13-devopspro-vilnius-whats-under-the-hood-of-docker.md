@@ -23,7 +23,7 @@ eventStartDate:     2018-03-14T09:00:00Z
 eventEndDate:       2018-03-15T16:00:00Z
 eventUrl:           http://devopspro.lt/
 slides:             /assets/slides/What%E2%80%99s%20under%20the%20hood%20of%20Docker%20Process%20separation%20in%20the%20Linux%20kernel.pdf
-tags:               [Docker, Theory, DevOps]
+tags:               [Docker, DevOps]
 ---
 
 DevOps Pro Vilnius was one of the best conferences I've been to. Not only did the conference organizers do everything in
