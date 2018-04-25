@@ -27,9 +27,9 @@ description: Read the CV of Janos Pasztor
 
 <div class="content__table">
 <table>
-    <tr><th>Facebook:</th><td><a href="https://facebook.com/janoszen" target="_blank" rel="noreferrer noopener">facebook.com/janoszen</a></td></tr>
+    <tr><th>Facebook:</th><td><a href="https://facebook.com/pasztor.at" target="_blank" rel="noreferrer noopener">facebook.com/pasztor.at</a></td></tr>
     <tr><th>Linkedin:</th><td><a href="https://linkedin.com/in/janoszen" target="_blank" rel="noreferrer noopener">linkedin.com/in/janoszen</a></td></tr>
-    <tr><th>GitHub:</th><td><a href="https://github.com/janoszen" target="_blank" rel="noreferrer noopener">github.com/janoszen</a></td></tr>
+    <tr><th>GitHub:</th><td><a href="https://github.com/janospasztor" target="_blank" rel="noreferrer noopener">github.com/janospasztor</a></td></tr>
     <tr><th>Twitter:</th><td><a href="https://twitter.com/janoszen" target="_blank" rel="noreferrer noopener">twitter.com/janoszen</a></td></tr>
 </table>
 </div>

@@ -1,9 +1,9 @@
 ---
 layout:        video
 title:         "Coffee time! Entrepreneurship (w. Austin Felton)"
-date:          "2018-04-24 00:00:00"
+date:          "2018-04-22 00:00:00"
 categories:    videos
-excerpt:       "How does Docker work under the hood? This animated video gives a brief overview of containerization features in the Linux kernel."
+excerpt:       "What is entrepreneurship? Is it for everyone? Should you become one? Find out in this vlog!"
 preview:       /assets/img/coffee-time-entrepreneurship.jpg
 fbimage:       /assets/img/coffee-time-entrepreneurship.png
 twitterimage:  /assets/img/coffee-time-entrepreneurship.png
@@ -13,3 +13,5 @@ video:         https://youtu.be/4VLtE6zEmbA
 embed:         https://www.youtube-nocookie.com/embed/4VLtE6zEmbA?rel=0
 tags:          [Coffee time!]
 ---
+
+In this Coffee Time! segment I've been chatting with my good friend [Austin](https://entrecloud.com) about the topic of Entrepreneurship.

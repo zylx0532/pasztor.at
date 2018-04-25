@@ -1,9 +1,9 @@
 title: Janos Pasztor
 baseurl: ""
 url: "https://pasztor.at"
-facebook_username: janoszen
+facebook_username: pasztor.at
 twitter_username:  janoszen
-github_username:   janoszen
+github_username:   janospasztor
 linkedin_username: janoszen
 permalink: /:categories/:title
 exclude: [README.md, CONTRIBUTING.md, node_modules, vendor, composer.json]
