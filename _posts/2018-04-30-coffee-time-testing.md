@@ -11,7 +11,7 @@ googleimage:   /assets/img/coffee-time-testing.png
 twitter_card:  summary_large_image
 video:         https://youtu.be/WquTYeWwUVQ
 embed:         https://www.youtube-nocookie.com/embed/WquTYeWwUVQ?rel=0
-tags:          [Coffee time!, Testing, Clean Code]
+tags:          [Coffee time!, Development, Testing, Clean Code]
 ---
 
 Testing your software is for weaklings, right? Real heroes edit code in production, right? Right?
