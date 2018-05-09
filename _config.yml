@@ -44,7 +44,7 @@ jekyll-archives:
   permalinks:
     tag: '/tags/:name.html'
 jekyll_tidy:
-  exclude: ["robots.txt"]
+  exclude: ["robots.txt", "feed.medium.xml"]
   compress_html: false
 sass:
   style: compressed
