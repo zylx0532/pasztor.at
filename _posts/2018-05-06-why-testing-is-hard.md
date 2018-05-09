@@ -21,7 +21,7 @@ More often than not, this kind of thinking leads to tools like [Selenium](https:
 
 ## Integration testing *everything*
 
-When we think of a moden web application in a very abstract way, we can draw something like this:
+When we think of a modern web application in a very abstract way, we can draw something like this:
 
 {% xdot %}
 digraph records {
@@ -132,6 +132,9 @@ test `B`, everything passes. If you run test `B` first, it fails. In other words
 
 Now, this is only one relatively simple example how hidden global scope can mess up your tests, there are many more
 possibilities and you'd generally want to avoid them.
+
+As a general programming advice, you'd want your modules / classes to have as little state as possible, and if state is
+needed, relegate it to a module / class that is specifically designed to deal with state.
 
 ## Unit tests vs. integration tests
 
