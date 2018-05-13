@@ -1,26 +1,16 @@
-export default class PrivacyView {
+/// <reference path="Toggle.tsx" />
+/// <reference path="Modal.tsx" />
+/// <reference path="ModalEventHandler.tsx" />
+
+class PrivacyView {
     private readonly _modal: Modal;
-    private readonly _titleElement: Element;
-    private readonly _bodyElement: Element;
-    private readonly _footerElement: Element;
     private readonly _toggles: Map<string, Toggle>;
 
     public constructor(flags: Map<string, string>, doc: Document, onAccept: Function) {
-        this._titleElement = document.createElement("h1");
-        this._titleElement.textContent = "Sorry to bother you, but privacy is important";
-
-        this._bodyElement = document.createElement("div");
-        this._footerElement = document.createElement("div");
-
-        let acceptButton = document.createElement("button");
-        acceptButton.textContent = "OK, looks good";
-        acceptButton.addEventListener("click", () => {onAccept()});
-        this._footerElement.appendChild(acceptButton);
-
         this._modal = new Modal(
-            this._titleElement,
-            this._bodyElement,
-            this._footerElement,
+            <h1>Hey, a little privacy checkup?</h1>,
+            <div></div>,
+            <button onClick={() => {this.hide()}}>OK, looks good</button>,
             doc.body,
             new PrivacyViewModalEventHandler(this)
         );

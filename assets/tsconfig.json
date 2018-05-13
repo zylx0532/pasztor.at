@@ -1,21 +1,23 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "amd",
+    "module": "none",
     "lib": [
-      "es5", "es6", "es7", "dom"
+      "es5", "es6", "es7", "dom",
+      "es2015"
     ],
     "allowJs": false,
     "checkJs": false,
-    "jsx": "preserve",
+    "jsx": "react",
+    "jsxFactory": "JSX.createElement",
     "declaration": false,
-    "sourceMap": false,
-    "outFile": "./assets/js/site.js",
+    "sourceMap": true,
+    "outFile": "js/site.js",
     // "outDir": "./",
     "rootDir": "./",
     "removeComments": true,
     // "noEmit": true,                        /* Do not emit outputs. */
-    // "importHelpers": true,                 /* Import emit helpers from 'tslib'. */
+    //"importHelpers": true,                 /* Import emit helpers from 'tslib'. */
     "downlevelIteration": true,
     // "isolatedModules": true,               /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
 
@@ -38,18 +40,18 @@
     // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     // "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
     // "paths": {},                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
-    // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
+    //"rootDirs": ["./"],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */
     // "types": [],                           /* Type declaration files to be included in compilation. */
     // "allowSyntheticDefaultImports": true,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
-    "esModuleInterop": true,                   /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+    "esModuleInterop": false,                   /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
 
     /* Source Map Options */
-    "sourceRoot": "./",                    /* Specify the location where debugger should locate TypeScript files instead of source locations. */
-    // "mapRoot": "./",                       /* Specify the location where debugger should locate map files instead of generated locations. */
-    "inlineSourceMap": true               /* Emit a single file with source maps instead of having a separate file. */
-    // "inlineSources": true,                 /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */
+    "sourceRoot": "",                    /* Specify the location where debugger should locate TypeScript files instead of source locations. */
+    "mapRoot": "./js/",                       /* Specify the location where debugger should locate map files instead of generated locations. */
+    "inlineSourceMap": false,               /* Emit a single file with source maps instead of having a separate file. */
+    "inlineSources": true                 /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */
 
     /* Experimental Options */
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */

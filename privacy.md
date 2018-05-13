@@ -6,36 +6,13 @@ description: Privacy Policy for pasztor.at
 
 # Privacy Policy
 
-## Web analytics
+This site respects your privacy. You can turn third party integrations on or off at any time on this page, and we also
+respect the Do Not Track setting in your browser.
 
-This site uses Google Analytics for visitor tracking, which is in accordance with with EU regulation 2016/679 (GDPR)
-Article 6 Paragraph 1 (f) starting May 25, 2018. Google Analytics stores the following cookies on your device.
- 
-<div class="content__table">
-<table>
-    <tr><th>Cookie Name</th><th>Expiration Time</th><th>Description</th></tr>
-    <tr><td>_ga</td><td>2 years</td><td>Long-term identifier for your device.</td></tr>
-    <tr><td>_gid</td><td>24 hours</td><td>Short-term identifier for your device.</td></tr>
-    <tr><td>_gat_gtag_UA_108462692_1</td><td>1 minute</td><td>Used to throttle request rate.</td></tr>
-</table>
-</div>
+To better protect your privacy, we recommend installing privacy enhancing tools in your browser, such as
+[Ghostery](https://www.ghostery.com/).
 
-Google Analytics is configured to immediately <strong>anonymize your IP address</strong>, and data is stored in an
-aggregate form which allows no personal identification. In accordance with EU regulation 2016/679 (GDPR) Article 21
-(effective starting May 25, 2018) you have the right to object to any tracking cookie being placed using the following
-methods:  
-
-- By setting the Do Not Track setting in your browser.
-- By disabling JavaScript for this site.
-- By using a privacy extension such as [Ghostery](https://www.ghostery.com/)
-- By blocking content from the www.googletagmanager.com domain
-- By adjusting the analytics tracking settings below.
-
-When using the analytics tracking settings below, a single, non-identifying cookie (`analytics-block=1`) is placed on
-your device to indicate that you do not wish to be tracked. This cookie expires if you do not visit the site for one
-year. Furthermore, by using the settings below, all tracking cookies are immediately deleted from your device.
-
-### Analytics settings
+## Privacy settings
 
 <div class="cookieconsent">
     <div class="cookieconsent__settings cookieconsent__settings--nojs">
@@ -57,20 +34,53 @@ year. Furthermore, by using the settings below, all tracking cookies are immedia
     </div>
 </div>
 
-## Server logs
+## Integrations
 
-Whenever your browser sends a request for a webpage or file to the server behind this website, that server stores
-the following details:
+### Privacy Preferences
 
-- Your IP address.
-- Your port number.
-- The file or page you requested.
-- The user agent information your browser sent.
+**Who provides it:** This site
 
-Starting May 25, 2018, in accordance with EU regulation 2016/679 (GDPR) Article 6 Paragraph 1 (f) and Article 17
-Paragraph 3 (e), these server logs will be stored for up to 6 months and only be used in the event of abuse or a
-rectifying a breaking problem with the service. 
+**What data is stored in our or third party servers:** None
 
+**What data is stored on your device:**
+
+- That you accepted the privacy policy
+- If you are OK with loading the web analytics (Google Analytics) integration or not
+- If you are OK with loading the e-mail subscription (Mailchimp) integration or not
+- If your device is a shared device
+
+**What cookies are set on your device and how long they are kept:**
+
+- `pasztor_at_privacy`: Stores your privacy choices for this site (kept for 1 hour from your last visit on shared
+   devices, 1 year after your last visit on private devices )
+
+### Web analytics
+
+**Can this be disabled?** Yes, you can disable this integration using the settings panel above.
+
+**Who provides it:** Web analytics is provided by [Google Analytics](https://analytics.google.com)
+
+**What data is stored in our or third party servers:**
+
+- A part of your IP address (the last part is anonymized)
+- Which page you came from when entering this site
+- Which pages you visit on this site
+- How long you spend on each page
+- Your browser version, language settings and screen resolution
+- Your mobile device type
+
+**What data is stored on your device:**
+
+- Two identifiers for your device that allow Google Analytics to identify returning visitors.
+
+**What cookies are set on your device and how long they are kept:**
+
+- `_ga`: Long-term identifier for your device (kept for 14 months)
+- `_gid`: Short-term identifier for your device (kept for 24 hours)
+- `_gat_gtag_UA_108462692_1`: Request rate limiting (kept for 1 minute)
+
+### 
+ 
 ## Complaints and Information Requests
 
 Complaints and Information Requests regarding the privacy policy may be sent via postal mail to:

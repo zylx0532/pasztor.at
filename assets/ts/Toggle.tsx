@@ -1,4 +1,4 @@
-export default class Toggle {
+class Toggle {
     private readonly _id: string;
     private readonly _label: string;
     private _value: boolean;

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "This is the Jekyll and architecture source code of the [pasztor.at](https://pasztor.at) website.",
   "scripts": {
-    "tsc": "tsc -m amd"
+    "tsc": "tsc && sed -i -e \"s:$(pwd):/assets:\" ./js/site.js && sed -i -e \"s:$(pwd):/assets:\" ./js/site.js.map"
   },
   "repository": {
     "type": "git",

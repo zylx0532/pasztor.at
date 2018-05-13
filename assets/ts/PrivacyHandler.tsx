@@ -1,3 +1,5 @@
+/// <reference path="PrivacyView.tsx" />
+
 class PrivacyHandler {
     private readonly _wnd: Window;
     private readonly _doc: Document;

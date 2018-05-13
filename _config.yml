@@ -6,7 +6,14 @@ twitter_username:  janoszen
 github_username:   janospasztor
 linkedin_username: janoszen
 permalink: /:categories/:title
-exclude: [README.md, CONTRIBUTING.md, node_modules, vendor, composer.json, tsconfig.json]
+exclude:
+- README.md
+- CONTRIBUTING.md
+- vendor
+- composer.json
+- assets/package.json
+- assets/package-loc.json
+- assets/tsconfig.json
 navigation:
 - text: Home
   url: /
