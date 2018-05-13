@@ -1,0 +1,74 @@
+.privacy {
+  &__toggle {
+    position:relative;
+    display:block;
+    cursor:pointer;
+    margin-top:10px;
+    margin-bottom:10px;
+    input[type=checkbox] {
+      display:none;
+    }
+    &:hover {
+      opacity:0.8;
+    }
+  }
+  &__toggle--disabled:hover {
+    opacity:1;
+  }
+
+  &__title {
+    font-weight:600;
+    color:$textcolor;
+  }
+
+  &__title, &__description {
+    margin-left:80px;
+  }
+
+  &__description {
+    color:$mutedcolor;
+  }
+
+  &__slidercontainer {
+    position:absolute;
+    top:5px;
+    left:5px;
+    width:60px;
+    height:30px;
+    border:1px solid $mutedcolor;
+    background:$bgshaded;
+  }
+  &__slider {
+    position:absolute;
+    transition: 0.325s;
+    top:1px;
+    left:31px;
+    height:28px;
+    width:28px;
+    background:$nocolor;
+    &:after {
+      position:absolute;
+      top:0;
+      left:0;
+      height:28px;
+      width:28px;
+      line-height:28px;
+      text-align:center;
+      font-size:10px;
+      content:"no";
+      color:#fff;
+    }
+  }
+  &__checkbox:checked + &__slidercontainer &__slider {
+    left:1px;
+    background:$yescolor;
+    &:after {
+      content:"yes";
+      color:#fff;
+    }
+  }
+
+  &__toggle--disabled &__slidercontainer &__slider {
+    background:$mutedcolor;
+  }
+}

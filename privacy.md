@@ -6,74 +6,85 @@ description: Privacy Policy for pasztor.at
 
 # Privacy Policy
 
-## Web analytics
+This site respects your privacy. You can turn third party integrations on or off at any time on this page, and we also
+respect the Do Not Track setting in your browser.
 
-This site uses Google Analytics for visitor tracking, which is in accordance with with EU regulation 2016/679 (GDPR)
-Article 6 Paragraph 1 (f) starting May 25, 2018. Google Analytics stores the following cookies on your device.
+To better protect your privacy, we recommend installing privacy enhancing tools in your browser, such as
+[Ghostery](https://www.ghostery.com/).
+
+## Privacy settings
+
+Most importantly, you can use the following button to adjust your privacy preferences:
+
+<button class="privacy__open" disabled>Open Privacy Settings</button>
+
+## About this integration: Privacy Preferences
+
+**Can this be disabled?** Yes, by disabling JavaScript.
+
+**Who provides it:** This site
+
+**What data is stored in our or third party servers:** None
+
+**What data is stored on your device:**
+
+- That you accepted the privacy policy
+- Which version of the privacy policy you have accepted. 
+- If you are OK with loading the Google Analytics integration or not
+- If you are OK with loading the Facebook ads integration or not
+
+**What cookies are set on your device and how long they are kept:**
+
+- Your privacy choices are stored on your device so the site knows what integrations to load or not to load.
+
+## About this integration: Google Analytics
+
+**Can this be disabled?** Yes, you can disable this integration using the settings panel above.
+
+**Who provides it:** Web analytics is provided by [Google Analytics](https://analytics.google.com)
+
+**What data is stored on my servers:**
+
+- Nothing
+
+**What data is stored on third party servers:**
+
+- A part of your IP address (the last part is anonymized)
+- Which page you came from when entering this site
+- Which pages you visit on this site
+- How long you spend on each page
+- Your browser version, language settings and screen resolution
+- Your mobile device type
+
+**What data is stored on your device:**
+
+- Two identifiers for your device that allow Google Analytics to identify returning visitors.
+
+## About this integration: Facebook Ads
+
+**Can this be disabled?** Yes, you can disable this integration using the settings panel above.
+**What is it used for?** I use Facebook ads to deliver news about my articles to people who have read my posts
+**Who provides it:** Facebook Ads is provided by [Facebook](https://facebook.com)
+**What data is stored on my servers:**
+
+- Nothing
+
+**What data is stored on third party servers:**
+
+- All data under your Facebook login.
+- Which page you came from when entering this site
+- Which pages you visit on this site
+- How long you spend on each page
+- Your browser version, language settings and screen resolution
+- Your mobile device type
+
+**What data is stored on your device:**
+
+- Your Facebook login cookie.
  
-<div class="content__table">
-<table>
-    <tr><th>Cookie Name</th><th>Expiration Time</th><th>Description</th></tr>
-    <tr><td>_ga</td><td>2 years</td><td>Long-term identifier for your device.</td></tr>
-    <tr><td>_gid</td><td>24 hours</td><td>Short-term identifier for your device.</td></tr>
-    <tr><td>_gat_gtag_UA_108462692_1</td><td>1 minute</td><td>Used to throttle request rate.</td></tr>
-</table>
-</div>
+## Complaints, Information and Deletion Requests
 
-Google Analytics is configured to immediately <strong>anonymize your IP address</strong>, and data is stored in an
-aggregate form which allows no personal identification. In accordance with EU regulation 2016/679 (GDPR) Article 21
-(effective starting May 25, 2018) you have the right to object to any tracking cookie being placed using the following
-methods:  
-
-- By setting the Do Not Track setting in your browser.
-- By disabling JavaScript for this site.
-- By using a privacy extension such as [Ghostery](https://www.ghostery.com/)
-- By blocking content from the www.googletagmanager.com domain
-- By adjusting the analytics tracking settings below.
-
-When using the analytics tracking settings below, a single, non-identifying cookie (`analytics-block=1`) is placed on
-your device to indicate that you do not wish to be tracked. This cookie expires if you do not visit the site for one
-year. Furthermore, by using the settings below, all tracking cookies are immediately deleted from your device.
-
-### Analytics settings
-
-<div class="cookieconsent">
-    <div class="cookieconsent__settings cookieconsent__settings--nojs">
-        <p>Web analytics is disabled because you are not using JavaScript.</p>
-    </div>
-    <div class="cookieconsent__settings cookieconsent__settings--dnt">
-        <p>Web analytics is <strong>disabled</strong> because you have <em>turned the Do Not Track setting on in your browser</em>.</p>
-    </div>
-    <div class="cookieconsent__settings cookieconsent__settings--normal">
-        <p>The following setting enables or disables web analytics on this site. This setting is stored on your device for 1 year.</p>
-        <ul>
-            <li><strong>Enable web analytics (default)</strong> allows this site to collect anonymized analytics data.</li>
-            <li><strong>Disable web analytics</strong> blocks this site from collecting anonymized analytics data.</li>
-        </ul>
-        <p>
-            <button class="cookieconsent__enable">Enable web analytics</button>
-            <button class="cookieconsent__disable">Disable web analytics</button>
-        </p>
-    </div>
-</div>
-
-## Server logs
-
-Whenever your browser sends a request for a webpage or file to the server behind this website, that server stores
-the following details:
-
-- Your IP address.
-- Your port number.
-- The file or page you requested.
-- The user agent information your browser sent.
-
-Starting May 25, 2018, in accordance with EU regulation 2016/679 (GDPR) Article 6 Paragraph 1 (f) and Article 17
-Paragraph 3 (e), these server logs will be stored for up to 6 months and only be used in the event of abuse or a
-rectifying a breaking problem with the service. 
-
-## Complaints and Information Requests
-
-Complaints and Information Requests regarding the privacy policy may be sent via postal mail to:
+Complaints, Information and Deletion Requests regarding the privacy policy may be sent via postal mail to:
 
 **Janos Pasztor**<br />
 Opsbears e.U.<br />
@@ -86,6 +97,8 @@ Austria
 {%endraw%}
 
 Please allow for 14 days of processing time, and additional physical mailing time depending on your location.
+
+**Please make sure you include enough information to identify the data you wish to ask for information about.**
 
 ## Regulatory authority
 
@@ -102,4 +115,4 @@ The author of this website reserves the right to change this policy at any time,
 is enabled in your browser, and you have not installed extensions that block cookie notices, you may receive a 
 notification about the updated privacy policy when you next visit this site.
 
-This document has last been updated: February 7, 2018
+This document has last been updated: May 14, 2018

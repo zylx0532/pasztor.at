@@ -232,167 +232,24 @@ Feel free to learn from then and build your own!
       This article is available for free on www.pasztor.at. &bull; Copyright &copy; Janos Pasztor
     </footer>
 
-    <aside class="cookieconsent">
-      <div class="cookieconsent__notification">
-        <a href="#" class="cookieconsent__close">
-          &times;
-        </a>
-        <div class="cookieconsent__notificationcontent">
-          This site is using cookies for web analytics and is collecting server logs which contain your IP address. For details and privacy settings please visit <a href="/privacy">the privacy policy</a> (last changed February 7, 2018).
-        </div>
-      </div>
-    </aside>
-
-    <!--suppress JSReferencingMutableVariableFromClosure -->
-    <script>
+    <script type="text/javascript">
         window.addEventListener('load', function () {
             //region LQIP
             var images = document.getElementsByTagName("img");
             for (var i = 0; i < images.length; i++) {
                 if (images.hasOwnProperty(i)) {
                     var image = images[i];
-                    if (typeof image.dataset !== "undefined" && typeof image.dataset.srcset !== "undefined" && typeof image.dataset.sizes !== "undefined" && typeof image.dataset.src !== "undefined") {
+                    if (
+                        typeof image.dataset !== "undefined" &&
+                        typeof image.dataset.srcset !== "undefined" &&
+                        typeof image.dataset.sizes !== "undefined" &&
+                        typeof image.dataset.src !== "undefined"
+                    ) {
                         image.setAttribute("srcset", image.dataset.srcset);
                         image.setAttribute("sizes", image.dataset.sizes);
                         image.setAttribute("src", image.dataset.src);
                     }
                 }
-            }
-            //endregion
-
-            //region Privacy
-            var privacyPolicyVersion = "February 7, 2018";
-
-            function getCookie(cookieName) {
-                var value = "; " + document.cookie;
-                var parts = value.split("; " + cookieName + "=");
-                if (parts.length > 1) return decodeURIComponent(parts.pop().split(";").shift());
-            }
-
-            function setCookie(cookieName, cookieValue, expiry) {
-                var now = new Date();
-                now.setTime(now.getTime() + expiry * 1000);
-                var expires = "expires=" + now.toUTCString();
-                document.cookie = cookieName + "=" + encodeURIComponent(cookieValue) + ";" + expires + ";path=/;domain=." + document.location.hostname;
-                document.cookie = cookieName + "=" + encodeURIComponent(cookieValue) + ";" + expires + ";path=/;domain=" + document.location.hostname;
-                document.cookie = cookieName + "=" + encodeURIComponent(cookieValue) + ";" + expires + ";path=/";
-            }
-
-            function deleteCookie(cookieName) {
-                document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;domain=' + document.location.hostname;
-                document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;domain=.' + document.location.hostname;
-                document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
-            }
-
-            var cookieConsentShown = getCookie("cookieconsent-shown") || false;
-            var blockAnalytics = getCookie("analytics-block") || false;
-
-            var cookieConsentContainers = document.getElementsByClassName("cookieconsent");
-            for (var i = 0; i < cookieConsentContainers.length; i++) {
-                if (cookieConsentContainers.hasOwnProperty(i)) {
-                    var classList = cookieConsentContainers.item(i).classList;
-                    classList.add("cookieconsent--js");
-                    if (navigator.doNotTrack === '1') {
-                        classList.add("cookieconsent--dnt");
-                    }
-                    if (blockAnalytics) {
-                        classList.add("cookieconsent--blocked");
-                    } else {
-                        classList.add("cookieconsent--notblocked");
-                    }
-                    if (cookieConsentShown === privacyPolicyVersion) {
-                        classList.add("cookieconsent--shown");
-                    } else {
-                        classList.add("cookieconsent--notshown");
-                    }
-                }
-            }
-
-            var closeElements = document.getElementsByClassName("cookieconsent__close");
-            for (var j = 0; j < closeElements.length; j++) {
-                if (closeElements.hasOwnProperty(j)) {
-                    closeElements.item(j).addEventListener("click", function (e) {
-                        e.preventDefault();
-                        for (var k = 0; k < cookieConsentContainers.length; k++) {
-                            var classList = cookieConsentContainers.item(k).classList;
-                            classList.remove("cookieconsent--notshown");
-                            classList.add("cookieconsent--shown");
-                        }
-                    });
-                }
-            }
-
-
-            var enableElements = document.getElementsByClassName("cookieconsent__enable");
-            for (var j = 0; j < enableElements.length; j++) {
-                if (enableElements.hasOwnProperty(j)) {
-                    enableElements.item(j).addEventListener("click", function (e) {
-                        e.preventDefault();
-                        for (var k = 0; k < cookieConsentContainers.length; k++) {
-                            var classList = cookieConsentContainers.item(k).classList;
-                            classList.remove("cookieconsent--blocked");
-                            classList.add("cookieconsent--notblocked");
-                            deleteCookie("analytics-block");
-                        }
-                    });
-                }
-            }
-
-            var disableElements = document.getElementsByClassName("cookieconsent__disable");
-            for (var j = 0; j < disableElements.length; j++) {
-                if (disableElements.hasOwnProperty(j)) {
-                    disableElements.item(j).addEventListener("click", function (e) {
-                        e.preventDefault();
-                        for (var k = 0; k < cookieConsentContainers.length; k++) {
-                            var classList = cookieConsentContainers.item(k).classList;
-                            classList.add("cookieconsent--blocked");
-                            classList.remove("cookieconsent--notblocked");
-                            setCookie("analytics-block", 1, 365 * 24 * 3600);
-                            deleteCookie("_ga");
-                            deleteCookie("_gid");
-                            deleteCookie("_gat_gtag_UA_108462692_1");
-                        }
-                    });
-                }
-            }
-
-            setCookie("cookieconsent-shown", privacyPolicyVersion, 365 * 24 * 3600);
-
-            if (navigator.doNotTrack !== '1' && !blockAnalytics) {
-                window.dataLayer = window.dataLayer || [];
-
-                function gtag() {
-                    dataLayer.push(arguments);
-                }
-
-                gtag('js', new Date());
-
-                gtag('config', 'UA-108462692-1', {'anonymize_ip': true});
-
-                var scriptElement = document.createElement("script");
-                scriptElement.setAttribute("async", "async");
-                scriptElement.src = "https://www.googletagmanager.com/gtag/js?id=UA-108462692-1";
-                document.body.appendChild(scriptElement);
-
-                var eventLinks = document.querySelectorAll('[data-event]');
-                for (var i = 0; i < eventLinks.length; i++) {
-                    if (eventLinks.hasOwnProperty(i)) {
-                        var eventLink = eventLinks[i];
-                        eventLink.addEventListener("click", function() {
-                            gtag(
-                                'event',
-                                this.dataset.eventCategory,
-                                {
-                                    method: this.dataset.event
-                                }
-                            );
-                        });
-                    }
-                }
-            }
-
-            if (blockAnalytics) {
-                setCookie("analytics-block", 1, 365 * 24 * 3600);
             }
             //endregion
 
@@ -425,13 +282,8 @@ Feel free to learn from then and build your own!
             };
             httpRequest.send();
             //endregion
-
-            //region Console
-            if (typeof console !== "undefined" && typeof console.log !== "undefined") {
-                console.log("Hey there! Looks like you are interested in the source code. The full source can be found at https://github.com/janoszen/pasztor.at")
-            }
-            //endregion
         });
     </script>
+    <script src="/assets/js/privacy.js" defer></script>
   </body>
 </html>
