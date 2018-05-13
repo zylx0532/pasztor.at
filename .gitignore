@@ -10,4 +10,3 @@ _ansible/subscribe.ini
 assets/graphviz/*
 /vendor/
 api/credentials.php
-assets/js/*
