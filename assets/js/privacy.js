@@ -59,7 +59,7 @@ var privacyFeatures = [
     }
 ];
 
-var privacyPolicyUpdated = new Date('2018-05-14');
+var privacyPolicyUpdated = new Date('2018-05-25s');
 
 var getCookie = function(cookieName) {
     var value = "; " + document.cookie;
@@ -208,8 +208,10 @@ var createPrivacyModal = function(lastModifiedDate) {
         "<div class=\"modal__window content\">" +
         "   <div class=\"modal__title\"><h1>Privacy settings</h1></div>" +
         "   <div class=\"modal__body\">" +
-        "       <div class=\"modal__section privacy\">" +
-        "           <p>Please disable all third party integrations you do not feel comfortable with. These settings can be changed at any time on the <a href=\"/privacy\">privacy page</a>.</p>" +
+        "       <div class=\"modal__section\">" +
+        "           <p>Please disable all third party integrations you do not feel comfortable with.</p>" +
+        "           <div class=\"privacy\"></div>" +
+        "           <p>These settings can be changed at any time on the <a href=\"/privacy\">privacy page</a> (last updated: " + formatDate(lastModifiedDate) + ").</p>" +
         "       </div>" +
         "   </div>" +
         "   <div class=\"modal__footer\"><button class=\"privacy__save\">I approve all integrations I left enabled, continue browsing.</button></div>" +

@@ -3,7 +3,6 @@ layout:        post
 title:         "Why testing is hard"
 date:          "2018-05-06 00:00:00"
 categories:    blog
-categories:    blog
 excerpt:       "Why do so many developers struggle with testing? Why don't we all have 9x% test coverage on our code?"
 preview:       /assets/img/why-testing-is-hard.jpg
 fbimage:       /assets/img/why-testing-is-hard.png

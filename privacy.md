@@ -18,69 +18,32 @@ Most importantly, you can use the following button to adjust your privacy prefer
 
 <button class="privacy__open" disabled>Open Privacy Settings</button>
 
-## About this integration: Privacy Preferences
+## About Google Analytics
 
-**Can this be disabled?** Yes, by disabling JavaScript.
+Google Analytics collects data on the visitors of this site, most importantly, which pages are viewed on the page, what
+the source of the traffic is, and what kind of device you are using. Google Analytics does not store your IP address
+and the page owner only gets access to an aggregate view of the data. 
 
-**Who provides it:** This site
+## About Facebook Ads
 
-**What data is stored in our or third party servers:** None
+This site uses Facebook Ads to promote content to people who have already visited this site. (Commonly known as
+remarketing.) This is done using a Facebook Pixel, which tells Facebook what content you view on this site. The site
+owner does not get direct access to the data collected, only an aggregate view of it, and the ability to select
+previous visitors to be advertised to.
 
-**What data is stored on your device:**
+## About servers and server logs
 
-- That you accepted the privacy policy
-- Which version of the privacy policy you have accepted. 
-- If you are OK with loading the Google Analytics integration or not
-- If you are OK with loading the Facebook ads integration or not
+The servers behind this website are hosted by Amazon Web Services. However, no access logs or personally identifiable
+information is stored.
 
-**What cookies are set on your device and how long they are kept:**
+## About e-mails you send me
 
-- Your privacy choices are stored on your device so the site knows what integrations to load or not to load.
+E-mails sent to @pasztor.at and @opsbears.com addresses may kept for up to 8 years, but may also be deleted sooner.
+All e-mails are stored by [Google](https://gsuite.google.com/). However, e-mails may be transitioned to a different
+GDPR-compliant provider at a later time. 
 
-## About this integration: Google Analytics
-
-**Can this be disabled?** Yes, you can disable this integration using the settings panel above.
-
-**Who provides it:** Web analytics is provided by [Google Analytics](https://analytics.google.com)
-
-**What data is stored on my servers:**
-
-- Nothing
-
-**What data is stored on third party servers:**
-
-- A part of your IP address (the last part is anonymized)
-- Which page you came from when entering this site
-- Which pages you visit on this site
-- How long you spend on each page
-- Your browser version, language settings and screen resolution
-- Your mobile device type
-
-**What data is stored on your device:**
-
-- Two identifiers for your device that allow Google Analytics to identify returning visitors.
-
-## About this integration: Facebook Ads
-
-**Can this be disabled?** Yes, you can disable this integration using the settings panel above.
-**What is it used for?** I use Facebook ads to deliver news about my articles to people who have read my posts
-**Who provides it:** Facebook Ads is provided by [Facebook](https://facebook.com)
-**What data is stored on my servers:**
-
-- Nothing
-
-**What data is stored on third party servers:**
-
-- All data under your Facebook login.
-- Which page you came from when entering this site
-- Which pages you visit on this site
-- How long you spend on each page
-- Your browser version, language settings and screen resolution
-- Your mobile device type
-
-**What data is stored on your device:**
-
-- Your Facebook login cookie.
+Please note that depending on your e-mail provider, your e-mails may be sent over the internet unencrypted. If you wish
+to send me encrypted e-mail, please use GPG. My key [can be found here](/gpg.txt).
  
 ## Complaints, Information and Deletion Requests
 
@@ -96,7 +59,8 @@ Austria
 <p>Or electronically to: &#106;&#097;&#110;&#111;&#115;&#064;&#112;&#097;&#115;&#122;&#116;&#111;&#114;&#046;&#097;&#116;</p>
 {%endraw%}
 
-Please allow for 14 days of processing time, and additional physical mailing time depending on your location.
+Please allow for 30 days of processing time. All correspondence related to information and deletion requests may be
+kept for up to 8 years for the purposes of a legal track record.
 
 **Please make sure you include enough information to identify the data you wish to ask for information about.**
 
@@ -115,4 +79,4 @@ The author of this website reserves the right to change this policy at any time,
 is enabled in your browser, and you have not installed extensions that block cookie notices, you may receive a 
 notification about the updated privacy policy when you next visit this site.
 
-This document has last been updated: May 14, 2018
+This document has last been updated: May 25, 2018
