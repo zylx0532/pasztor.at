@@ -83,9 +83,14 @@ sass: contentpage.scss
             {{ content }}
         </div>
 
-        {% if page.external_link %}
+        {% if page.external_link or page.slides %}
         <div class="post__links">
-           <a href="{{page.external_link}}" class="post__link post__externallink" target="blank" rel="noopener noreferrer">Learn more (external site) <img src="{% base64 /assets/diagonal-arrow.svg %}" alt="" class="icon" /></a>
+            {% if page.slides %}
+            <a href="{{page.slides}}" class="post__link post__slideslink" target="blank" rel="noopener noreferrer" download>Download slides</a>
+            {% endif %}
+            {% if page.external_link %}
+            <a href="{{page.external_link}}" class="post__link post__externallink" target="blank" rel="noopener noreferrer">Event page (external site)</a>
+            {% endif %}
         </div>
         {% endif %}
     </article>
