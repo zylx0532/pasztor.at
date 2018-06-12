@@ -36,30 +36,10 @@ var privacyFeatures = [
                 }
             }
         }
-    },
-    {
-        id: "facebook",
-        title: "Facebook Ads",
-        description: "Facebook ads help me target people who have read my blog previously, so I can advertise them new content on Facebook. This is commonly known as remarketing. " + (navigator.doNotTrack === '1'?"This setting cannot be changed because your browser is configured to send a Do-Not-Track request.":""),
-        disabled: (navigator.doNotTrack === '1'),
-        callback: function() {
-            <!-- Facebook Pixel Code -->
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                n.queue=[];t=b.createElement(e);t.async=!0;
-                t.src=v;s=b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t,s)}(window, document,'script',
-                'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '149162195927048');
-            fbq('track', 'PageView');
-            <!-- End Facebook Pixel Code -->
-        }
     }
 ];
 
-var privacyPolicyUpdated = new Date('2018-05-25');
+var privacyPolicyUpdated = new Date('2018-06-05');
 
 var getCookie = function(cookieName) {
     var value = "; " + document.cookie;

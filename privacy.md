@@ -24,12 +24,11 @@ Google Analytics collects data on the visitors of this site, most importantly, w
 the source of the traffic is, and what kind of device you are using. Google Analytics does not store your IP address
 and the page owner only gets access to an aggregate view of the data. 
 
-## About Facebook Ads
+## About embedded content
 
-This site uses Facebook Ads to promote content to people who have already visited this site. (Commonly known as
-remarketing.) This is done using a Facebook Pixel, which tells Facebook what content you view on this site. The site
-owner does not get direct access to the data collected, only an aggregate view of it, and the ability to select
-previous visitors to be advertised to.
+This site sometimes contains embedded videos from YouTube. These videos are embedded from the domain
+youtube-nocookie.com, which is YouTubes privacy-enhanced mode. In this mode YouTube only stores information about
+you, the visitor, if you play the video.
 
 ## About servers and server logs
 
@@ -79,4 +78,4 @@ The author of this website reserves the right to change this policy at any time,
 is enabled in your browser, and you have not installed extensions that block cookie notices, you may receive a 
 notification about the updated privacy policy when you next visit this site.
 
-This document has last been updated: May 25, 2018
+This document has last been updated: June 5, 2018
