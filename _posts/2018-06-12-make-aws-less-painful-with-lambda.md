@@ -102,14 +102,14 @@ an IAM role so our Lambda function has permissions, for example to send the logs
 an IAM role:
 
 ```yaml
-- hosts: localhost
+{% raw %}- hosts: localhost
   tasks:
     #...
     - name: "Creating lambda IAM role..."
       iam_role:
         name: my-lambda
         assume_role_policy_document: "{{lookup('template', 'files/lambda-assume-role-policy.json.j2')}}"
-        managed_policy: []
+        managed_policy: []{% endraw %}
 ```
 
 Now, as you can see, we don't have any managed policies, but we need to supply the role with an assume role policy
@@ -133,7 +133,7 @@ document. This document tells AWS when to allow a service to use this role. This
 Ok, so now we need to add some permissions to that role so we can at least write some logs:
 
 ```yaml
-- hosts: localhost
+{% raw %}- hosts: localhost
   tasks:
     #...
     - name: "Creating lambda IAM policy..."
@@ -142,7 +142,7 @@ Ok, so now we need to add some permissions to that role so we can at least write
         iam_name: "my-lambda"
         policy_name: "my-lambda"
         state: present
-        policy_json: " {{ lookup( 'template', 'files/lambda-policy.json.j2') }} "
+        policy_json: " {{ lookup( 'template', 'files/lambda-policy.json.j2') }} "{% endraw %}
 ```
 
 The policy starts out quite simple, but if you need your Lambda function to access more AWS APIs, you can add permissions
@@ -168,7 +168,7 @@ here:
 **Be careful!** If you grant your Lambda function excessive permissions, you'll end up with a potential security hole!
 Make sure you lock down your system!
 
-OK, so now we can actually deploy the Lambda function:
+Now we can actually deploy the Lambda function:
 
 ```yaml
 - hosts: localhost
@@ -202,14 +202,14 @@ CloudWatch, by default, can't access your function. To enable that we need to cr
 Same as above, we create the IAM role:
 
 ```yaml
-- hosts: localhost
+{% raw %}- hosts: localhost
   tasks:
     #...
     - name: "Creating CloudWatch IAM role..."
       iam_role:
         name: my-cloudwatch
         assume_role_policy_document: "{{lookup('template', 'files/cloudwatch-assume-role-policy.json.j2')}}"
-        managed_policy: []
+        managed_policy: []{% endraw %}
 ```
 
 The policy is similar:
@@ -233,7 +233,7 @@ The policy is similar:
 And here go the permissions:
 
 ```yaml
-- hosts: localhost
+{% raw %}- hosts: localhost
   tasks:
     #...
     - name: "Creating CloudWatch IAM policy..."
@@ -242,10 +242,10 @@ And here go the permissions:
         iam_name: "my-cloudwatch"
         policy_name: "my-cloudwatch"
         state: present
-        policy_json: " {{ lookup( 'template', 'files/cloudwatch-policy.json.j2') }} "
+        policy_json: " {{ lookup( 'template', 'files/cloudwatch-policy.json.j2') }} "{% endraw %}
 ```
 
-And finally, here's the permissions for CloudWatch:
+Finally, here's the permissions for CloudWatch:
 
 ```json
 {
@@ -276,7 +276,7 @@ Now, as a final piece we need to create our CloudWatch rule to trigger our Lambd
     #...
     - name: "Creating CloudWatch event rule..."
       cloudwatchevent_rule:
-        name: my-cloudwatch
+        name: my-cloudwatch-rule
         description: "Does this and that"
         role_arn: "arn:aws:iam::your-account-id:role/my-cloudwatch"
         event_pattern: |
@@ -286,7 +286,7 @@ Now, as a final piece we need to create our CloudWatch rule to trigger our Lambd
             arn: "arn:aws:lambda:your-region:your-account-id:function:my-lambda"
 ```
 
-So, where do you get your event pattern from? Simple. When you go into the [CloudWatch Events rule creator](https://console.aws.amazon.com/cloudwatch/home?#rules:action=create)
+Where do you get your event pattern from you ask? Simple. When you go into the [CloudWatch Events rule creator](https://console.aws.amazon.com/cloudwatch/home?#rules:action=create)
 the interface will let you click together your desired rule set and displays the JSON that you need to add to your
 Ansible configuration.
 
