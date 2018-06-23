@@ -132,8 +132,8 @@ The final layer in our application is responsible for dealing with any of the pe
 applications, such as third party APIs, databases, and all other stuff that we would treat as *unreliable*.
 
 ... wait a minute ... did I just say a database is unreliable? Yepp, I just said that. The database is on a network,
-and as much as developers would often like, networks are unreliable. They can go out, they can be slow, they can
-have packet loss. So I treat a database the same as I treat a third party API.
+and as much as developers would like it to be otherwise, networks are unreliable. They can go out, they can be slow,
+they can have packet loss. So I treat a database the same as I treat a third party API.
 
 So back to APIs... often times we have to deal with third party APIs that we don't really know all that well. Either
 it is underdocumented, or it just has some quirks that we haven't encountered yet. These will inevitably cause problems
@@ -287,8 +287,8 @@ calling it that. The basic idea is the following:
 - Split your application into **Services** and **Data Transfer Objects** (Entities, DTOs).
 - DTOs should be immutable, and only contain code for validation and creating a changed copy of itself.
 - Services should have no internal state, apart from dependencies that are injected.
-- Services should have a very low number of methods, ideally only one, often a *pure* or at least a *stateless* function.
-- Services should deal with as little as possible at once.
+- Services should have a very low number of public methods, ideally only one, often a *pure* or at least a *stateless* function. (Add private methods for readability if you need to, but it is usually better to split the whole class.)
+- Services should deal with as little as possible at once. Try to keep them below ~150 lines of code.
 - Services should be grouped into *layers*, each layer being responsible for one group of tasks.
 
 Bonus fact: this is not specific to my custom, crazy-ass framework. You can implement this in *any* modern web framework
