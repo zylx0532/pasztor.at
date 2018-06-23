@@ -33,7 +33,7 @@ service php5-fpm restart
 
 ## Setting up Apache
 
-You can set up Apache with two FastCGI modules: mod_fastcgi and [mod_fcgid](http://httpd.apache.org/mod_fcgid/){:target="_blank"}{:rel="noopener noreferrer"}, however **mod_fcgid cannot handle external servers** as far as I know, which makes it pretty useless with PHP-FPM.
+You can set up Apache with two FastCGI modules: mod_fastcgi and [mod_fcgid](http://httpd.apache.org/mod_fcgid/), however **mod_fcgid cannot handle external servers** as far as I know, which makes it pretty useless with PHP-FPM.
 
 mod_fastcgi is the “classic” module from the makers of FastCGI. To make it work with PHP you need to route the request through several detours. In fact it works much like using the suexec binary.
 

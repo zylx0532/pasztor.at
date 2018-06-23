@@ -7,9 +7,9 @@ excerpt:       "When dealing with SpamAssassin and Exim, one may often encounter
 tags:          [DevOps, Email, Exim, SpamAssassin]
 ---
 
-After [filtering spam with Exim](/blog/filtering-spam-with-exim-only/), I wanted to add [Spamassassin](http://spamassassin.apache.org/){:target="_blank"}{:rel="noopener noreferrer"} to do content based filtering. While testing the spam filtering, I ran into a bit of an issue: I encountered a spam score factor in every single e-mail: `RDNS_NONE` with the score of 1.3.
+After [filtering spam with Exim](/blog/filtering-spam-with-exim-only/), I wanted to add [Spamassassin](http://spamassassin.apache.org/) to do content based filtering. While testing the spam filtering, I ran into a bit of an issue: I encountered a spam score factor in every single e-mail: `RDNS_NONE` with the score of 1.3.
 
-Doing a [quick Google](http://www.google.com/?q=RDNS_NONE){:target="_blank"}{:rel="noopener noreferrer"} turns up some [less-than-useful documentation](http://wiki.apache.org/spamassassin/Rules/RDNS_NONE){:target="_blank"}{:rel="noopener noreferrer"} pages and a lot of people with the same problem, yet no solution. So let’s go hunting…
+Doing a [quick Google](http://www.google.com/?q=RDNS_NONE) turns up some [less-than-useful documentation](http://wiki.apache.org/spamassassin/Rules/RDNS_NONE) pages and a lot of people with the same problem, yet no solution. So let’s go hunting…
 
 ## Theory
 

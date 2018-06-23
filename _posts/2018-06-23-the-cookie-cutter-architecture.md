@@ -3,7 +3,7 @@ layout:        post
 title:         "The Cookie Cutter Architecture"
 date:          "2018-06-23 00:00:00"
 categories:    blog
-excerpt:       "When it comes to business applications, you need an architecure that expands well. This is my take, based on Uncle Bobs EBI."
+excerpt:       "When it comes to business applications, you need an architecure that scales well. This is my take, based on Uncle Bobs EBI."
 preview:       /assets/img/cookie-cutter-architecture.jpg
 fbimage:       /assets/img/cookie-cutter-architecture.png
 twitterimage:  /assets/img/cookie-cutter-architecture.png
@@ -33,19 +33,21 @@ Then, about two years ago, I switched from PHP to Java. Not because I hated PHP,
 [static typing](/blog/loose-strict-static) which PHP was (and still is) lacking. I first switched to Hacklang, which was
 wonderful but lacked any sort of reasonable IDE support at the time. Finally I gave up and ported all my code to Java.
 
-Looking at the Java world I didn't like it too much. As a newcomer to the language I disliked the, by comparison,
-archaic Servlet API and missed the &mdash; by comparison modern &mdash; immutable HTTP representations set forth in
+Looking at the Java world I didn't like it too much. As a newcomer to the language I disliked the, in my eyes,
+archaic Servlet API and missed the by comparison modern immutable HTTP representations set forth in
 [PSR-7](https://www.php-fig.org/psr/psr-7/).
 
 Since I was under no time pressure I did what no sane person in a business environment would do and rolled my own. I 
-ported PSR-7 to Java, and wrote a mapper to the servlet API. I bent Jetty to my will and made a system where I could
-build any architecture I liked.
+ported PSR-7 to Java, and wrote a mapper to the servlet API. I build an abstraction around Jetty to serve as an embedded
+web server, so I was free from the constraints of the usual Java architectures, free to build and experiment with any
+system I liked.
 
 Around summer last year an other concept started to creep into my view that heavily influenced how I built my systems:
 Single Page Applications. Hate or love React and its buddies, I started thinking about my application more like an
-API than something messy that has to deal with *state* in *sessions*. I also heavily built on the concept of 
-[dependency injection](/blog/clean-code-dependencies) using my home-made
-(dependency injector)[https://github.com/opsbears/owc-dic]. But most importantly, I did a lot of thinking on how one
+API than something messy that has to deal with *state* in *sessions*, storing form data and what not.
+
+I also heavily built on the concept of [dependency injection](/blog/clean-code-dependencies) using my home-made
+[dependency injector](https://github.com/opsbears/owc-dic). But most importantly, I did a lot of thinking on how one
 can build an application that is well maintainable down the line.
 
 ## The Architecture
@@ -300,12 +302,12 @@ suited in the least for anything resembling a rapid prototyping approach.
 
 Admittedly, I work on applications that have a very long maintenance period, and customers regularly come with change
 requests. Your situation may be different, maybe you make websites that you hand off to the customer who you never
-see again, but let me ask you this: when was the last time you took a short cut and it came back to haunt you?
+see again, but let me ask you this: when was the last time you took a shortcut and it came back to haunt you?
 
 To me that is one of the most dreaded feeling, seeing the customer come with a relatively simple change request, which
 then results in a multiple week headache for the whole team.
 
-This architecture has proven itself ot be *consistent*. Not fast, consistent. We know how much time we need to develop
+This architecture has proven itself to be *consistent*. Not fast, consistent. We know how much time we need to develop
 a certain feature. There are no surprises in the system, but it comes with the drawback that we have to write a lot of
 the code ourselves.
 
@@ -314,10 +316,14 @@ developer and, with the help of an IDE, have them deliver production-ready code 
 
 Also, since everything is so nice and cut up, it is incredibly easy to implement unit testing for the individual parts.
 
+To sum it up, together with my approach to [directory structures](/blog/structure-based-on-intent) it makes quite a 
+comfortable system to maintain. 
+
 *I have to say a massive thank you to [Michael Cullum](https://twitter.com/michaelcullumuk),
-[Steve Poole](https://twitter.com/spoole167), [Gil Tayar](https://twitter.com/giltayar), Gabor Vereb, Goran Spasojevic
-and [Dan Radenkovic](http://www.radenkovic.org/) for their input, feedback and ideas that made this architecture what it
-is today. (Note that they did not endorse this architecture, but provided input.)*  
+[Steve Poole](https://twitter.com/spoole167), [Gil Tayar](https://twitter.com/giltayar), Gabor Vereb,
+[Goran Spasojevic](https://twitter.com/gogospaso) and [Dan Radenkovic](http://www.radenkovic.org/) for their input,
+feedback and ideas that made this architecture what it is today. (Note that they did not endorse this architecture, but
+provided input.)*  
 
 
   

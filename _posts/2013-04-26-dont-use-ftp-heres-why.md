@@ -17,7 +17,7 @@ If you’ve ever looked at the protocol, you’ll realize it uses two connection
 
 #### Lack of encryption
 
-FTP in it’s original form doesn’t support encryption, neither for the control channel, nor the data channel. This is a problem because usernames and passwords are transmitted in plain text over the network. Despite the [FTP Security Extensions](http://tools.ietf.org/html/rfc2228){:target="_blank"}{:rel="noopener noreferrer"} being around since 1997, finding a client software that support FTPS without having to download additional software or libraries is a challenge. If you actually manage to set up FTPS, you’ll most probably run into problems with the more strict firewalls (see below.
+FTP in it’s original form doesn’t support encryption, neither for the control channel, nor the data channel. This is a problem because usernames and passwords are transmitted in plain text over the network. Despite the [FTP Security Extensions](http://tools.ietf.org/html/rfc2228) being around since 1997, finding a client software that support FTPS without having to download additional software or libraries is a challenge. If you actually manage to set up FTPS, you’ll most probably run into problems with the more strict firewalls (see below.
 
 #### Firewalling
 
@@ -51,7 +51,7 @@ Of course there are a ton of alternatives, so even listing them wouldn’t fit i
 
 #### SCP/SFTP
 
-Unlike FTPS, which is FTP encapsulated in SSL, SFTP and SCP are tunneled through the SSH protocol, which is a single-connection encrypted protocol and used by sysadmins to access server consoles. For your average John Doe user there’s [WinSCP](http://winscp.net/){:target="_blank"}{:rel="noopener noreferrer"} which works almost exactly as the all-so-famous Total Commander (or you could just get the [SFTP plugin](http://www.ghisler.com/plugins.htm){:target="_blank"}{:rel="noopener noreferrer"}. To enable SCP without giving users shell access, you can use mod_sftp for ProFTPd. In my experience it works very nicely and gives you a sufficiently secure environment so average users can’t wreak havoc on your server.
+Unlike FTPS, which is FTP encapsulated in SSL, SFTP and SCP are tunneled through the SSH protocol, which is a single-connection encrypted protocol and used by sysadmins to access server consoles. For your average John Doe user there’s [WinSCP](http://winscp.net/) which works almost exactly as the all-so-famous Total Commander (or you could just get the [SFTP plugin](http://www.ghisler.com/plugins.htm). To enable SCP without giving users shell access, you can use mod_sftp for ProFTPd. In my experience it works very nicely and gives you a sufficiently secure environment so average users can’t wreak havoc on your server.
 
 #### rsync
 

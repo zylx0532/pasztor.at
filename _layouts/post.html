@@ -96,7 +96,7 @@ sass: contentpage.scss
         {% endif %}
 
         <div class="post__content" itemprop="articleBody">
-            {{ content }}
+            {{ content | replace: '<a href', '<a target="_blank" href' | replace: 'href="http', 'rel="noopener noreferer" href="http' }}
         </div>
 
         {% if page.external_link %}

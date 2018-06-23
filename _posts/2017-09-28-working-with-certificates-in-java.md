@@ -14,7 +14,7 @@ tags:          [Java, Development]
 
 ## Install Bouncy Castle
 
-Before we continue, you really really (really) want to install [Bouncy Castle](https://www.bouncycastle.org/){:target="_blank"}{:rel="noopener noreferrer"}. It provides many much needed implementations and this tutorial will assume you are using it.
+Before we continue, you really really (really) want to install [Bouncy Castle](https://www.bouncycastle.org/). It provides many much needed implementations and this tutorial will assume you are using it.
 
 If you are using Maven, simply add this to your POM file:
 
@@ -46,7 +46,7 @@ In contrast, PKCS#1 keys look like this:
 ```
 
 See the subtle difference? It's not just the header. Taking a look in an
-[ASN.1 decoder](https://lapo.it/asn1js/){:target="_blank"}{:rel="noopener noreferrer"}, we see this for PKCS#8:
+[ASN.1 decoder](https://lapo.it/asn1js/), we see this for PKCS#8:
 
 ```
 SEQUENCE(3 elem)
