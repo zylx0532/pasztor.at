@@ -88,7 +88,7 @@ class BlogPostGetApi {
   )
   public Response get(String id) throws BlogPostNotFoundException {
     BlogPost blogPost = blogPostGetBusinessLogic.getById(id);
-    Author author = blogPostGetBusinessLogic.getById(blogPost.getAuthorId());
+    Author author = authorGetBusinessLogic.getById(blogPost.getAuthorId());
   
     return new Response (
       blogPost,
@@ -267,9 +267,9 @@ the API.
 
 So far we have only talked about an architecture that is specific to Single Page Applications, where things are nice
 and simple. In fact, your application does not have to include *any* state. It can just pass any request that comes in
-down the pipeline and the result back up. In essence, your application is basically a collection of *pure functions*
-on steroids with dependency injection. (Shout out to JavaScript folks, we have you to thank for the rise in functional
-programming in recent years!)
+down the pipeline and the result back up. In essence, your application is basically a collection of functions, often
+pure or at least stateless, on steroids with dependency injection. (Shout out to JavaScript folks, we have you to thank
+for the rise in functional programming in recent years!)
 
 However, when it comes to traditional web applications, things get messy. They want to store temporary form data and
 a bunch of other stuff in *sessions*. While [I don't advocate the use of sessions](/blog/stop-using-php-sessions),
@@ -285,9 +285,9 @@ to your traditional web application!
 calling it that. The basic idea is the following:
 
 - Split your application into **Services** and **Data Transfer Objects** (Entities, DTOs).
-- DTOs should be immutable.
+- DTOs should be immutable, and only contain code for validation and creating a changed copy of itself.
 - Services should have no internal state, apart from dependencies that are injected.
-- Services should have a very low number of pure functions, ideally only one.
+- Services should have a very low number of methods, ideally only one, often a *pure* or at least a *stateless* function.
 - Services should deal with as little as possible at once.
 - Services should be grouped into *layers*, each layer being responsible for one group of tasks.
 
@@ -304,7 +304,7 @@ Admittedly, I work on applications that have a very long maintenance period, and
 requests. Your situation may be different, maybe you make websites that you hand off to the customer who you never
 see again, but let me ask you this: when was the last time you took a shortcut and it came back to haunt you?
 
-To me that is one of the most dreaded feeling, seeing the customer come with a relatively simple change request, which
+To me that is one of the most dreaded feelings, seeing the customer come with a relatively simple change request, which
 then results in a multiple week headache for the whole team.
 
 This architecture has proven itself to be *consistent*. Not fast, consistent. We know how much time we need to develop
@@ -321,9 +321,9 @@ comfortable system to maintain.
 
 *I have to say a massive thank you to [Michael Cullum](https://twitter.com/michaelcullumuk),
 [Steve Poole](https://twitter.com/spoole167), [Gil Tayar](https://twitter.com/giltayar), Gabor Vereb,
-[Goran Spasojevic](https://twitter.com/gogospaso) and [Dan Radenkovic](http://www.radenkovic.org/) for their input,
-feedback and ideas that made this architecture what it is today. (Note that they did not endorse this architecture, but
-provided input.)*  
+[Ádám Turcsán](https://twitter.com/adam_turcsan), [Goran Spasojevic](https://twitter.com/gogospaso) and
+[Dan Radenkovic](http://www.radenkovic.org/) for their input, feedback and ideas that made this architecture what it is
+today. (Note that they did not endorse this architecture, but provided input.)*  
 
 
   
