@@ -145,6 +145,10 @@ transform that into an object that we can then work.
 
 ### Entities
 
+> **Note:** This article does not differentiate between entities and DTOs. For the purposes of this article an
+> entity is a structured set of data that you want to pass between parts of your application. If you want to split 
+> them based on purpose or use, go for it.
+
 As I mentioned the different layers communicate using *entities*. These are not entities in the sense that you would
 expect from an ORM system. They do not contain magic functions to load subobjects, like `blogPost.getAuthor()`. These
 are dumb data transfer objects such as this:
@@ -284,10 +288,11 @@ to your traditional web application!
 [Michael Cullum](https://twitter.com/michaelcullumuk) has dubbed this the *Cookie Cutter Approach*, so I'm officially
 calling it that. The basic idea is the following:
 
-- Split your application into **Services** and **Data Transfer Objects** (Entities, DTOs).
-- DTOs should be immutable, and only contain code for validation and creating a changed copy of itself.
+- Split your application into **Services** and **Entities**.
+- Entities should be immutable, and only contain code for validation and creating a changed copy of itself.
 - Services should have no internal state, apart from dependencies that are injected.
-- Services should have a very low number of public methods, ideally only one, often a *pure* or at least a *stateless* function. (Add private methods for readability if you need to, but it is usually better to split the whole class.)
+- Services should have a very low number of public methods, ideally only one, often a *pure* or at least a *stateless*
+  function. (Add private methods for readability if you need to, but it is usually better to split the whole class.)
 - Services should deal with as little as possible at once. Try to keep them below ~150 lines of code.
 - Services should be grouped into *layers*, each layer being responsible for one group of tasks.
 
@@ -324,6 +329,4 @@ comfortable system to maintain.
 [Ádám Turcsán](https://twitter.com/adam_turcsan), [Goran Spasojevic](https://twitter.com/gogospaso) and
 [Dan Radenkovic](http://www.radenkovic.org/) for their input, feedback and ideas that made this architecture what it is
 today. (Note that they did not endorse this architecture, but provided input.)*  
-
-
-  
+ 
