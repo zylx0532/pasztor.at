@@ -3,7 +3,7 @@ layout:        post
 title:         "The Cookie Cutter Architecture"
 date:          "2018-06-23 00:00:00"
 categories:    blog
-excerpt:       "When it comes to business applications, you need an architecure that scales well. This is my take, based on Uncle Bobs EBI."
+excerpt:       "When it comes to business applications, you need an architecture that scales well. This is my take, based on Uncle Bobs EBI."
 preview:       /assets/img/cookie-cutter-architecture.jpg
 fbimage:       /assets/img/cookie-cutter-architecture.png
 twitterimage:  /assets/img/cookie-cutter-architecture.png

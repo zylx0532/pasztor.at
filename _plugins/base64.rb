@@ -44,8 +44,8 @@ module Jekyll
             originalSize = File.size(@abspath)
             inc          = (100 * base64Size / originalSize) - 100
 
-            puts @pad + "=> Original size : ".green + originalSize.to_s
-            puts @pad + "=> Base64 size: ".green + base64Size.to_s + " [+" + inc.to_s + "%]"
+            #puts @pad + "=> Original size : ".green + originalSize.to_s
+            #puts @pad + "=> Base64 size: ".green + base64Size.to_s + " [+" + inc.to_s + "%]"
         end
 
 
@@ -100,7 +100,7 @@ module Jekyll
                 # yay, we encode it
                 @dataURI += Base64.strict_encode64(imgstring)
 
-                getEncodingStatus("Encoded: ".green)
+                #getEncodingStatus("Encoded: ".green)
                 getSizeStats()
 
                 @dataURI
