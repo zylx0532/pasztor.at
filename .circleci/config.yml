@@ -26,7 +26,7 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build-branch:
+      - build:
           context: pasztor.at
           filters:
             branches:
