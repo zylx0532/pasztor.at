@@ -31,6 +31,7 @@ jobs:
             - .circleci
   deploy:
     <<: *defaults
+    parallelism: 1
     steps:
       - run:
           name: Update packages
