@@ -50,7 +50,7 @@ sass: contentpage.scss
                 {% if page.tags %}
                 &bullet;
                 <span class="post__line" itemprop="keywords">
-                    {% capture tagscommas %}{% for tag in page.tags %}<a href="/tags/{{tag | downcase | replace: ' ', '-'}}">{{tag}}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}{% endcapture %}
+                    {% capture tagscommas %}{% for tag in page.tags %}<a href="/tags/{{tag | slugify }}">{{tag}}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}{% endcapture %}
                     <span itemprop="keywords">{{ tagscommas }}</span>
                 </span>
                 {% endif %}
