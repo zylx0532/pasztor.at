@@ -41,7 +41,11 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
+      - build:
+          branches:
+            only: /.*/
+          tags:
+            only: /.*/
       - deploy:
           context: pasztor.at
           requires: build
