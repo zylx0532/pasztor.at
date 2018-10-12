@@ -37,7 +37,7 @@ jobs:
           command: apt-get update -y
       - run:
           name: Install certificates
-          command: apt-get install -y ca-certificates dig
+          command: apt-get install -y ca-certificates dnsutils
       - attach_workspace:
           at: /tmp/project
       - run:
