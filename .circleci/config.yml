@@ -1,11 +1,8 @@
 version: 2
-defaults: &defaults
-  working_directory: /tmp
-  docker:
-     - image: ubuntu:18.04
 jobs:
   build:
-    <<: *defaults
+    docker:
+     - image: ubuntu:18.04
     steps:
       - run:
           name: Update package list
@@ -24,16 +21,10 @@ jobs:
       - run:
           name: Build website
           command: JEYKLL_ENV=prod bundle exec jekyll build
-      - persist_to_workspace:
-          root: /tmp/workspace
-          paths:
-            - _site
-            - .circleci
   deploy:
-    <<: *defaults
+    docker:
+     - image: ubuntu:18.04
     steps:
-      - attach_workspace:
-          at: /tmp/workspace
       - run:
           name: Deploy
           command: ./.circleci/deploy.sh
@@ -42,15 +33,17 @@ workflows:
   build-and-deploy:
     jobs:
       - build:
-          branches:
-            only: /.*/
-          tags:
-            only: /.*/
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              only: /.*/
       - deploy:
           context: pasztor.at
           requires:
             - build
-          branches:
-            only: master
-          tags:
-            ignore: /.*/
+          filters:
+            branches:
+              only: master
+            tags:
+              ignore: /.*/
