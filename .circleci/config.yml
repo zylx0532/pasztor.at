@@ -36,8 +36,8 @@ jobs:
           name: Update packages
           command: apt-get update -y
       - run:
-          name: Install certificates
-          command: apt-get install -y ca-certificates dnsutils
+          name: Install tools
+          command: apt-get install -y ca-certificates dnsutils rsync
       - attach_workspace:
           at: /tmp/project
       - run:
