@@ -39,6 +39,9 @@ jobs:
       - run:
           name: Install tools
           command: apt-get install -y ca-certificates dnsutils rsync openssh-client
+      - run:
+          name: SSH config
+          command: cp .circleci/ssh-config ~/.ssh/config
       - attach_workspace:
           at: /tmp/project
       - run:
