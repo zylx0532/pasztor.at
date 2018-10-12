@@ -45,3 +45,7 @@ workflows:
       - deploy:
           context: pasztor.at
           requires: build
+          branches:
+            only: master
+          tags:
+            ignore: /.*/
