@@ -1,6 +1,6 @@
 version: 2
 defaults: &defaults
-  working_directory: /tmp
+  working_directory: /tmp/project
   docker:
   - image: ubuntu:18.04
 jobs:
@@ -33,7 +33,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /tmp/workspace
+          at: /tmp/project/workspace
       - run:
           name: Deploy
           command: ./.circleci/deploy.sh
