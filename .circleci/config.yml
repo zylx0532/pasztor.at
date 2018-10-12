@@ -33,8 +33,11 @@ jobs:
     <<: *defaults
     steps:
       - run:
+          name: Update packages
+          command: apt-get update -y
+      - run:
           name: Install certificates
-          run: apt-get update -y && apt-get install -y ca-certificates
+          command: apt-get install -y ca-certificates
       - attach_workspace:
           at: /tmp/project
       - run:
