@@ -51,6 +51,18 @@
       user: janoszen
       state: present
       key: "{{ lookup('file', '/home/janoszen/.ssh/id_rsa.pub') }}"
+  - name: Add deploy user
+    become: true
+    user:
+      name: deploy
+      comment: "Deployment"
+      shell: /bin/bash
+  - name: Set deploy authorized key
+    become: true
+    authorized_key:
+      user: deploy
+      state: present
+      key: "{{ lookup('file', 'deploy.pub') }}"
   - name: Passwordless sudo
     become: true
     lineinfile:
@@ -94,9 +106,17 @@
     file:
       path: /srv/www
       state: directory
-      owner: root
-      group: root
+      owner: deploy
+      group: deploy
       mode: 0755
+  - name: WWW permissions
+    become: true
+    file:
+      path: /srv/www
+      owner: deploy
+      group: deploy
+      mode: 0755
+      recurse: yes
   - name: ACME directory
     become: true
     file:
