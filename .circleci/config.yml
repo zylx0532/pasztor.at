@@ -25,7 +25,7 @@ jobs:
           name: Build website
           command: JEYKLL_ENV=prod bundle exec jekyll build
       - persist_to_workspace:
-          root: workspace
+          root: .
           paths:
             - _site
             - .circleci
@@ -33,7 +33,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /tmp/project/workspace
+          at: /tmp/project
       - run:
           name: Deploy
           command: ./.circleci/deploy.sh
