@@ -1,8 +1,11 @@
 version: 2
+defaults: &defaults
+  working_directory: /tmp
+  docker:
+  - image: ubuntu:18.04
 jobs:
   build:
-    docker:
-     - image: ubuntu:18.04
+    <<: *defaults
     steps:
       - run:
           name: Update package list
@@ -21,10 +24,16 @@ jobs:
       - run:
           name: Build website
           command: JEYKLL_ENV=prod bundle exec jekyll build
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - _site
+            - .circleci
   deploy:
-    docker:
-     - image: ubuntu:18.04
+    <<: *defaults
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
           name: Deploy
           command: ./.circleci/deploy.sh
