@@ -1,4 +1,6 @@
 version: 2
+defaults: &defaults
+  working_directory: /tmp
 jobs:
   build:
     docker:
@@ -21,21 +23,25 @@ jobs:
       - run:
           name: Build website
           command: JEYKLL_ENV=prod bundle exec jekyll build
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - _site
+            - .circleci
   deploy:
     docker:
        - image: ubuntu:18.04
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
           name: Deploy
-          command: ./.deploy.sh
+          command: ./.circleci/deploy.sh
 workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build:
+      - build
+      - deploy:
           context: pasztor.at
-          filters:
-            branches:
-              only: master
-            tags:
-              ignore: /.*/
+          requires: build
