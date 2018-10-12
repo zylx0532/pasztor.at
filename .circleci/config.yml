@@ -5,6 +5,9 @@ jobs:
        - image: ubuntu:18.04
     steps:
       - run:
+          name: Update package list
+          command: apt-get -y update
+      - run:
           name: Install git
           command: apt-get install -y git
       - checkout
