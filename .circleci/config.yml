@@ -8,7 +8,7 @@ jobs:
       - add_ssh_keys
       - run:
           name: Install system packages
-          command: sudo apt install -y libgsl-dev
+          command: sudo apt install -y libgsl-dev graphviz
       - run:
           name: Install dependencies
           command: JEYKLL_ENV=prod bundle install --jobs=4 --retry=3 --path vendor/bundle
