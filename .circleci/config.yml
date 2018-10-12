@@ -2,13 +2,13 @@ version: 2
 jobs:
   build:
     docker:
-       - image: circleci/ruby:2.4.1-node-browsers
+       - image: ubuntu:18.04
     steps:
       - checkout
       - add_ssh_keys
       - run:
           name: Install system packages
-          command: sudo apt install -y libgsl-dev graphviz plantuml
+          command: sudo apt install -y libgsl-dev graphviz plantuml ruby
       - run:
           name: Install dependencies
           command: JEYKLL_ENV=prod bundle install --jobs=4 --retry=3 --path vendor/bundle
@@ -17,7 +17,7 @@ jobs:
           command: JEYKLL_ENV=prod bundle exec jekyll build
   deploy:
     docker:
-       - image: circleci/ruby:2.4.1-node-browsers
+       - image: ubuntu:18.04
     steps:
       - run:
           name: Deploy
