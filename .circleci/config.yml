@@ -14,7 +14,7 @@ jobs:
       - add_ssh_keys
       - run:
           name: Install system packages
-          command: apt install -y libgsl-dev graphviz plantuml ruby ruby-dev ruby-bundler ruby-fast-stemmer ruby-posix-spawn
+          command: apt install -y build-essential libgsl-dev graphviz plantuml ruby ruby-dev ruby-bundler ruby-fast-stemmer ruby-posix-spawn
       - run:
           name: Install dependencies
           command: JEYKLL_ENV=prod bundle install --jobs=4 --retry=3 --path vendor/bundle
