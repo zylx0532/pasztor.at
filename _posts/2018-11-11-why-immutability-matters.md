@@ -70,8 +70,8 @@ class Person {
     private String lastName;
     
     public Person(
-        <ins>String firstName
-        String lastName</ins>
+        String firstName
+        String lastName
     ) {
         this.firstName = firstName;
         this.lastName = lastName;</ins>
