@@ -188,5 +188,9 @@ overhead, but modern compilers can work around that and if you run into performa
 
 > **Remember:** <q>Premature optimization is the root of all evil</q> (Donald Knuth)
 
+It is also worth noting that these are only the simplest of examples. In more complex scenarios, when objects are passed
+through multiple layers in an application bugs can creep in easily and immutability prevents those bugs that are related
+to *state*.
+
 In general, I would recommend making sure that you have *mutable state* in as few places as possible in your 
 application, and even when you do, tightly gate it with properly designed APIs and not let it leak into other parts.
