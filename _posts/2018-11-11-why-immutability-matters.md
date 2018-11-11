@@ -188,9 +188,52 @@ overhead, but modern compilers can work around that and if you run into performa
 
 > **Remember:** <q>Premature optimization is the root of all evil</q> (Donald Knuth)
 
-It is also worth noting that these are only the simplest of examples. In more complex scenarios, when objects are passed
-through multiple layers in an application bugs can creep in easily and immutability prevents those bugs that are related
-to *state*.
+Now, you may argue that a persistence layer keeping a reference to a working object is a broken persistence layer, but
+that is a real world scenario. Broken code does exist, and immutability is a valuable tool to prevent such mistakes from
+happening.
+
+In more complex scenarios, when objects are passed through multiple layers in an application bugs can creep in easily
+and immutability prevents those bugs that are related to *state*. These scenarios can include examples like an in-memory
+cache, or out of order function calls.
+
+## How immutability helps with parallel processing
+
+Another important area where immutability helps is parallel processing. More specifically, multithreading. In
+multithreaded applications multiple code paths run in parallel, but access the same memory area. Let's look at a very
+simple piece of code:
+
+```java
+if (p.getName().equals("John")) {
+    p.setName(p.getName() + "Doe");
+}
+```
+
+On it's face this code would have no bugs, but if you run it in parallel, the preemption can mess things up. Let's
+look at the above code example with the threaded parts commented in:
+
+```java
+if (p.getName().equals("John")) {
+
+    //The other thread changes the name here, so it is no longer John
+    
+    p.setName(p.getName() + "Doe");
+}
+```
+
+This is a race condition. The first thread checks if the name is &ldquo;John&rdquo;, but then the second thread changes
+the name. The first thread still proceeds under the assumption that the name is John.
+
+You could, of course, employ locking to ensure that only one thread enters the critical section at any given time, but
+that can be a bottle neck. However, if the objects are immutable, this scenario can't happen since the object stored in
+`p` is always the same. If the other thread wants to affect a change, it creates a new copy, which will not be present
+in the first thread.
+
+## Summary
 
 In general, I would recommend making sure that you have *mutable state* in as few places as possible in your 
-application, and even when you do, tightly gate it with properly designed APIs and not let it leak into other parts.
+application, and even when you do, tightly gate it with properly designed APIs and not let it leak into other parts. The
+less code parts have state to them, the less likely it is that state-related errors crop up.
+
+Obviously you can't program entirely without state in most programming tasks, but thinking about data structures
+as immutable by default makes your program a lot more resilient towards random bugs. **When you really need to introduce
+mutability, you will then be forced to think about the implications instead of having mutability all over the place.** 
