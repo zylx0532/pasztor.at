@@ -70,11 +70,11 @@ class Person {
     private String lastName;
     
     public Person(
-        String firstName
+        String firstName,
         String lastName
     ) {
         this.firstName = firstName;
-        this.lastName = lastName;</ins>
+        this.lastName = lastName;
     }
     
     public String getName() {
