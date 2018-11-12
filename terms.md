@@ -12,7 +12,10 @@ Graf-Starhemberg-Gasse 47/6<br />
 1040 Wien<br />
 Austria
 
-**All materials on this website are protected by copyright.**
+## Copyright
+
+**All materials on this website are protected by copyright.** Text, design and program code are owned by Janos Pasztor.
+Decorative images are published under license from third parties.
 
 ## Your rights
 
@@ -20,10 +23,8 @@ Permission hereby granted free of charge to You, the Visitor, to download a copy
 pasztor.at (The Website) for viewing on your computer or handheld device, or printing for your personal,
 non-commercial use, and for your personal educational use.
 
-**Unless otherwise indicated, you may not, without prior written permission from The Author, publicly demonstrate, or otherwise publicly use,
-the contents of The Website, including creating course materials from it.**
-
-You may, however, link to the The Website from your course page.
+**Unless otherwise indicated, you may not, without prior written permission from The Author, publicly demonstrate, or
+otherwise publicly use, the contents of The Website, including creating course materials from it.**
 
 The Website contains Articles, which may contain Program Code as demonstration.
 Permission hereby also granted free of charge to deal with any Program Code contained in Articles and blog posts
@@ -57,7 +58,7 @@ as such criticism displays a substantial amount of original content.
 Search machine operators may index and store this site as long as they follow the stipulations in the
 [robots.txt](/robots.txt), and only display small segments of text for ease of use. The republishing of full articles is
 not permitted. Automated text processing, machine learning, and other bulk operating resulting in aggregate statistics
-are permitted.
+are permitted so long as articles is not re-published in their entirety.
 
 ## Exclusion of liability
 
@@ -79,4 +80,4 @@ There are no oral side agreements to these terms. All changes to the terms are m
 Any disputes are subject to Austrian law (Austrian domestic law under exclusion of the referral norms
 and UN commercial law), legal proceedings shall be held exclusively in Vienna, Austria.
 
-This document has last been updated: March 20, 2018
+This document has last been updated: November 12, 2018

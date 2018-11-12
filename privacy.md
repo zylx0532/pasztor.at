@@ -20,9 +20,9 @@ Most importantly, you can use the following button to adjust your privacy prefer
 
 ## About Google Analytics
 
-Google Analytics collects data on the visitors of this site, most importantly, which pages are viewed on the page, what
-the source of the traffic is, and what kind of device you are using. Google Analytics does not store your IP address
-and the page owner only gets access to an aggregate view of the data. 
+Google Analytics collects data on the visitors of this site, which pages are viewed on the page, what the source of the
+traffic is, and what kind of device you are using. Google Analytics does not store your IP address and the page owner
+only gets access to an aggregate view of the data. 
 
 ## About embedded content
 
@@ -34,6 +34,20 @@ you, the visitor, if you play the video.
 
 The servers behind this website are hosted by Amazon Web Services. However, no access logs or personally identifiable
 information is stored.
+
+## Newsletter
+
+On this site you can subscribe to a newsletter to get informed about new content on the page. In order to send you these
+newsletter we:
+
+- Store your name and e-mail address in encrypted form. You can request removal of your e-mail address at any time, in
+  which case your details are rendered unreadable in our database. A hash of your details is kept to be able to respond
+  to data requests later on.
+- Store logs about the events, such as you subscribing, unsubscribing, opening and clicking e-mails for service quality
+  ensurance purposes.
+- Send e-mails to your e-mail provider an e-mail service provider. Our e-mail service provider may retain your e-mail 
+  address in their logs. Please note that due to the nature of e-mail these e-mails may be sent unencrypted over the
+  internet.
 
 ## About e-mails you send me
 
@@ -78,4 +92,4 @@ The author of this website reserves the right to change this policy at any time,
 is enabled in your browser, and you have not installed extensions that block cookie notices, you may receive a 
 notification about the updated privacy policy when you next visit this site.
 
-This document has last been updated: June 5, 2018
+This document has last been updated: November 12, 2018

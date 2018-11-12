@@ -2,7 +2,9 @@ var privacyFeatures = [
     {
         id: "google-analytics",
         title: "Google Analytics",
-        description: "Google Analytics helps me understand what content visitors like and read, so I can create more content like it. " + (navigator.doNotTrack === '1'?"This setting cannot be changed because your browser is configured to send a Do-Not-Track request.":""),
+        description:
+          "Google Analytics helps me understand what content visitors like and read, so I can create more content like it. " +
+          (navigator.doNotTrack === '1'?"This setting is disabled by default because of your browser DNT settings.":""),
         disabled: (navigator.doNotTrack === '1'),
         callback: function() {
             window.dataLayer = window.dataLayer || [];
@@ -39,7 +41,7 @@ var privacyFeatures = [
     }
 ];
 
-var privacyPolicyUpdated = new Date('2018-06-05');
+var privacyPolicyUpdated = new Date('2018-11-12');
 
 var getCookie = function(cookieName) {
     var value = "; " + document.cookie;
@@ -114,16 +116,13 @@ var formatDate = function(date) {
 var createPrivacyToggle = function(id, title, description, disabled, checked) {
     var label = document.createElement("label");
     label.for = "privacy__checkbox--" + id;
-    label.className = "privacy__toggle privacy__toggle--" + id + (disabled?" privacy__toggle--disabled":"");
+    label.className = "privacy__toggle privacy__toggle--" + id;
 
     var input = document.createElement("input");
     input.id = "privacy__checkbox--" + id;
     input.className = "privacy__checkbox privacy__checkbox--" + id;
     input.type = "checkbox";
     input.value = id;
-    if (disabled) {
-        input.setAttribute("disabled", "disabled");
-    }
     input.checked = !!checked;
     label.appendChild(input);
 
@@ -185,16 +184,21 @@ var createPrivacyModal = function(lastModifiedDate) {
     modalDiv.className = "modal";
     modalDiv.innerHTML =
         "<div class=\"modal__background\"></div>" +
-        "<div class=\"modal__window content\">" +
-        "   <div class=\"modal__title\"><h1>Privacy settings</h1></div>" +
-        "   <div class=\"modal__body\">" +
-        "       <div class=\"modal__section\">" +
-        "           <p>Please disable all third party integrations you do not feel comfortable with.</p>" +
-        "           <div class=\"privacy\"></div>" +
-        "           <p>These settings can be changed at any time on the <a href=\"/privacy\">privacy page</a> (last updated: " + formatDate(lastModifiedDate) + ").</p>" +
+        "<div class=\"modal__container\">" +
+        "    <div class=\"modal__window content\">" +
+        "        <div class=\"modal__title\"><h1>Privacy settings</h1></div>" +
+        "        <div class=\"modal__body\">" +
+        "            <div class=\"modal__section\">" +
+        "                <p>Please select your privacy preferences:</p>" +
+        "                <div class=\"privacy\"></div>" +
+        "                <p>These settings can be changed later on the <a href=\"/privacy\">privacy page</a>.</p>" +
+        "                <p>By clicking &ldquo;I accept&rdquo; you accept the <a href=\"/privacy\">Privacy Policy</a> and <a href=\"/terms\">Terms of Service</a> of this website.  (Last updated: " + formatDate(lastModifiedDate) + ")</p>" +
+        "            </div>" +
         "       </div>" +
-        "   </div>" +
-        "   <div class=\"modal__footer\"><button class=\"privacy__save\">I approve all integrations I left enabled, continue browsing.</button></div>" +
+        "       <div class=\"modal__footer\">" +
+        "           <button class=\"privacy__save\">I accept</button>" +
+        "       </div>" +
+        "    </div>" +
         "</div>";
 
     var privacyRoot = modalDiv.getElementsByClassName("privacy")[0];
