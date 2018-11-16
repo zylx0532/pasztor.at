@@ -282,8 +282,13 @@ Feel free to learn from then and build your own!
             };
             httpRequest.send();
             //endregion
+
+            //region Privacy
+            var privacyScriptLink = document.createElement("script");
+            privacyScriptLink.src="/assets/js/privacy.js?2018-06-05";
+            document.head.appendChild(privacyScriptLink);
+            //endregion
         });
     </script>
-    <script src="/assets/js/privacy.js?2018-06-05" defer></script>
   </body>
 </html>
