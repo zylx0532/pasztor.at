@@ -15,7 +15,7 @@ var privacyFeatures = [
 
             gtag('js', new Date());
 
-            gtag('config', 'UA-108462692-1', {'anonymize_ip': true});
+            gtag('config', 'UA-108462692-1', {'anonymize_ip': true, 'allow_ad_personalization_signals': false});
 
             var scriptElement = document.createElement("script");
             scriptElement.setAttribute("async", "async");
