@@ -36,48 +36,7 @@ so-called interframe gap, 12 bytes (*octets*) of &ldquo;silence&rdquo;.
 
 ## The Modern Ethernet
 
-<figure><table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Size</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Preamble</td>
-<td>6 bytes</td>
-</tr>
-<tr>
-<td>SFD</td>
-<td>1 byte</td>
-</tr>
-<tr>
-<td>Destination</td>
-<td>6 bytes</td>
-</tr>
-<tr>
-<td>Source</td>
-<td>6 bytes</td>
-</tr>
-<tr>
-<td>Ethertype</td>
-<td>2 bytes</td>
-</tr>
-<tr>
-<td>Payload</td>
-<td>46-1500 bytes</td>
-</tr>
-<tr>
-<td>FCS</td>
-<td>4 bytes</td>
-</tr>
-<tr>
-<td>Interpacket Gap</td>
-<td>12 bytes</td>
-</tr>
-</tbody>
-</table><figcaption>The Ethernet II frame structure</figcaption></figure>
+<figure><img src="/assets/img/ethernet.svg" alt="" /><figcaption>The Ethernet II frame structure</figcaption></figure>
 
 Decades have passed and now networking hardware is available in abundance. Ethernet chips cost next to nothing, we have
 dedicated cables for all our machines and even 10 gigabit interfaces are no longer a rarity. IPX and it's cousins have
@@ -85,10 +44,10 @@ all but died out and most of our networks are based on almost the same Ethernet 
 ago.
 
 As mentioned in the previous segment, the first thing a device sends out is a 7 byte (or octet in old money)
-**preamble**. This preamble consists of 7 times the sequence `10101010`, or `0x55` in hexadecimal notation. The preamble
-is followed by the **start frame delimiter**, which spiced things up things with the sequence `10101011` or `0xD5`. 
-(Those folks really knew how to live...) The SFD indicated that the delimiter is finished and that data would now 
-commence.
+**preamble**. This preamble consists of 7 times the sequence `10101010`, or `0x55` in hexadecimal notation.
+
+The preamble is followed by the **start frame delimiter**, which consisted of the sequence `10101011` (`0xD5`). The SFD
+indicated that the delimiter is finished and that data would now commence.
 
 Now, the devices on the network would need to know who sent the packet and who it was intended for. This was done by
 adding so-called MAC or hardware addresses. You might have seen them, they look like this: `42:cb:c0:14:9b:0e`
@@ -116,7 +75,9 @@ Finally the ethernet frame is closed with a 12 byte **Interpacket Gap**, or 12 b
 
 ## How it is used
 
-When using Ethernet all devices need to be connected to the same network. That means that Ethernet can really only be 
-used in a local network. In order to scale it to larger proportions we need something else. This is done by using the
-payload part of the Ethernet frame to transport a different protocol: the Internet Protocol. But that is the topic of
-a different article.
+Ethernet works great on the local network. The problem comes when the target device is not on the local network, but 
+behind one or more routers. Ethernet can't deal with that, but other protocols like the Internet Protocol or IPX can.
+These protocols are designed to be *encapsulated* in Ethernet.
+
+In laymans terms this means that an Ethernet frame can *transport* an IP packet inside of it. When it reaches a router,
+the router will unpack it and forward the IP packet. But that is a topic for another article.
