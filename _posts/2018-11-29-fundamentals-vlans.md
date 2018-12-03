@@ -31,10 +31,10 @@ It then reserves the first 4 bytes of the payload.
 The first 2 bytes of the payload indicate the **VLAN ID**, or in other words the **VLAN tag**. This tag tells the 
 devices on the network which VLAN the Ethernet frame belongs to.
 
-<figure><img src="/assets/img/ethernet-vlan.svg" alt="" /><figcaption>The Ethernet II frame structure with an embedded 802.1Q header</figcaption></figure>
-
 The next 2 bytes of the payload then have *another* Ethertype field, which now indicates what the contents of the 802.1Q
 tagged frame are.
+
+<figure><img src="/assets/img/ethernet-vlan.svg" alt="" /><figcaption>The Ethernet II frame structure with an embedded 802.1Q header</figcaption></figure>
 
 ## VLANs in practice
 
