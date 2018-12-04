@@ -28,8 +28,8 @@ The Kubernetes master includes a component called the API server which provides 
 (*schedules* the containers). The final component is the controller-manager, which is actually a set of multiple
 controllers responsible for handling node outages, handling replications, joining services and pods (sets of containers),
 and finally dealing with service accounts and API access tokens. All the data is being stored in etcd, which is a
-strongly consistent NoSQL style database. So to sum it up, the master is responsible for managing the cluster. No big
-surprise there.
+strongly consistent key-value store (with some really cool features). So to sum it up, the master is responsible for 
+managing the cluster. No big surprise there.
 
 The worker, on the other hand, is running the actual workloads. To do that it includes, again, a number of components.
 First off, it runs the *kubelet*, which is again an API that works with the containers on that node. There's also the
