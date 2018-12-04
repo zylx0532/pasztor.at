@@ -92,12 +92,14 @@ You may have noticed that I'm skipping over the things cloud providers give you,
 Kubernetes. Of course, if you use a managed Kubernetes solution, that's great, and you won't need to deal with any of
 this, except for debugging.
 
-Kubernetes has many-many moving parts, and Kubernetes on its own does not provide a full stack solutions.
-[RedHat OpenShift](https://www.openshift.com/), for example, does, but it costs money.
+Kubernetes has many-many moving parts, and Kubernetes on its own does not provide a full stack of solutions.
+[RedHat OpenShift](https://www.openshift.com/), for example, does, but it costs money and you still need to add things
+yourself.
 
-Right now Kubernetes is on the hill of the Gartner hype cycle, everybody wants it but few people truly understand it.
-Over the coming years quite a few companies will have to realize that Kubernetes is not the silver bullet and figure out
-how to use it properly and efficiently.
+Right now Kubernetes is on the hill of the
+[Gartner hype cycle](https://www.gartner.com/en/research/methodologies/gartner-hype-cycle), everybody wants it but few
+people truly understand it. Over the coming years quite a few companies will have to realize that Kubernetes is not the
+silver bullet and figure out how to use it properly and efficiently.
 
 I think, running your own Kubernetes is only worth it if you can afford to dedicate an ops team to the topic of
 maintaining the underlying platform for your developers.
