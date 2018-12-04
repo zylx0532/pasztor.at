@@ -12,7 +12,7 @@ twitter_card:  summary_large_image
 tags:          [DevOps, Kubernetes, Docker]
 ---
 
-Kubernetes is the staple of modern day DevOps. Everybody wants to use it, not using it means you are not part of the
+Kubernetes is a staple of modern day DevOps. Everybody wants to use it, not using it means you are not part of the
 *&ldquo;Kool Kids Korner&rdquo;*. However, just a few days ago a pretty bad security hole tagged
 [CVE-2018-1002105](https://access.redhat.com/security/vulnerabilities/3716411) was published. It allows an
 unauthenticated user to gain root privileges on the Kubernetes API.

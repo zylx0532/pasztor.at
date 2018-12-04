@@ -33,29 +33,30 @@ managing the cluster. No big surprise there.
 
 The worker, on the other hand, is running the actual workloads. To do that it includes, again, a number of components.
 First off, it runs the *kubelet*, which is again an API that works with the containers on that node. There's also the
-kube-proxy, which forwards network connections, containerd to run containers, and depending on your configuration there
-may be other things such as kube-dns or gVisor. You will also need some sort of an *overlay network* or an integration
-with your underlying networking setup so Kubernetes can manage the network between your pods. 
+*kube-proxy*, which forwards network connections, *containerd* to run containers, and depending on your configuration
+there may be other things such as *kube-dns* or *gVisor*. You will also need some sort of an *overlay network* or an
+integration with your underlying networking setup so Kubernetes can manage the network between your pods. 
 
 If you want a more complete overview, I recommend doing Kelsey Hightowers
 [Kubernetes - The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way).
 
 ## Production-ready Kubernetes
 
-This, so far, doesn't sound too bad. In stall a couple of programs, configuration, certificates, etc. Don't get me 
+This, so far, doesn't sound too bad. Install a couple of programs, configuration, certificates, etc. Don't get me 
 wrong, it's still a learning curve, but it's nothing an average sysadmin didn't have to deal with in the past.
 
 However, just simply installing Kubernetes by hand isn't exactly production ready, so let's talk about the steps needed
 to get this thing up and running.
 
 First, **installation**. You really want to have some sort of an automated installation. It doesn't matter if it's
-Ansible, Terraform or other tools, you want to have it automated. kops, for example, helps you with this, but using kops
-means that you won't know how exactly it is set up and that may cause issues when you later want to debug something.
-This automation should be tested, and tested regularly.
+Ansible, Terraform or other tools, you want to have it automated. [kops](https://github.com/kubernetes/kops), for
+example, helps you with this, but using kops means that you won't know how exactly it is set up and that may cause
+issues when you later want to debug something. This automation should be tested, and tested regularly.
 
 Next up, you need to **monitor** your Kubernetes installation. So right away you need something like
-[Prometheus](), [Grafana](), etc. Do you run it inside of your Kubernetes? If your Kubernetes has a problem, is your
-monitoring then down? Or do you run it separately? If yes, then where do you run it?
+[Prometheus](https://prometheus.io/), [Grafana](https://grafana.com/), etc. Do you run it inside of your Kubernetes? If
+your Kubernetes has a problem, is your monitoring then down? Or do you run it separately? If yes, then where do you run
+it?
 
 Also noteworthy are **backups**. What will you do if your masters crash, the data is unrecoverable and you need to
 reprovision all pods on the system? Did you test how long it takes to run all jobs in your CI system again? Do you
