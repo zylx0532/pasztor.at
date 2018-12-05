@@ -15,6 +15,7 @@ sharing:
   facebook: "Let's talk about the basic #Internet protocols a little more!"
   linkedin: "Let's talk about the basic Internet protocols a little more!"
   patreon:  "Let's talk about the basic Internet protocols a little more!"
+  discord:  "@everyone new article about Internet basics: the Internet Protocol"
 ---
 
 You might have heard of TCP/IP, or at least IP addresses. The IP part of this acronym stands for Internet Protocol. The

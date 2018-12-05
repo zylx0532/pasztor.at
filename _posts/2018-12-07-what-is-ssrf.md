@@ -15,6 +15,7 @@ sharing:
   facebook: "#SSRF is a sneaky #security vulnerability that may cause you big headaches. Let's talk about it!"
   linkedin: "SSRF is a sneaky security vulnerability that may cause you big headaches. Let's talk about it!"
   patreon:  "SSRF is a sneaky security vulnerability that may cause you big headaches. Let's talk about it!"
+  discord:  "@everyone new article about security: What is Server Side Request Forgery?"
 ---
 
 CSRF is, while still prevalent, no longer an unknown type of security vulnerability. It's brother, SSRF, however, is.
