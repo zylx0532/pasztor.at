@@ -23,6 +23,6 @@
         chdir: /srv/docker
   - name: Docker compose up
     become: true
-    shell: AWS_ACCESS_KEY_ID="{{ lookup('ini', 'AWS_ACCESS_KEY_ID section=aws file=aws.ini') }}" AWS_SECRET_ACCESS_KEY="{{ lookup('ini', 'AWS_SECRET_ACCESS_KEY section=aws file=aws.ini') }}" AWS_HOSTED_ZONE_ID="{{ lookup('ini', 'AWS_HOSTED_ZONE_ID section=aws file=aws.ini') }}" /usr/local/bin/docker-compose up -d
+    shell: ETCD_HOSTNAME="{{ansible_fqdn}}" ETCD_DOMAIN="{{domainname}}" AWS_ACCESS_KEY_ID="{{ lookup('ini', 'AWS_ACCESS_KEY_ID section=aws file=aws.ini') }}" AWS_SECRET_ACCESS_KEY="{{ lookup('ini', 'AWS_SECRET_ACCESS_KEY section=aws file=aws.ini') }}" AWS_HOSTED_ZONE_ID="{{ lookup('ini', 'AWS_HOSTED_ZONE_ID section=aws file=aws.ini') }}" /usr/local/bin/docker-compose up -d
     args:
         chdir: /srv/docker

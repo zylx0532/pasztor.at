@@ -10,7 +10,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
     volumes:
       - /srv/acme:/etc/traefik/acme
       - /var/run/docker.sock:/var/run/docker.sock
@@ -52,6 +51,25 @@ services:
       - type: bind
         source: /srv/www
         target: /var/www
+    restart: unless-stopped
+  etcd:
+    container_name: etcd
+    image: opsbears/etcd
+    networks:
+      - web
+    volumes:
+      - type: bind
+        source: /srv/etcd
+        target: /srv/etcd
+    ports:
+      - "12380:2380"
+    environment:
+      ETCD_INITIAL_CLUSTER_STATE: new
+      ETCD_DISCOVERY_SRV: ${ETCD_DOMAIN}
+      ETCD_INITIAL_CLUSTER_ADVERTISE_PEER_URLS: http://${ETCD_HOSTNAME}:12380
+      ETCD_ADVERTISE_CLIENT_URLS: http://${ETCD_HOSTNAME}:12380
+      ETCD_LISTEN_CLIENT_URLS: http://${ETCD_HOSTNAME}:12380
+      ETCD_LISTEN_PEER_URLS: http://${ETCD_HOSTNAME}:12380
     restart: unless-stopped
 networks:
   web:
