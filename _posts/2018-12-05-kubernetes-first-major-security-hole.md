@@ -45,7 +45,8 @@ kubelet is set up properly, they won't be able to run privileged containers, but
 
 In my view the Kubernetes API should be isolated from the outside world to ensure multiple layers of security. Deploy
 a separate network for Kubernetes where the API runs, and where your kubelets can communicate with your masters. Don't
-let anyone from the ourside world in there, and also don't let your production code access any of these APIs.
+let anyone from the ourside world in there, and also don't let your production code access any of these APIs. (Unless,
+of course, you have a very specific component that needs to talk to Kubernetes.)
 
 Yes, your CI system and your developers need to access these APIs, but that's what VPNs are for. Or if you can't deploy
 a VPN, get a fixed IP address and set up a proper firewall to only allow access from your network your developers are on.
