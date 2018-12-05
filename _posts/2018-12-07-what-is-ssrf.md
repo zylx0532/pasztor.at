@@ -10,6 +10,11 @@ twitterimage:  /assets/img/what-is-ssrf.png
 googleimage:   /assets/img/what-is-ssrf.png
 twitter_card:  summary_large_image
 tags:          [Development, DevOps, Security]
+sharing:
+  twitter:  "#SSRF is a sneaky #security vulnerability that may cause you big headaches. Let's talk about it!" 
+  facebook: "#SSRF is a sneaky #security vulnerability that may cause you big headaches. Let's talk about it!"
+  linkedin: "SSRF is a sneaky security vulnerability that may cause you big headaches. Let's talk about it!"
+  patreon:  "SSRF is a sneaky security vulnerability that may cause you big headaches. Let's talk about it!"
 ---
 
 CSRF is, while still prevalent, no longer an unknown type of security vulnerability. It's brother, SSRF, however, is.

@@ -10,6 +10,11 @@ twitterimage:  /assets/img/fundamentals-internet-protocol.png
 googleimage:   /assets/img/fundamentals-internet-protocol.png
 twitter_card:  summary_large_image
 tags:          [Development, DevOps, Theory]
+sharing:
+  twitter:  "Let's talk about the basic #Internet protocols a little more!" 
+  facebook: "Let's talk about the basic #Internet protocols a little more!"
+  linkedin: "Let's talk about the basic Internet protocols a little more!"
+  patreon:  "Let's talk about the basic Internet protocols a little more!"
 ---
 
 You might have heard of TCP/IP, or at least IP addresses. The IP part of this acronym stands for Internet Protocol. The
