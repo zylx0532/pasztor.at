@@ -107,3 +107,7 @@ resource "aws_route53_record" "www" {
 output "ip" {
   value = "${aws_eip.ip.public_ip}"
 }
+
+output "fqdn" {
+  value = "${aws_route53_record.pop.fqdn}"
+}

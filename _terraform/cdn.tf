@@ -92,3 +92,33 @@ resource "aws_route53_record" "all" {
     "${module.us-west-2.ip}"
   ]
 }
+
+resource "aws_route53_record" "etcd-server" {
+  name = "_etcd-server-ssl._tcp.cdn.opsbears.net"
+  type = "SRV"
+  zone_id = "Z2XTLEELQKM14W"
+  ttl = 300
+  records = [
+    "0 0 12380 ${module.eu-central-1.fqdn}",
+    "0 0 12380 ${module.ap-northeast-1.fqdn}",
+    "0 0 12380 ${module.ap-south-1.fqdn}",
+    "0 0 12380 ${module.ap-southeast-1.fqdn}",
+    "0 0 12380 ${module.ap-southeast-2.fqdn}",
+    "0 0 12380 ${module.eu-west-2.fqdn}",
+    "0 0 12380 ${module.sa-east-1.fqdn}",
+    "0 0 12380 ${module.us-east-1.fqdn}",
+    "0 0 12380 ${module.us-east-2.fqdn}",
+    "0 0 12380 ${module.us-west-1.fqdn}",
+    "0 0 12380 ${module.us-west-2.fqdn}"
+  ]
+}
+
+resource "aws_route53_record" "etcd-client" {
+  name = "_etcd-client-ssl._tcp.cdn.opsbears.net"
+  type = "SRV"
+  zone_id = "Z2XTLEELQKM14W"
+  ttl = 300
+  records = [
+    "0 0 2380 etcd."
+  ]
+}

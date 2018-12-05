@@ -91,3 +91,7 @@ resource "aws_route53_record" "www" {
 output "ip" {
   value = "${aws_lightsail_static_ip.ip.ip_address}"
 }
+
+output "fqdn" {
+  value = "${aws_route53_record.pop.fqdn}"
+}
