@@ -7,6 +7,7 @@ uml/*
 _ansible/*.retry
 _ansible/aws.ini
 _ansible/subscribe.ini
+_terraform/.terraform
 assets/graphviz/*
 /vendor/
 api/credentials.php

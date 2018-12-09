@@ -75,6 +75,25 @@ requirement and you may not think of it.
 Additionally, even a developer could be tricked into opening a link that, under certain circumstances, could load data
 from the internal service.
 
+## A practical example
+
+Let's look at a practical example. Many social networks nowadays integrate [OpenGraph](http://ogp.me/) as a method to
+render previews such as this:
+
+<figure><img src="/assets/img/ssrf-facebook-preview.png" alt="" /><figcaption>Image: How Facebook renders previews</figcaption></figure>
+
+Now, think about how this works: the user pastes a link and some server side component needs to download the information
+from the server. Assuming that your `etcd` database lives on `10.2.0.1`. What is the user pastes this link?
+
+```http://10.2.0.1:2379/v2/keys/amazon-api-key```
+
+If your etcd doesn't use authentication, your application will happily download the super secret API key from the etcd
+server and display it to the user.
+
+Or, let's say you are running on [AWS](https://aws.amazon.com). What if the user enters the address
+`http://169.254.169.254/latest/user-data/`? Or, even more devious, the user sets up a domain that points to this IP 
+address? This will let the user access your user data, which may contain sensitive data.  
+
 ## Defense against SSRF
 
 I've talked about layered security before, so my recommendations follow that principle. You will want to have more than
