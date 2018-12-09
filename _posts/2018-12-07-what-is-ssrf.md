@@ -91,8 +91,10 @@ If your etcd doesn't use authentication, your application will happily download 
 server and display it to the user.
 
 Or, let's say you are running on [AWS](https://aws.amazon.com). What if the user enters the address
-`http://169.254.169.254/latest/user-data/`? Or, even more devious, the user sets up a domain that points to this IP 
-address? This will let the user access your user data, which may contain sensitive data.  
+`http://169.254.169.254/latest/user-data/`? (This is the
+[AWS metadata API](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) that lets you access
+various things about the instance the requesting code is running on.) Or, even more devious, the user sets up a domain
+that points to this IP address? This will let the user access your user data, which may contain sensitive data.
 
 ## Defense against SSRF
 
