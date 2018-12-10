@@ -1,9 +1,9 @@
 ---
 layout:        post
-title:         "Security: What is Client Side Request Forgery?"
-date:          "2018-12-10 00:00:00"
+title:         "Security: What is Cross-Site Request Forgery?"
+date:          "2018-12-10 07:10:00"
 categories:    blog
-excerpt:       "Client Side Request Forgery is a pretty well known security vulnerability, yet many developers still fail to secure their applications. Let's discuss this!"
+excerpt:       "Cross-Site Request Forgery is a pretty well known security vulnerability, yet many developers still fail to secure their applications. Let's discuss this!"
 preview:       /assets/img/what-is-csrf.jpg
 fbimage:       /assets/img/what-is-csrf.png
 twitterimage:  /assets/img/what-is-csrf.png
