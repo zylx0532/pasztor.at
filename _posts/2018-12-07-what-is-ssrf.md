@@ -3,7 +3,7 @@ layout:        post
 title:         "Security: What is Server Side Request Forgery?"
 date:          "2018-12-07 00:00:00"
 categories:    blog
-excerpt:       "Client Side Request Forgery or CSRF is a well known security vulnerability. But what is SSRF?"
+excerpt:       "Cross-site Request Forgery or CSRF is a well known security vulnerability. But what is SSRF?"
 preview:       /assets/img/what-is-ssrf.jpg
 fbimage:       /assets/img/what-is-ssrf.png
 twitterimage:  /assets/img/what-is-ssrf.png
@@ -18,8 +18,8 @@ sharing:
   discord:  "@everyone new article about security: What is Server Side Request Forgery?"
 ---
 
-CSRF is, while still prevalent, no longer an unknown type of security vulnerability. It's brother, SSRF, however, is.
-Most developers, or even DevOps engineers don't know about it. So how does it work?
+[CSRF](/blog/what-is-ssrf) is, while still prevalent, no longer an unknown type of security vulnerability. It's brother,
+SSRF, however, is. Most developers, or even DevOps engineers don't know about it. So how does it work?
 
 ## SSRF explained
 
