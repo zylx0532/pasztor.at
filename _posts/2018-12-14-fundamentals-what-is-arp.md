@@ -1,7 +1,7 @@
 ---
 layout:        post
 title:         "Fundamentals: The Address Resolution Protocol"
-date:          "2018-12-06 00:00:00"
+date:          "2018-12-14 00:00:00"
 categories:    blog
 excerpt:       "How does a computer know what MAC address belongs to an IP? How does ARP work?"
 preview:       /assets/img/fundamentals-arp.jpg
