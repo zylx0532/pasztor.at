@@ -3,14 +3,15 @@ layout: home
 description: Latest posts by Janos Pasztor
 ---
 
+{% assign posts = site.posts | where_exp:"post","post.date < site.time" %}
 <div class="wall">
 <div class="wall__featurelist">
-    {% for post in site.posts limit:2 %}
+    {% for post in posts limit:2 %}
         {% include wall-post.html categorylabel=true %}
     {% endfor %}
 </div>
 <div class="wall__postlist">
-    {% for post in site.posts offset:2 limit:12 %}
+    {% for post in posts offset:2 limit:12 %}
         {% include wall-post-noimage.html categorylabel=true %}
     {% endfor %}
 </div>

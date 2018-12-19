@@ -11,9 +11,10 @@ description: Janos Pasztors workshops
 </p>
 </div>
 
+{% assign posts = site.categories.workshops | where_exp:"post","post.date < site.time" %}
 <div class="wall">
 <div class="wall__postlist">
-{% for post in site.categories.workshops %}
+{% for post in posts %}
 {% include wall-post.html %}
 {% endfor %}
 </div>
