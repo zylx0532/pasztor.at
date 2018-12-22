@@ -19,8 +19,9 @@ sharing:
 ---
 
 It just now happened that apparently [Slack blocked an Irani national living in Canada](https://twitter.com/a_h_a/status/1075510422617219077).
-And, as it usually is, people started saying that the person in question should use [Mattermost](https://mattermost.com/),
-a free, self-hosted Slack alternative, instead.
+([They have now apologized for it.](https://slackhq.com/an-apology-and-an-update)) And, as it usually is, people started
+saying that the person in question should use [Mattermost](https://mattermost.com/), a free, self-hosted Slack
+alternative, instead.
 
 I was wondering, how meritorious is their claim that *&ldquo;it can be installed in minutes&rdquo;*? Does it truly
 describe the effort required to operate a self-hosted alternative? Let's go through the requirements to run a service
