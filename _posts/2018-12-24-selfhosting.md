@@ -18,7 +18,7 @@ sharing:
   discord:  "@everyone To self host or not to self host, that is the question?"
 ---
 
-It just now happened that apparently [Slack blocked an Irani national living in Canada](https://twitter.com/a_h_a/status/1075510422617219077).
+It just now happened that apparently [Slack blocked an irani national living in Canada](https://twitter.com/a_h_a/status/1075510422617219077).
 ([They have now apologized for it.](https://slackhq.com/an-apology-and-an-update)) And, as it usually is, people started
 saying that the person in question should use [Mattermost](https://mattermost.com/), a free, self-hosted Slack
 alternative, instead.
@@ -30,15 +30,15 @@ like this in detail and see how much effort it really is.
 ## Hosting
 
 In order to self-host, you obviously need a host. If you already have an infrastructure set up for your non-production
-environment, this is easier. If you, however, have to go look for something, you are confronted with an array of options
-to run your servers. You would, probably, take something like a [dockerized deployment](https://docs.mattermost.com/install/prod-docker.html).
+environment, this is easier. If you, however, have to go look for something you are confronted with an array of options
+to run your servers. You would probably take something like a [dockerized deployment](https://docs.mattermost.com/install/prod-docker.html).
 
-It does not look too complicated at first, bit there are actually a lot of steps involved, from installing Docker,
+It does not look too complicated at first, but there are actually a lot of steps involved, such as installing Docker,
 launching the container, deploying TLS certificates. Also, you need to make sure your certificates don't expire.
 
 ## Backups/Disaster recovery
 
-The next question is, how do you properly do backups. &ldquo;Just copy the files&rdquo; doesn't really do it, because 
+The next question is, how do you properly do backups. &ldquo;Just copy the files&rdquo; doesn't really do it because 
 you need to make sure the backups are actually working and are consistent. Fortunately,
 [Mattermost has a disaster recovery documentation](https://docs.mattermost.com/administration/backup.html),
 but most self-hosted software doesn't. Nevertheless, you need to make sure your backups are running and are actually
@@ -46,7 +46,7 @@ working, which, if we take it seriously, involves disaster recovery drills.
 
 One important aspect of backups, of course, is the location of said backup. If you store it in the same cloud account
 as your installation, a compromise of that account may lead to a complete loss of data. So you need to provide an 
-independent storage for your backups, preverably in a manner that even when a delete is triggered using the backup 
+independent storage for your backups, preferably in a manner that even when a delete is triggered using the backup 
 scripts credentials, it is archived and can be restored.
 
 The second big question about backups is what to backup? Do you backup only the data, or the application configuration
