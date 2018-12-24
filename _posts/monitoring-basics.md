@@ -11,11 +11,11 @@ googleimage:   /assets/img/monitoring-basics.png
 twitter_card:  summary_large_image
 tags:          [DevOps, Theory]
 sharing:
-  twitter:  "" 
-  facebook: ""
-  linkedin: ""
-  patreon:  ""
-  discord:  "@everyone"
+  twitter:  "Are you #monitoring your #devops stack? Or did you just install a monitoring system?" 
+  facebook: "Are you #monitoring your #devops stack? Or did you just install a monitoring system?"
+  linkedin: "Are you #monitoring your #devops stack? Or did you just install a monitoring system?"
+  patreon:  "Are you monitoring your devops stack? Or did you just install a monitoring system?"
+  discord:  "@everyone Are you monitoring your devops stack? Or did you just install a monitoring system?"
 ---
 
 If you ask a sysadmin what the most important thing in running an infrastructure is, they are either going to say
@@ -86,5 +86,13 @@ you don't discover issues quickly enough.
 
 Now, one important aspect that is often neglected when it comes to monitoring systems is the backups and disaster
 recovery of it. If your monitoring system crashes, you are flying blind. You absolutely have to make backups
-of your monitoring system, and you have to be able to restore operations quickly in case of a failure.
+of your monitoring system, and you have to be able to restore operations quickly in case of a failure. 
 
+This applies to third party monitoring providers as well. A misconfiguration on their part means that all your
+carefully set monitoring configuration could be lost. To prevent that you either need to back up your configuration,
+or use Infrastructure as Code tools (e.g. Terraform, Ansible) to create that configuration in the first place.
+
+## Conclusion
+
+Monitoring is hard. Sometimes mistakes happen, and you get false positives or don't discover an outage in time. 
+That's normal. Don't, however, allow yourself to normalize it. If a mistake happens, make sure to fix it.
