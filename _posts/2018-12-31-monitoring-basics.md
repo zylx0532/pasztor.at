@@ -9,7 +9,7 @@ fbimage:       /assets/img/monitoring-basics.png
 twitterimage:  /assets/img/monitoring-basics.png
 googleimage:   /assets/img/monitoring-basics.png
 twitter_card:  summary_large_image
-tags:          [DevOps, Theory]
+tags:          [DevOps, Monitoring]
 sharing:
   twitter:  "Are you #monitoring your #devops stack? Or did you just install a monitoring system?" 
   facebook: "Are you #monitoring your #devops stack? Or did you just install a monitoring system?"
