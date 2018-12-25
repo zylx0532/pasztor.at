@@ -38,7 +38,7 @@ The obvious answer I hear from a lot of business owners is: *&ldquo;Everything!&
 from the truth.
 
 In my eyes monitoring has two purposes. First of all, it needs to tell you when something happens in the system that
-impairs the business. Nobody is wants to get up at 2 AM in the morning for something that doesn't affect the business.
+impairs the business. Nobody wants to get up at 2 AM in the morning for something that doesn't affect the business.
 
 Second, it should help with forecasting. It should tell you about things that will soon become an issue.
 
