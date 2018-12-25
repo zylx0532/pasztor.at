@@ -25,7 +25,9 @@ at best.
 When I go into a system to do an audit, I usually discover that if they even have a monitoring, they usually run with
 some default settings that do no good whatsoever.
 
-So how do we build a monitoring system?
+So how do we design a monitoring system? No, we are not going to talk about specific software like
+[Icinga](https://icinga.com/), [Prometheus](https://prometheus.io/) or [Grafana](https://grafana.com/), we are going to
+talk about the things you need to think about when setting up a monitoring system.
 
 ## The questions monitoring answers
 
@@ -40,10 +42,9 @@ impairs the business. Nobody is wants to get up at 2 AM in the morning for somet
 
 Second, it should help with forecasting. It should tell you about things that will soon become an issue.
 
-Let's look at an example. If your webshop is down, you will want to know about that pretty much immediately. If it's
-2 AM you may need to get up and fix it. On the other hand, if a single disk fails and you have a RAID setup, and your
-infrastructure is set up in a redundant fashion anyway, that's more of a forecast-type of issue. You should know about
-it, but it should not wake you up.
+If, for example, your site is down, you may want to react immediately. In contrast, if one of the disks is soon going
+to die, you don't care at 2 AM in the morning. You do, however, care in the long run, as you may need to order more
+disks.
 
 ## The trust-issue
 
