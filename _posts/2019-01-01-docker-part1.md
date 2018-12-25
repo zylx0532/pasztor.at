@@ -18,3 +18,16 @@ sharing:
   discord:  "@everyone Still confused about Docker? Part 1 of my new series Docker for Beginners is out!"
 ---
 
+Docker is in everyones head nowadays, but there is still a lot of confusion about it.
+
+What are containers? And why should I care? I just want to get my application running!
+
+These are just some of the thoughts that may be going through your head. So let's take it slow, let's explore from
+the very beginning, and learn how this whole Docker universe works.
+
+## What are containers?
+
+You may be confused: how are containers different from virtual machines? Why would I want to use a container instead
+of just renting a VM on a cloud provider of my choice?
+
+When we talk about a VM, this is how your application stack looks like:

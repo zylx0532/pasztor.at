@@ -1,6 +1,6 @@
 ---
 layout:        post
-title:         "Monitoring basics"
+title:         "Monitoring: Basics"
 date:          "2018-12-31 00:00:00"
 categories:    blog
 excerpt:       "Monitoring your application is critical. But how do you do it? What are the important things you need to watch out for?"
@@ -96,4 +96,5 @@ or use Infrastructure as Code tools (e.g. Terraform, Ansible) to create that con
 ## Conclusion
 
 Monitoring is hard. Sometimes mistakes happen, and you get false positives or don't discover an outage in time. 
-That's normal. Don't, however, allow yourself to normalize it. If a mistake happens, make sure to fix it.
+That's normal. Don't, however, allow yourself to normalize false positives and missing or inconclusive alerts. If a
+mistake happens, make sure to fix it.
