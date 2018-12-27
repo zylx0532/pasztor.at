@@ -1,7 +1,7 @@
 ---
 layout:        post
 title:         "Docker for Beginners: Introduction"
-date:          "2019-01-01 00:00:00"
+date:          "0000-00-00 00:00:00"
 categories:    blog
 excerpt:       "It seems no DevOps conversation can go by without talking about Docker. But what is Docker and how do you use it?"
 preview:       /assets/img/docker-part1.jpg
