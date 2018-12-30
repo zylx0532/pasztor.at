@@ -2,16 +2,17 @@
 layout: null
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>{{ site.title | xml_escape }}</title>
-        <description>{{ site.description | xml_escape }}</description>
+        <description>Janos Pasztor is an author, public speaker and video creator.</description>
         <link>{{ site.url }}{{ site.baseurl }}/</link>
         <atom:link href="{{ "/sharing/ia.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml" />
-        <updated>{{ site.time | date_to_xmlschema }}</updated>
-        <id>{{ site.url }}</id>
+        <lastBuildDate>{{ site.time | date_to_xmlschema }}</lastBuildDate>
+        <language>en-us</language>
         <author>
-            <name>{{ site.owner.name }}</name>
+            <name>Janos Pasztor</name>
         </author>
         {% assign posts = site.posts | where_exp:"post","post.date < site.time" %}
         {% for post in posts limit:50 %}
