@@ -34,7 +34,7 @@ talk about the things you need to think about when setting up a monitoring syste
 Before we dive in, we need to ask ourselves the question: What is the purpose of our monitoring system? What should we
 monitor?
 
-The obvious answer I hear from a lot of business owners is: *&ldquo;Everything!&rdquo; But nothing could be further
+The obvious answer I hear from a lot of business owners is: *&ldquo;Everything!&rdquo;* But nothing could be further
 from the truth.
 
 In my eyes monitoring has two purposes. First of all, it needs to tell you when something happens in the system that
