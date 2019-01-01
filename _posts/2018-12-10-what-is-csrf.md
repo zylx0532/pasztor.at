@@ -112,7 +112,11 @@ Our proper form would look something like this:
      name="amount"
      value=""
     />
-    <input type="hidden" name="csrf-token" value="super-secret-value"
+    <input
+     type="hidden"
+     name="csrf-token"
+     value="super-secret-value"
+    />
 </form>
 ```
 
