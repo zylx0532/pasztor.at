@@ -136,5 +136,5 @@ domain, no matter where it comes from.
 
 ## CSRF protection is important
 
-CSRF protection is just as important as preventing [injection-type attacks](./blog/injection-type-vulnerabilities).
+CSRF protection is just as important as preventing [injection-type attacks](/blog/injection-type-vulnerabilities).
 Don't neglect it, not even in seemingly innocuous places like a login form.
