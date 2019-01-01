@@ -28,7 +28,7 @@ layout: null
                     {% assign src = 'href="' | append: site.url | append: '/' %}
                     {{ post.content | replace: 'href="/', href}}
                     <p>
-                        This post was <a href="{{ post.url | prepend: site.url }}">originally published on my blog</a>.
+                        <em>This post was <a href="{{ post.url | prepend: site.url }}">originally published on my blog</a>.</em>
                     </p>
                 ]]>
             </description>
