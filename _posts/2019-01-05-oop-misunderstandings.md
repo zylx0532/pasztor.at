@@ -1,7 +1,7 @@
 ---
 layout:        post
 title:         "What people misunderstand about OOP"
-date:          "2019-01-04 00:00:00"
+date:          "2019-01-05 00:00:00"
 categories:    blog
 excerpt:       "Is OOP dead? Is Functional Programming the future? Some articles seem to suggest so. I would tend to disagree. Let's discuss!"
 preview:       /assets/img/oop-misunderstandings.jpg
