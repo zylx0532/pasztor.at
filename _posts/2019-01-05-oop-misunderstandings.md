@@ -105,9 +105,9 @@ In this specific example the author of the `ShoppingCart` class could use [immut
 to work around the problem and ensure that the encapsulation is not violated.
 
 A different way inexperienced programmers often violate encapsulation is by introducing *state* where none is required.
-Often younger programmers use private class variables to pass data from one function to another instead of using Data
-Transfer Objects to pass a complex structure to a different function. This introduces unnecessary complexity and often
-leads to bugs.
+Often inexperienced programmers use private class variables to pass data from one function to another within the same
+class instead of using Data Transfer Objects to pass a complex structure to a different function. This introduces
+unnecessary complexity and often leads to bugs.
 
 In general, it is a good idea to avoid state (storing mutable data) in our classes whenever possible. If we do, it 
 should be *well encapsulated* and made sure that it does not leak.
