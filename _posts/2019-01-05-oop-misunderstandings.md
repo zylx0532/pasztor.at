@@ -160,7 +160,7 @@ problem.
 
 Most programmers who consider themselves FP, love FP for its simplicity and don't think of this as a big problem.
 Which is fair enough, if you just have to ship the software and never touch it again. However, if you want a
-maintainable, you better adhere to the [clean code principles](/tags/clean-code). That includes using
+maintainable code base, you better adhere to the [clean code principles](/tags/clean-code). That includes using
 [dependency inversion](/blog/clean-code-dependencies), which makes FP also a lot more complex to use.
 
 ## OOP or FP?
