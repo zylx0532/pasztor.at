@@ -3,7 +3,7 @@ layout:        post
 title:         "Why people want Kubernetes?"
 date:          "2019-01-23 00:00:00"
 categories:    blog
-excerpt:       "I've previously argued that running Kubernetes is hard. Why do people still want it? Let's look past the hype train and take a gander through the valuable things K8 provides."
+excerpt:       "I've previously argued that running Kubernetes is hard. Why do people still want it? Let's look past the hype train and take a gander through the valuable things k8s provides."
 preview:       /assets/img/why-kubernetes.jpg
 fbimage:       /assets/img/why-kubernetes.png
 twitterimage:  /assets/img/why-kubernetes.png
@@ -22,7 +22,7 @@ In a [previous article I argued that Kubernetes is extremely hard to run](/blog/
 rightfully asked why someone would even bother with using Kubernetes? Isn't it all just a hype train that people 
 have jumped on and are heading right for that proverbial cliff?
 
-Sure enough, Kubernetes (K8) is on the top of the
+Sure enough, Kubernetes (k8s) is on the top of the
 [Gartner Hype Cycle](https://www.gartner.com/en/research/methodologies/gartner-hype-cycle). Many newly created
 *&ldquo;DevOps&rdquo;* teams are facing inevitable disappointment. (You know, the ones that have been rebranded DevOps
 because it sounds cooler.)
@@ -149,5 +149,5 @@ to use Kubernetes beyond the hype train. Discarding it as a valuable tool just b
 like sticking your fingers into your ears and saying &ldquo;lalalalala&rdquo; very loudly.
 
 Kubernetes has been built by Google to address Google-scale problems. As I've written before,
-[Kubernetes is hard](/blog/kubernetes-is-hard) and may not be for everyone. The concepts behind using K8, however, are
+[Kubernetes is hard](/blog/kubernetes-is-hard) and may not be for everyone. The concepts behind using k8s, however, are
 valuable and should at least be given some thought when deploying a new infrastructure.
