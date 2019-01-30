@@ -151,6 +151,15 @@ class VideoPostRenderingStrategy
 
 This rendering strategy can then be passed to the renderer as a way to extend its functionality.
 
+## Conclusion
+
+We humans are forgetful, we sometimes don't think, and when deadlines are looming we are sometimes willing to go to any
+lengths to get the job done *quickly*. Inheritance often seems like a tempting solution to introduce an ugly hack just 
+to meet the deadline.
+
+Having `final` in your classes by default prevents them to be abused like that. In fact, I find that I could often
+live completely without inheritance by just using interfaces when needed.
+
 ## Sources:
 
 - [Robert C. Martin: The Open-Closed Principle](https://web.archive.org/web/20060822033314/http://www.objectmentor.com/resources/articles/ocp.pdf)
