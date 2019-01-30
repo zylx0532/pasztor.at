@@ -22,7 +22,7 @@ Wait, what? Now I must have surely lost my marbles, right?
 
 Well, let's back up a bit. What is final and why am I making such a recommendation?
 
-In Java and other OOP the `final` keyword can be used to prevent a class from being extended. This is an effective
+In Java and other OOP the `final` keyword can be used to prevent a class from being inherited from. This is an effective
 method to lock down a class. It works like this:
 
 ```java
@@ -37,7 +37,7 @@ class MySubClass extends MyClass {
 }
 ```
 
-So, why am I claiming you should make all (well, most) of your classes final? 
+So, why am I claiming you should make most of your classes final? 
 
 ## The Open-Closed principle
 
@@ -56,61 +56,100 @@ When you want a long term maintainable code base having to touch existing module
 is evil. Because of a new feature you would have to touch old code. In other words, you implement a new feature and you
 may end up breaking some old functionality. This is especially true if you do not have tests.
 
-So what about the closed part? The closed part says that you should not allow a module / class / etc to be modified 
-externally. A most prominent example of a non-closed module is the following implemented in Java:
+For example, here's a class that is not open:
 
 ```java
-class UserLister {
-  private List<User> users;
-  
-  public List<User> getUsers() {
-    return user;
-  }
+class TemplateRenderer {
+
+    public String render(BlogPost blogPost) {
+      //...
+    }
 }
-``` 
-
-Why is this a problem? The `getUsers` method returns the original user list, which, if you are not familiar with Java,
-sounds ok. However, most implementations of `List` implement the interface faithfully, making it mutable. In other 
-words this is possible:
-
-```java
-userLister
-  .getUsers()
-  .add(
-    new User("Janos")
-  );
 ```
 
-Because `getUsers` returns a reference to the original, internal `users` variable of the `UserLister`. We can **modify
-the internal state of `UserLister`** without the class even knowing about it. We are violating the **closed** part of 
-the Open-Closed principle. Or, if you want to put it differently, we are violating
-[encapsulation](/blog/oop-misunderstandings).
+This `TemplateRenderer` accepts only BlogPost objects, so if you wanted to render something else using the same 
+template rendering mechanism, you would be out of luck.
 
-## Missing the closed part
+So what about the closed part?
 
-What does all this have to do with `final`? Why are we even talking about it? Let me explain.
+You see, the example above was also not closed enough. If I didn't want to touch the original code, I could do this:
 
-Classes, by default, can be extended. In my read this means that they are *open* by default. Without any design.
+```java
+class ExtendedTemplateRenderer extends TemplateRenderer {
+  @Override
+  public String render(BlogPost blogPost) {
+    if (blogPost instanceof VideoPost) {
+      //Render with video
+    } else {
+      return super.render(blogPost);
+    }
+  }
+}
+```
 
-In fact, I find that most class authors don't even think about how a certain class will be extended. In other words,
-the class is not *designed* to be extended.
+The `VideoPost` would, by necessity, extend `BlogPost`, even though it might not even have a post text attached to it:
 
-This, of course, is a clear violation of the OCP. Ideally this shouldn't happen, but let's be honest, we all make
-mistakes and create too open classes just because it is the default.
+```java
+class VideoPost extends BlogPost {
+  @Override
+  public String getText() {
+    return "";
+  }
+  
+  public String getVideoUrl() {
+    //...
+  }
+}
+```
+
+It walks like a hack, it quacks like a hack, it is a hack. If this codebase lives long enough, there will be layers
+upon layers upon layers of these hacks. If you change something *upstream* in the original `TemplateRenderer`,
+it could break the whole chain.
+
+The `TemplateRenderer` was never *designed* to be used this way, yet it is. The original author failed to properly
+*close* the implementation.
 
 ## Closed by default
 
-Most OOP languages, like Java, are open by default when it comes to extending. However, because we tend to not think
-about OCP so much, that we make our classes *closed by default*. One method to ensure that a class is closed is to
-apply the `final` keyword to all classes.
+What does all this have to do with `final`? Why are we even talking about it? Let me explain.
 
-When a class then needs to be extended by design, the final keyword can be removed. However,
-[as I argued before](/blog/oop-misunderstandings), it is better to use composition rather than extension to make 
-classes open.
+Classes, by default, can be inherited from in many OOP languages. This leaves them somewhat open to abuse as seen above.
+I find that most class authors don't even think about how a certain class will be inherited from. In other words, the
+class is not *designed* to be inherited from.
 
-It is also important to note that `final` itself does not prevent a class to be *accidentally open*, as demonstrated
-before the usage of `List` in Java can lead to internal state leakage. To prevent those kind of issues you can
-use [immutability](/blog/why-immutability-matters). But, of course, thinking always helps.
+If a class is not designed to be inherited from, inheritance, I think, should not be allowed. When a class then needs to
+be extended by design, the final keyword can be removed. However, [as I argued before](/blog/oop-misunderstandings), it
+is better to use composition rather than inheritance to make classes open for extension.
+
+Let's fix the example above. First of all, let's create a common interface that all post types have to implement:
+
+```java
+interface Post {
+  String getTitle();
+}
+```
+
+That's it, the title is the only required part. Then we can also create a rendering strategy as follows:
+
+```java
+interface TemplateRenderingStrategy<T extends Post> {
+  String render(T post);
+}
+```
+
+This template rendering strategy could be unique to each post type, so this would be a good solution:
+
+```java
+class VideoPostRenderingStrategy
+  implements TemplateRenderingStrategy<VideoPost> {
+  
+  public String render(VideoPost post) {
+    //...
+  }
+}
+```
+
+This rendering strategy can then be passed to the renderer as a way to extend its functionality.
 
 ## Sources:
 
