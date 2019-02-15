@@ -28,6 +28,14 @@ Feel free to learn from then and build your own!
     <meta property="og:image" content="{{ page.fbimage | default: "/assets/img/social-share-default.png" | absolute_url }}" />
     <meta property="og:url" content="{{ page.url | replace:'/index.html','' | absolute_url }}" />
     <meta property="og:description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}" />
+    <meta name="date" content="{{ page.date | date_to_xmlschema }}" />
+    {% if page.date %}
+      {% capture sitetime %}{{site.time | date: '%s'}}{% endcapture %}
+      {% capture posttime %}{{page.date | date: '%s'}}{% endcapture %}
+      {% if posttime > sitetime %}
+        <meta property="robots" content="noindex,nofollow" />
+      {% endif %}
+    {% endif %}
     {% if page.categories %}
       {% if page.video %}
         <meta property="og:type" content="video.other" />
