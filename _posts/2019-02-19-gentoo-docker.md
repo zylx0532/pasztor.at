@@ -1,7 +1,7 @@
 ---
 layout:        post
 title:         "Gentoo as a Docker build system?"
-date:          "2019-02-21 00:00:00"
+date:          "2019-02-19 00:00:00"
 categories:    blog
 excerpt:       "Gentoo compiles everything from source, which sounds it might not be useful for Docker. Yet, it can be made to build a sub-100 MB image for PHP..."
 preview:       /assets/img/gentoo-docker.jpg
