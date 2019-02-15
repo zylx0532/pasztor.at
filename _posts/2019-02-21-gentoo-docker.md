@@ -151,7 +151,7 @@ This will give us a list of all files in the glibc package. We then run it throu
 to our `destination` folder:
 
 ```
-RUN for i in $(equery -C files glibc); do\
+RUN for i in $(equery -C files glibc); do \
       if [ -f $i ]; then \
         mkdir -p $(dirname /destination$i) && \
         rsync -avz $i /destination$i \
@@ -248,14 +248,17 @@ a compact little Docker container?
 The answer is, again, multi-stage builds. Take the `/destination/` folder and make it our container:
 
 ```
+# Start from an empty image
 FROM scratch
 
+# Copy the destination files from the previous stage
 COPY --from=base /destination /
 ```
 
 Finally, we can define an entry point for our container:
 
 ```
+# Run this command at startup
 ENTRYPOINT ["/usr/lib64/php7.2/bin/php-fpm", "-F", "-c", "/etc/php/fpm-php7.2/php.ini", "-y", "/etc/php/fpm-php7.2/php-fpm.conf"]
 ```
 
