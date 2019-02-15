@@ -1,7 +1,7 @@
 ---
 layout:        post
 title:         "Gentoo as a Docker build system?"
-date:          "2019-02-18 00:00:00"
+date:          "2019-02-21 00:00:00"
 categories:    blog
 excerpt:       "Gentoo compiles everything from source. This makes it almost impractical for every day use. But can we use it as a Docker build system?"
 preview:       /assets/img/gentoo-docker.jpg
