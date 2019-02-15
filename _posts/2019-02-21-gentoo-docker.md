@@ -3,7 +3,7 @@ layout:        post
 title:         "Gentoo as a Docker build system?"
 date:          "2019-02-21 00:00:00"
 categories:    blog
-excerpt:       "Gentoo compiles everything from source. This makes it almost impractical for every day use. But can we use it as a Docker build system?"
+excerpt:       "Gentoo compiles everything from source, which sounds it might not be useful for Docker. Yet, it can be made to build a sub-100 MB image for PHP..."
 preview:       /assets/img/gentoo-docker.jpg
 fbimage:       /assets/img/gentoo-docker.png
 twitterimage:  /assets/img/gentoo-docker.png
@@ -170,7 +170,14 @@ variable in the beginning of our Dockerfile. Let's say we don't want IPv6 suppor
 ENV USE="-ipv6"
 ```
 
-That's it! Now all packages will compile without IPv6!
+Next, we need to recompile the host operating system so the libraries installed match the new use flags:
+
+```
+emerge --update --changed-use --deep @world
+```
+
+This will essentially recompile the host system, which is sometimes used in the build process. This command should be
+added to the `Dockerfile` as the first thing after the `ENV USE` line.
 
 ## Making it small
 
@@ -178,7 +185,7 @@ Gentoo isn't built with the expectation that you will want a tiny operating syst
 the operating system. After all, in a Docker container we don't need all kinds of shell utilities.
 
 Therefore, we have to hack around a little to get Gentoo to remove all the core utilities. This can be achieved by
-forcing the removal of a couple of packages:
+forcing the removal of the core packages. The command to do this is as follows:
 
 ```
 RUN ROOT=/destination emerge -C \
@@ -193,17 +200,20 @@ RUN ROOT=/destination emerge -C \
       sys-libs/ncurses
 ```
 
-The list of packages you need to remove may vary. Check the following command to see which packages are installed:
+The list of packages you need to remove may vary. You can check the list of packages installed like this:
 
 ```
 ls -la /destination/var/db/pkg/*
 ```
 
+Once you have the list of packages, you can make an educated guess which packages will be needed for running the target
+application, in this case PHP.
+
 **Note** that you are actively breaking dependencies here by applying the `-C` flag! This is only recommended if you 
 want to go for a really small image, and you don't need that stuff anyway. This should always be the last step in your
 build process!
 
-It is also helpful to set the `PYTHON_TARGETS` so the Python dependencies are not installed:
+It is also helpful to set the `PYTHON_TARGETS` so the Python dependencies are not installed *before* PHP is compiled:
 
 ```
 ENV PYTHON_TARGETS=""
@@ -213,6 +223,7 @@ Finally, it may be worthwhile removing manuals, source code, etc:
 
 ```
 RUN rm -rf \
+        /destination/usr/bin \
         /destination/usr/share/doc \
         /destination/usr/share/gtk-doc \
         /destination/usr/share/eselect \
@@ -248,7 +259,7 @@ Finally, we can define an entry point for our container:
 ENTRYPOINT ["/usr/lib64/php7.2/bin/php-fpm", "-F", "-c", "/etc/php/fpm-php7.2/php.ini", "-y", "/etc/php/fpm-php7.2/php-fpm.conf"]
 ```
 
-This will create a sub-100 MB Docker image with PHP in it.
+**This will create a sub-100 MB Docker image with PHP in it.**
 
 ## Where is the source code?
 
