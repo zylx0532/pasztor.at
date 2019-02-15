@@ -60,10 +60,13 @@ We are standing on the shoulders of giants here. The [Gentoo in Docker](https://
 project has done most of the heavy lifting for us, we simply need to copy-paste the initial code into our `Dockerfile`:
 
 ```
+# Use the empty image with the portage tree as the first stage
 FROM gentoo/portage:latest as portage
 
+# Gentoo stage3 is the second stage, basically an unpacked Gentoo Linux
 FROM gentoo/stage3-amd64:latest as gentoo
 
+# Copy the portage tree into the current stage
 COPY --from=portage /usr/portage /usr/portage
 ``` 
 
@@ -77,7 +80,7 @@ we can create a clean set of files with only the required libraries, without all
 To do this we simply need to provide the `ROOT` environment variable like this:
 
 ```
-ROOT=/destination emerge php
+ROOT=/destination emerge --quiet php
 ```
 
 Before we integrate it into our Docker container, let's run it by hand and see what gives:
@@ -103,7 +106,7 @@ We will talk about that one later.
 So, let's put it into our `Dockerfile` and compile PHP!
 
 ```
-RUN ROOT=/destination emerge dev-lang/php
+RUN ROOT=/destination emerge --quiet dev-lang/php
 ```
 
 If you run this command, you will probably sit around for a good half hour until the entire chain of 45 packages
@@ -173,7 +176,7 @@ ENV USE="-ipv6"
 Next, we need to recompile the host operating system so the libraries installed match the new use flags:
 
 ```
-emerge --update --changed-use --deep @world
+emerge --update --changed-use --deep --quiet @world
 ```
 
 This will essentially recompile the host system, which is sometimes used in the build process. This command should be
@@ -188,7 +191,7 @@ Therefore, we have to hack around a little to get Gentoo to remove all the core 
 forcing the removal of the core packages. The command to do this is as follows:
 
 ```
-RUN ROOT=/destination emerge -C \
+RUN ROOT=/destination emerge --quiet -C \
       app-admin/select \
       app-admin/metalog \
       app-eselect/eselect-php \
