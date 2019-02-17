@@ -18,13 +18,11 @@ sharing:
   discord:  "@everyone Hey vim lovers, if you write a lot of code, you may want to consider an IDE."
 ---
 
-I admit, that tagline might have been a bit pretentios. There are many good uses for simple editors like vim,
+I admit, that tagline might have been a bit provocative. There are many good uses for simple editors like vim,
 especially when it comes to administering servers, writing scripts, and so on. However, when it comes to writing
 large, complex applications simple editors are actually encouraging bad practices.
 
 ## The directory tree
-
-> *Vim is immensely powerful, but at its core it is designed to work on one, or very few files.*
 
 Our editors and IDEs heavily influence what we optimize for. For example, if you use an IDE, a glance to the left
 give you the directory tree. Therefore it is not a big hassle to create more files.
@@ -133,3 +131,9 @@ will not give you the tooling support.
 And they don't even have to be expensive! [Visual Studio Code](https://code.visualstudio.com/), or
 [PyCharm Community Edition](https://www.jetbrains.com/pycharm/) are just a few examples for free, powerful IDEs.
 Take your pick!
+
+## You can still use vim
+
+If you're a vim addict, you don't have to give up any of that despite using a modern IDE. Most development environments
+offer vim emulation, so you can use all your vim text editing goodies. There is no reason not to embrace the IDE as a
+powerful tool to help you with your code, but still keep your keyboard-only text editing superpowers.
