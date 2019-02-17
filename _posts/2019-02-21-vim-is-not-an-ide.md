@@ -3,13 +3,13 @@ layout:        post
 title:         "VIM is not an IDE"
 date:          "2019-02-19 00:00:00"
 categories:    blog
-excerpt:       "VIM is not an IDE. Time to get one if you are serious about writing code."
+excerpt:       "VIM is not an IDE. Time to get one if you are serious about writing clean code."
 preview:       /assets/img/vim-is-not-an-ide.jpg
 fbimage:       /assets/img/vim-is-not-an-ide.png
 twitterimage:  /assets/img/vim-is-not-an-ide.png
 googleimage:   /assets/img/vim-is-not-an-ide.png
 twitter_card:  summary_large_image
-tags:          [DevOps, Docker]
+tags:          [Development, Clean Code]
 sharing:
   twitter:  "Hey #vim lovers, if you write a lot of code, you may want to consider an IDE. #cleancode"
   facebook: "Hey #vim lovers, if you write a lot of code, you may want to consider an IDE. #cleancode"
