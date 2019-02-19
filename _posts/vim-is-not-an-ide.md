@@ -1,7 +1,7 @@
 ---
 layout:        post
 title:         "VIM is not an IDE"
-date:          "2019-02-19 00:00:00"
+date:          "0000-00-00 00:00:00"
 categories:    blog
 excerpt:       "VIM is not an IDE. Time to get one if you are serious about writing clean code."
 preview:       /assets/img/vim-is-not-an-ide.jpg
@@ -54,6 +54,9 @@ a nail. Again, not wanting to detract from the immense toolset vim brings to *ed
 > **Further reading:** [The Cookie Cutter Architecture](/blog/the-cookie-cutter-architecture)
 
 ## No early warning system
+
+> **YMMV:** Some languages have tools like jslint for JavaScript or pylint for Python that can be integrated with 
+> vim. 
 
 Another important feature modern IDEs bring is in-depth code analysis. This is especially important if you are working
 in a [dynamically typed language](/blog/loose-strict-static) since there is no compiler that will throw the code
@@ -137,3 +140,6 @@ Take your pick!
 If you're a vim addict, you don't have to give up any of that despite using a modern IDE. Most development environments
 offer vim emulation, so you can use all your vim text editing goodies. There is no reason not to embrace the IDE as a
 powerful tool to help you with your code, but still keep your keyboard-only text editing superpowers.
+
+It is also worth mentioning that not all IDEs are created equal. Some are slow, or do not provide a benefit compared to
+a plain text editor. 
