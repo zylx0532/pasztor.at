@@ -67,7 +67,7 @@ but the most frequently used ones.
 If your IDE analyses the code of these libraries it can come up with helpful hints what you might want to type there,
 speeding up the process and also eliminating long method or class names as a problem.
 
-This, of course, cannot just simply be a dumb list of &ldquo;hey, these functions exist&rdquo, the IDE needs to 
+This, of course, cannot just simply be a dumb list of &ldquo;hey, these functions exist&rdquo; the IDE needs to 
 *understand* the programming language you are using. Let's say you have the following piece of code:
 
 ```java
