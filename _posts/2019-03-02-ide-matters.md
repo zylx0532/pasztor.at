@@ -105,7 +105,7 @@ modern IDEs have refactoring tools. Right click, refactor, rename. However, this
 replace. If it was it would replace a lot of things it shouldn't. Instead, like before, the IDE needs to *understand*
 the structure of your code.
 
-For example, let's look at this piece of python code:
+For example, let's look at this piece of Python code:
 
 ```python
 foo = "bar";
