@@ -81,6 +81,17 @@ what methods it has.
 This is why so many modern IDE's have quite a bit of resource consumption. They need to build a map of your code and 
 index it in an internal database so they have the information handy within a couple of hundred milliseconds. 
 
+## Debugging
+
+All reasonable programming languages and environments allow you to debug. This means that you can set a break point 
+in your program code and make the whole system stop once you get there. While stopped, you can inspect the variables
+set there, and even go back in the call stack to inspect the calls that lead to the point where you are at.
+
+<figure><img src="/assets/img/ide-debug.png" alt="" /><figcaption>Debugging in a modern IDE.</figcaption></figure>
+
+Furthermore, you can usually also go over the following code step by step, tracing the what each individual line in
+the code does to the variables. This is especially important when refactoring some legacy code that you need to learn.
+
 ## Refactoring tools
 
 <figure><img src="/assets/img/ide-refactor.png" alt="" /><figcaption>Refactor operation in a modern IDE.</figcaption></figure>
@@ -174,10 +185,36 @@ You may be thinking that you will not deal with code someone else wrote. Guess w
 for six months down the line your own code is going to look alien to you. You will have to re-learn the structures
 of your project, what is where, etc.
 
+## Automatic deployment
+
+One issue that I come across quite frequently is the sufficiently configured and powerful development environment.
+Let me explain.
+
+I recently had a developer complain that their company issued notebook was not powerful enough to run their machine
+learning code. *&ldquo;Why don't you use a cloud virtual server?&rdquo; &mdash; I asked. And the answer was surprising.
+They didn't know how to use their IDE and get their code up on the server in an efficient manner.
+
+So, what are the options? Either you manually copy the code to the server (ugh) or you commit every change to your
+versioning system (git) and pull on the server (double ugh). No, none of these is a workable solution.
+
+<figure><img src="/assets/img/ide-deployment.png" alt="" /><figcaption>Deployment configuration in a modern IDE</figcaption></figure>
+
+Thankfully, modern IDE's have automated deployment tools. Edit the code, the IDE automatically syncs the code to the
+server and by the time you get over to your server to test it, it's already there.
+
+This also fixes another problem that appeared frequently. When people run Docker containers, they often get their code
+into the containers using [Docker volumes](https://docs.docker.com/storage/volumes/). Volumes allow the developer to
+share a folder between their host machine and the Docker container.
+
+However, on Windows or MacOS volume mounts are frequently causing problems. This, again, is solved by the IDE by simply
+syncing the code into the Docker container using SSH.
+
 ## Not the tools you are looking for
 
-These are just a few examples how IDEs help getting a better coder. They certainly helped me learn new programming 
-languages by pointing out inefficient code or bad practices. 
+These are just a few examples how IDEs help getting a better coder. You could go on about a million other things, but
+the point is, once learned, they become immensely powerful tools in your arsenal. They certainly helped me learn new
+programming languages by pointing out inefficient code or bad practices, and the time they saved me offset the cost by
+a factor of a hundred. 
 
 In general, as you go into larger, team projects, having an IDE that helps you reign in the chaos is definitely a must.
 In my eyes &ldquo;simple&rdquo; editors are just not suitable for projects above a few thousand lines of code as they
