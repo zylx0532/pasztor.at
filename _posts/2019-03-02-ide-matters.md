@@ -1,26 +1,27 @@
 ---
 layout:        post
-title:         "VIM is not an IDE"
-date:          "0000-00-00 00:00:00"
+title:         "Your choice of IDE matters"
+date:          "2019-03-02"
 categories:    blog
-excerpt:       "VIM is not an IDE. Time to get one if you are serious about writing clean code."
-preview:       /assets/img/vim-is-not-an-ide.jpg
-fbimage:       /assets/img/vim-is-not-an-ide.png
-twitterimage:  /assets/img/vim-is-not-an-ide.png
-googleimage:   /assets/img/vim-is-not-an-ide.png
+excerpt:       "Your IDE is your best friend when it comes to being efficient. Why do so many people not use it?"
+preview:       /assets/img/ide-matters.jpg
+fbimage:       /assets/img/ide-matters.png
+twitterimage:  /assets/img/ide-matters.png
+googleimage:   /assets/img/ide-matters.png
 twitter_card:  summary_large_image
 tags:          [Development, Clean Code]
 sharing:
-  twitter:  "Hey #vim lovers, if you write a lot of code, you may want to consider an IDE. #cleancode"
-  facebook: "Hey #vim lovers, if you write a lot of code, you may want to consider an IDE. #cleancode"
-  linkedin: "Hey #vim lovers, if you write a lot of code, you may want to consider an IDE. #cleancode"
-  patreon:  "Hey #vim lovers, if you write a lot of code, you may want to consider an IDE. #cleancode"
-  discord:  "@everyone Hey vim lovers, if you write a lot of code, you may want to consider an IDE."
+  twitter:  "Your choice of #IDE matters for #cleancode. Maybe stop using vanilla #vim?"
+  facebook: "Your choice of #IDE matters for #cleancode. Maybe stop using vanilla #vim?"
+  linkedin: "Your choice of #IDE matters for #cleancode. Maybe stop using vanilla #vim?"
+  patreon:  "Your choice of #IDE matters for #cleancode. Maybe stop using vanilla #vim?"
+  discord:  "@everyone Your choice of IDE matters for cleancode. Maybe stop using vanilla vim?"
 ---
 
-I admit, that tagline might have been a bit provocative. There are many good uses for simple editors like vim,
-especially when it comes to administering servers, writing scripts, and so on. However, when it comes to writing
-large, complex applications simple editors are actually encouraging bad practices.
+This piece started out as a rant titled *&ldquo;VIM is not an IDE&rdquo;*, but as I have talked to some people about
+vim and I have to concede my point: when set up properly, VIM can be an IDE. Sort of.
+
+But, instead of bagging on VIM, let's take a look what makes a good IDE and why it is important for clean code.
 
 ## The directory tree
 
@@ -35,28 +36,92 @@ since tabs open on top of the split layout.
 
 <figure><img src="/assets/img/vim-split.png" alt="" /><figcaption>A split view directory tree in vim.</figcaption></figure>
 
-**Vim is immensely powerful, but at its core it is designed to work on one, or very few files.** In the last decade
-development of more complex software has moved to more, smaller files, self-contained, small, testable units. I have
-made the experience that coders using an editor that does not make handling a large number of files are usually
-afraid from having many files resulting in arguments like &ldquo;*In Java you need 42 classes for a
+**Vim is immensely powerful, but at its core it is designed to work on one, or very few files.** Other, simpler editors
+have even less facilities to handle a large number of files.
+ 
+In the last decade development of more complex software has moved to more, smaller files, self-contained, small,
+testable units. I have made the experience that coders using an editor that does not make handling a large number of
+files are usually afraid from having many files resulting in arguments like &ldquo;*In Java you need 42 classes for a
 Hello world!*&rdquo;.
 
 Putting aside how nonsensical this argument is (it can be done in one class), the reason why many Java devs use so many
 classes is because they want to have testable units, as well as easy to replace parts. In the face of changing 
 requirements it is better to have smaller, easy to replace units than huge chunks of code.
 
-When I see people using &ldquo;simple&rdquo; editors (I know, vim is massively powerful) that do not encourage working
-with multiple files well, I usually also see very very long sections of code. Often several thousand lines long.
+When I see people using &ldquo;simple&rdquo; editors that do not encourage working with multiple files well, I usually
+also see very very long sections of code. Often several thousand lines long.
 
 It's not just the editors fault, of course, but as the saying goes, if all you have is a hammer, everything looks like
 a nail. Again, not wanting to detract from the immense toolset vim brings to *editing individual files*.
 
 > **Further reading:** [The Cookie Cutter Architecture](/blog/the-cookie-cutter-architecture)
 
-## No early warning system
+## Code completion
 
-> **YMMV:** Some languages have tools like jslint for JavaScript or pylint for Python that can be integrated with 
-> vim. 
+Modern programming languages have a gajillion features built in. Unlike the early days we have libraries, built in or
+external, for almost everything under the sun and then some.
+
+These libraries come with a large number of classes, functions and parameters. It is simply impossible to remember all
+but the most frequently used ones.
+
+If your IDE analyses the code of these libraries it can come up with helpful hints what you might want to type there,
+speeding up the process and also eliminating long method or class names as a problem.
+
+This, of course, cannot just simply be a dumb list of &ldquo;hey, these functions exist&rdquo, the IDE needs to 
+*understand* the programming language you are using. Let's say you have the following piece of code:
+
+```java
+List<String> myList = new ArrayList<String>();
+myList.
+```
+
+... and at this point the IDE should offer you something. The IDE here needs to understand what a `List` is, and 
+what methods it has.
+
+This is why so many modern IDE's have quite a bit of resource consumption. They need to build a map of your code and 
+index it in an internal database so they have the information handy within a couple of hundred milliseconds. 
+
+## Refactoring tools
+
+<figure><img src="/assets/img/ide-refactor.png" alt="" /><figcaption>Refactor operation in a modern IDE.</figcaption></figure>
+
+Once your code is written, the project is done, right? Well, not so fast. Sometimes you get old code written by others,
+and sometimes you get old code ... well, written by you. You know the meme, when you look at the code you wrote six
+months ago...
+
+Anyway, no matter if it's a typo or you just plain poorly named your class, changing it can be quite hard. That's why 
+modern IDEs have refactoring tools. Right click, refactor, rename. However, this, again, is not simply a search and
+replace. If it was it would replace a lot of things it shouldn't. Instead, like before, the IDE needs to *understand*
+the structure of your code.
+
+For example, let's look at this piece of python code:
+
+```python
+foo = "bar";
+
+def baz(foo):
+    print(foo);
+
+baz(foo);
+``` 
+
+If we refactor `foo` with a simple search and replace, it will be changed everywhere, even though our intention is most
+likely to only rename the variable inside the function.
+
+This kind of refactoring often works in the most unexpected situations, such as renaming an image and having the CSS
+code changed to match the new image name.
+
+However, modern IDE's go much further in helping the refactoring process. They may, for example, offer the ability to
+change a method signature.
+
+<figure><img src="/assets/img/ide-change-signature.png" alt="" /><figcaption>The change signature option in a modern IDE.</figcaption></figure>
+
+If we, for example, add a new parameter in this window, that change will propagate to all places where the method is
+used. When working in a language with static typing, or a static code analyser, it will immediately become apparent
+where the new parameter needs to be added. Alternatively, we can also use the &ldquo;Find usages&rdquo; option of our
+IDE.
+
+## The early warning system
 
 Another important feature modern IDEs bring is in-depth code analysis. This is especially important if you are working
 in a [dynamically typed language](/blog/loose-strict-static) since there is no compiler that will throw the code
@@ -109,19 +174,6 @@ You may be thinking that you will not deal with code someone else wrote. Guess w
 for six months down the line your own code is going to look alien to you. You will have to re-learn the structures
 of your project, what is where, etc.
 
-## Refactoring
-
-Once we have done our discovery, it is often time to refactor. Badly named variables and classes can make our own life 
-hell, so how about changing them?
-
-If you have an IDE that has code analysis and refactoring capabilities, you're all set. Right click, refactor, rename.
-Do a test run, if it still works, you're good.
-
-However, this is only possible if the IDE *understands* how the code is structured. A simple search and replace won't do
-as you might replace a lot of things you didn't intend to.
-
-<figure><img src="/assets/img/ide-refactor.png" alt="" /><figcaption>Refactor operation in a modern IDE.</figcaption></figure>
-
 ## Not the tools you are looking for
 
 These are just a few examples how IDEs help getting a better coder. They certainly helped me learn new programming 
@@ -141,5 +193,12 @@ If you're a vim addict, you don't have to give up any of that despite using a mo
 offer vim emulation, so you can use all your vim text editing goodies. There is no reason not to embrace the IDE as a
 powerful tool to help you with your code, but still keep your keyboard-only text editing superpowers.
 
+## Conclusion
+
 It is also worth mentioning that not all IDEs are created equal. Some are slow, or do not provide a benefit compared to
-a plain text editor. 
+a plain text editor. In the end you will have to make your own tool choices.
+
+However, I find that a lot of coders, especially less experienced, voice their disdain for IDE's because they are
+*&ldquo;bloated and just slow me down&rdquo;*. Yes, they do require a lot of resources, and if you don't learn to use
+them, they indeed just slow you down. They are complex tools that need learning. Just as your favorite programming
+language needed learning. 

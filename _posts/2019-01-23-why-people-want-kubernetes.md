@@ -138,7 +138,7 @@ Kubernetes with its overlay networks and network policies hides away the complex
 the firewall rules deployable via a simple API call. In other words, the firewall rules can be stored in the git repo
 along with the other configuration of how the application should be run.
 
-This makes some sysadmins unconfortable, but I would argue that a maintained firewall is better than an unmaintained. 
+This makes some sysadmins uncomfortable, but I would argue that a maintained firewall is better than an unmaintained. 
 Instead of ensuring compliance to policies by restricting the firewall configuration to privileged employees, active 
 scans and Kubernetes audit tools should be used to ensure security.
 
