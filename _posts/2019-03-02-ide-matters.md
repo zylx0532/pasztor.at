@@ -11,7 +11,7 @@ googleimage:   /assets/img/ide-matters.png
 twitter_card:  summary_large_image
 tags:          [Development, Clean Code]
 sharing:
-  twitter:  "Your choice of #IDE matters for #cleancode. Maybe stop using vanilla #vim? (Thanks to @repadyuri for the help!)"
+  twitter:  "Your choice of #IDE matters for #cleancode. Maybe stop using vanilla #vim?"
   facebook: "Your choice of #IDE matters for #cleancode. Maybe stop using vanilla #vim?"
   linkedin: "Your choice of #IDE matters for #cleancode. Maybe stop using vanilla #vim?"
   patreon:  "Your choice of #IDE matters for #cleancode. Maybe stop using vanilla #vim?"
@@ -238,6 +238,4 @@ a plain text editor. In the end you will have to make your own tool choices.
 However, I find that a lot of coders, especially less experienced, voice their disdain for IDE's because they are
 *&ldquo;bloated and just slow me down&rdquo;*. Yes, they do require a lot of resources, and if you don't learn to use
 them, they indeed just slow you down. They are complex tools that need learning. Just as your favorite programming
-language needed learning. 
-
-*Thank you to [György Horák](https://twitter.com/repadyuri) for the feedback and input on this article.*
+language needed learning.
