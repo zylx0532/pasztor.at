@@ -25,7 +25,7 @@ jobs:
           command: JEYKLL_ENV=prod bundle install --jobs=4 --retry=3 --path vendor/bundle
       - run:
           name: Build website
-          command: JEYKLL_ENV=prod bundle exec jekyll build --future
+          command: JEYKLL_ENV=prod bundle exec jekyll build --future --drafts --unpublished
       - persist_to_workspace:
           root: /tmp/project
           paths:
