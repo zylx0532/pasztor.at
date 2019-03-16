@@ -6,6 +6,7 @@
   &--print {
     display:none;
     @media print {
+      font-size:12px;
       page-break-before: avoid;
       margin-top:20px;
       padding-top:10px;

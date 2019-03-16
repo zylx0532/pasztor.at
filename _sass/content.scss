@@ -3,6 +3,10 @@
   font-family: $font-serif;
   font-size:21px;
   line-height: 30px;
+  @media print {
+    font-size: 12px;
+    line-height: 15px;
+  }
 
   pre {
     display: block;
@@ -12,7 +16,20 @@
     font-size:12px;
     line-height:20px;
     @media print {
-      font-size:21px;
+      font-size:12px;
+    }
+  }
+  a {
+    color:inherit;
+    text-decoration:underline;
+    @media print{
+      &[href^='/']:after {
+        content:" (https://pasztor.at" attr(href) ") ";
+      }
+      &:after{
+        content:" (" attr(href) ") ";
+        font-weight:lighter;
+      }
     }
   }
 
@@ -25,6 +42,9 @@
 
   pre, p, h2, h3, h4, h5, h6, table, figure, ul, ol {
     margin-top:30px;
+    @media print {
+      margin-top:15px;
+    }
   }
 
   &>* {
@@ -38,10 +58,16 @@
     letter-spacing: -.012em;
     --x-height-multiplier: 0.342;
     --baseline-multiplier: 0.22;
+    @media print {
+      page-break-after: avoid;
+    }
   }
 
   h1 {
     font-size:48px;
+    @media print {
+      font-size:21px;
+    }
   }
   @media screen and (max-width: $xxs - 1) {
     h1 {
@@ -49,10 +75,16 @@
     }
   }
   h2 {
-    font-size:26px
+    font-size:26px;
+    @media print {
+      font-size:18px;
+    }
   }
   h3 {
     font-size:21px;
+    @media print {
+      font-size:16px;
+    }
   }
   table {
     border-collapse: collapse;
@@ -77,6 +109,9 @@
     position:relative;
     @media screen and (max-width: 700px) {
       overflow-x: scroll;
+    }
+    @media print {
+      page-break-inside: avoid;
     }
     p {
       margin-top: 0;
@@ -154,10 +189,8 @@
     padding-left:20px;
     border-left:3px solid #555;
     font-style: italic;
-  }
-
-  a {
-    color:inherit;
-    text-decoration:underline;
+    @media print {
+      margin-left:0px;
+    }
   }
 }
