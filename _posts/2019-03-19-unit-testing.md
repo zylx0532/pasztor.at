@@ -231,12 +231,6 @@ As you can see we divided the test into three phases: setup, execute and assert.
 the object chain. The execute is responsible for executing the test, and the assert checks if the assumption we made
 holds true with our code.
 
-Now, *a word of warning*. It is easy to get carried away and write massive setup phases that construct complicated
-objects. I would advise you to treat your tests with the same respect as your production code and refactor them. Use
-methods like factories to construct more complicated objects if you have to, but more importantly, try to keep it
-simple. These are *unit*tests after all, they are supposed to test a unit, not the whole universe. (Integration tests
-are a whole other ballgame.)
-
 ### Functional programming
 
 > **Hint:** If you want, [you can read the code in full here](https://github.com/refactorzone/unit-testing-examples/blob/master/fp.py).
@@ -361,11 +355,63 @@ you should pick the programming paradigm that best suits the task, and not based
 
 Anyway, you can see that the dependencies can easily be separated in FP as well, which makes unit testing a breeze.
 
+## Fakes, mocks, and relying on internal implementation details
+
+It is important to note though that the dependency implementations we created to help our testing efforts, such as the
+`InMemoryQueue` or the `InMemoryBackend` should behave the same way as the actual production classes will. This is
+called a *fake*: it resembles the production setup as close as possible.
+
+If we take our `InMemoryQueue` example, it actually contains three queues: one for the new tasks, one for the completed
+ones and one for the failed ones. If your actual queue does not behave the same way, you might end up with issues down
+the line.
+
+This could be for various reasons, for example, the queue could *retry* a task and your code may not be prepared to 
+handle it.
+
+A different, and arguably worse approach would be to create a *mock*: a class that is specifically created to receive
+the calls as they are in the actual implementation and doesn't bother to provide a full implementation.
+ 
+This falls under the general category of relying on the internal implementation details of the production code.
+To illustrate this problem let's take a look at a particularly bad example:
+
+```python
+class Foo:
+    def __init__(self, bar):
+        self.bar = bar
+        
+    def do_something(some_switch: bool):
+        if some_switch:
+            return bar.baz()
+        return "Hello world!"
+```
+
+As you can see, if we call `do_something` with `False` as a parameter, bar will not be invoked. But we only know that
+if we look at the code. So a bad test might do something like this:
+
+```python
+def test_with_false_switch(self):
+    # Setup
+    foo = Foo(None)
+    # Execute
+    result = foo.do_something(false)
+    # Assert
+    self.assertEqual("Hello world!", result)
+``` 
+
+This test doesn't bother passing the dependency to `Foo`. However, if the implementation of `do_something` is changed
+to involve `bar` for some reason, all the tests that do this break. The tests are fragile.
+
+Tests should be written based on the public interface of the production code *only* and should never rely on the
+internal workings of said production code.
+
+Similarly, passing incomplete implementations of dependencies (mocks, etc) is a terrible idea if you want to have a
+maintainable codebase.
+
 ## The test-complexity issue
 
-As you can see our FP example got a little out of hand and would need some refactoring. This highlights a very important
-point: the easiest way to create technical debt without touching the production code is via tests. You *have* to treat
-your tests with the same measure of quality as your production code. That includes refactoring it, creating
+You may also notice that our FP example got a little out of hand and would need some refactoring. This highlights a very
+important point: the easiest way to create technical debt without touching the production code is via tests. You *have*
+to treat your tests with the same measure of quality as your production code. That includes refactoring it, creating
 abstractions, etc. If you just copy-paste your instance creations to 50 different places you are going to absolutely
 hate yourself down the line. Use factories, use the tools you would normally use in your production code to ensure
 things remain nice and tidy.
@@ -511,3 +557,5 @@ If you want to further dive into testing, I would recommend the following materi
 - [Why testing is hard?](/blog/why-testing-is-hard)
 - [Misko Hevery &ndash; Mr Testable vs. Mr Untestable](https://www.youtube.com/watch?v=wEhu57pih5w)
 - [Misko Hevery &ndash; Don't look for things!](https://www.youtube.com/watch?v=RlfLCWKxHJ0)
+- [Eric Elliot &ndash; Mocking is Code Smell](https://medium.com/javascript-scene/mocking-is-a-code-smell-944a70c90a6a)
+- [Martin Fowler &ndash; Mocks Aren't Stubs](https://martinfowler.com/articles/mocksArentStubs.html)
