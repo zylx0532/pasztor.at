@@ -5,31 +5,29 @@ title: Can you use Gentoo as a Docker build system?
 <!-- .slide: class="hero" -->
 
 <div class="hero-logo">
-    <img src="https://pasztor.at/assets/avatar.jpg" alt="" />
+    <img src="_assets/gentoo-docker/avatar.jpg" alt="" />
     <div class="hero-text">Janos Pasztor</div>
 </div>
 
 # Gentoo as a Docker build system
 
-<small>A.K.A. Multi-Stage Builds are Cool</small>
+---
+
+<img src="_assets/gentoo-docker/A1_01_08RED_Digital_3_H.png" alt="" class="plain" />
 
 ---
 
-<img src="A1_01_08RED_Digital_3_H.png" alt="" class="plain" />
+<img src="_assets/gentoo-docker/exoscale.png" alt="" class="plain" />
 
 ---
 
-<img src="exoscale.png" alt="" class="plain" />
-
----
-
-<img src="datacenters.png" alt="" class="plain" />
+<img src="_assets/gentoo-docker/datacenters.png" alt="" class="plain" />
 
 ---
 
 <!-- .slide: class="full" -->
 
-<img src="blog.png" alt="" class="plain" />
+<img src="_assets/gentoo-docker/blog.png" alt="" class="plain" />
 
 ---
 
@@ -55,9 +53,7 @@ Just... why?
 
 ---
 
-```
-docker run -ti php
-```
+`docker run -ti php`
 
 ---
 
@@ -78,11 +74,19 @@ Stack trace:
 
 ---
 
-<img src="breathe.jpg" alt="" class="plain" />
+<img src="_assets/gentoo-docker/breathe.jpg" alt="" class="plain" />
 
 ---
 
-<img src="google.png" alt="" class="plain" />
+<img src="_assets/gentoo-docker/google.png" alt="" class="plain" />
+
+---
+
+`RUN docker-php-ext-install gd`
+
+---
+
+<img src="_assets/gentoo-docker/google.png" alt="" class="plain" />
 
 ---
 
@@ -99,7 +103,7 @@ RUN apt-get update && apt-get install -y \
 
 ---
 
-<img src="angry.jpg" alt="" class="plain" />
+<img src="_assets/gentoo-docker/angry.jpg" alt="" class="plain" />
 
 ---
 
@@ -195,15 +199,15 @@ gentoo/portage       latest  b26d401ca17b  222MB
 
 ---
 
-<img src="portage.jpg" alt="" class="plain" />
+<img src="_assets/gentoo-docker/portage.jpg" alt="" class="plain" />
 
 ---
 
-<img src="phone-bill.jpg" alt="" class="plain" />
+<img src="_assets/gentoo-docker/phone-bill.jpg" alt="" class="plain" />
 
 ---
 
-# **👉** Your images should contain only as much as you need.
+# **👉** Your images should contain only as much as you really need.
 
 ---
 
@@ -221,7 +225,7 @@ RUN emerge dev-lang/php
 
 ---
 
-<img src="build.jpg" alt="" class="plain" />
+<img src="_assets/gentoo-docker/build.jpg" alt="" class="plain" />
 
 ---
 
@@ -279,7 +283,7 @@ janoszen/php         latest  2f8ba0f890ca  <strong>1.48GB</strong>
 
 ---
 
-<img src="weight-loss.jpg" alt="" class="plain" />
+<img src="_assets/gentoo-docker/weight-loss.jpg" alt="" class="plain" />
 
 ---
 
@@ -294,7 +298,8 @@ COPY --from=base /destination /
 ---
 
 <pre class="console">
-TODO: add stats
+REPOSITORY           TAG     IMAGE ID      SIZE
+janoszen/php         latest  6b2662c57076  112MB
 </pre>
 
 ---
@@ -367,7 +372,8 @@ RUN rm -rf \
 ---
 
 <pre class="console">
-TODO: add final stats
+REPOSITORY           TAG     IMAGE ID      SIZE
+janoszen/php         latest  a73d9762ac30  72.7MB
 </pre>
 
 ---
@@ -426,6 +432,8 @@ CMD ["/srv/app/yourapp"]
 
 **❤** https://github.com/edannenberg/kubler
 
+<small>Version 0.9 is out now!</small>
+
 ---
 
 <pre class="console">
@@ -483,12 +491,13 @@ _packages="dev-lang/php"
 
 configure_bob()
 {
-    :
+    USE="cli fpm" emerge dev-lang/php
 }
 
 configure_rootfs_build()
 {
-    :
+    update_use 'dev-lang/php' '+cli' '+fpm'
+    update_use 'app-eselect/eselect-php' '+fpm'
 }
 
 finish_rootfs_build()
@@ -513,7 +522,8 @@ ADD rootfs.tar /
 ---
 
 <pre class="console">
-TODO add build results
+REPOSITORY           TAG     IMAGE ID      SIZE
+janoszen/php         latest  5e2ed4a45ef6  65.4MB
 </pre>
 
 ---
@@ -534,6 +544,3 @@ TODO add build results
 Follow me: @janoszen
 
 www.pasztor.at
-
----
-
