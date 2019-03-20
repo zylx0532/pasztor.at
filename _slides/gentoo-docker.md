@@ -124,9 +124,7 @@ RUN apt-get update && apt-get install -y \
 
 ---
 
-```bash
-emerge --ask php
-```
+`emerge --ask php`
 
 ---
 
@@ -139,9 +137,7 @@ Calculating dependencies  ... done!
 
 ---
 
-```bash
-export USE="gd"
-```
+`export USE="gd"`
 
 ---
 
@@ -184,9 +180,7 @@ COPY --from=portage /usr/portage /usr/portage
 
 ---
 
-```bash
-docker image ls | grep gentoo
-```
+`docker image ls | grep gentoo`
 
 ---
 
