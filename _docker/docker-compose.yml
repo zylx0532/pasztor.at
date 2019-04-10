@@ -1,31 +1,35 @@
-version: '3.4'
+---
+version: '3.2'
 services:
   traefik:
-    build: ./images/traefik/
-    environment:
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - AWS_REGION=us-east-1
-      - AWS_HOSTED_ZONE_ID=${AWS_HOSTED_ZONE_ID}
+    build:
+      context: traefik
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
     volumes:
       - /srv/acme:/etc/traefik/acme
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - "BACKUP_DEST=s3://${ACME_BUCKET_NAME}"
+      - "BACKUP_ENDPOINT=https://sos-${EXOSCALE_REGION}.exo.io"
+      - "BACKUP_BUCKETURL=%(bucket)s.sos-${EXOSCALE_REGION}.exo.io"
+      - "EXOSCALE_KEY=${EXOSCALE_KEY}"
+      - "EXOSCALE_SECRET=${EXOSCALE_SECRET}"
     networks:
-      - web
-    restart: unless-stopped
+      handbooks:
+        ipv4_address: 172.28.1.2
+    restart: always
   nginx:
-    container_name: nginx
     build:
-      context: ./images/nginx
+      context: nginx
+    volumes:
+      - /srv/www:/var/www
     labels:
       traefik.enable: "true"
       traefik.backend: "nginx"
-      traefik.frontend.rule: "Host:pasztor.at,www.pasztor.at"
-      traefik.port: "80"
+      traefik.frontend.rule: "Host:${DOMAIN}"
+      traefik.port: "8080"
       traefik.protocol: "http"
       traefik.frontend.headers.SSLTemporaryRedirect: "false"
       traefik.frontend.headers.SSLRedirect: "true"
@@ -33,27 +37,95 @@ services:
       traefik.frontend.headers.STSIncludeSubdomains: "true"
       traefik.frontend.headers.STSPreload: "true"
       traefik.frontend.headers.forceSTSHeader: "false"
+    restart: always
     networks:
-      - web
+      handbooks:
+        ipv4_address: 172.28.1.3
+  pull:
+    build:
+      context: pull
+    environment:
+      - "PULL_SOURCE=s3://${CONTENT_BUCKET_NAME}"
+      - "PULL_ENDPOINT=https://sos-${EXOSCALE_REGION}.exo.io"
+      - "PULL_BUCKETURL=%(bucket)s.sos-${EXOSCALE_REGION}.exo.io"
+      - "EXOSCALE_KEY=${EXOSCALE_KEY}"
+      - "EXOSCALE_SECRET=${EXOSCALE_SECRET}"
     volumes:
-      - type: bind
-        source: /srv/www
-        target: /var/www
-      - type: bind
-        source: /srv/ssl
-        target: /etc/nginx/ssl
-    restart: unless-stopped
-  php:
-    container_name: php
-    image: opsbears/php-fpm:7.2
+      - /srv/www:/var/www
+      - /srv/monitoring/pull:/srv/monitoring
     networks:
-      - web
+      handbooks:
+        ipv4_address: 172.28.1.4
+    restart: always
+  backup:
+    build:
+      context: backup
+    environment:
+      - "BACKUP_DEST=s3://${ACME_BUCKET_NAME}"
+      - "BACKUP_ENDPOINT=https://sos-${EXOSCALE_REGION}.exo.io"
+      - "BACKUP_BUCKETURL=%(bucket)s.sos-${EXOSCALE_REGION}.exo.io"
+      - "EXOSCALE_KEY=${EXOSCALE_KEY}"
+      - "EXOSCALE_SECRET=${EXOSCALE_SECRET}"
     volumes:
-      - type: bind
-        source: /srv/www
-        target: /var/www
-    restart: unless-stopped
+      - /srv/acme:/srv/acme
+      - /srv/monitoring/backup:/srv/monitoring
+    networks:
+      handbooks:
+        ipv4_address: 172.28.1.5
+    restart: always
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:0.3.0
+    command:
+      - "-nginx.scrape-uri"
+      - "http://nginx:8080/stub_status"
+    networks:
+      handbooks:
+        ipv4_address: 172.28.1.6
+    restart: always
+    depends_on:
+      - nginx
+  node-exporter:
+    image: quay.io/prometheus/node-exporter
+    pid: "host"
+    volumes:
+      - "/:/host:ro,rslave"
+    command:
+      - "--path.rootfs"
+      - "/host"
+      - "--collector.textfile"
+      - "--collector.textfile.directory"
+      - "/host/srv/monitoring/*.timestamp"
+    networks:
+      handbooks:
+        ipv4_address: 172.28.1.7
+    restart: always
+  container-exporter:
+    image: prom/container-exporter
+    volumes:
+      - "/sys/fs/cgroup:/cgroup"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      handbooks:
+        ipv4_address: 172.28.1.8
+    restart: always
+  prometheus:
+    build:
+      context: prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      handbooks:
+        ipv4_address: 172.28.1.9
+    volumes:
+      - "/srv/prometheus:/prometheus-data"
+    restart: always
+    depends_on:
+      - nginx-exporter
+      - node-exporter
 networks:
-  web:
+  handbooks:
     driver: bridge
-    attachable: true
+    ipam:
+        driver: default
+        config:
+            - subnet: 172.28.0.0/16
