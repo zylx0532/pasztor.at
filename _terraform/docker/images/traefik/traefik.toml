@@ -13,12 +13,11 @@ defaultEntryPoints = ["http", "https"]
   entryPoint = "https"
   onHostRule = true
   onDemand = false
-  [acme.dnsChallenge]
-    provider = "route53"
+  [acme.httpChallenge]
+    entryPoint = "http"
 
 [docker]
   endpoint = "unix:///var/run/docker.sock"
-  domain = "cdn.opsbears.net"
   watch = true
   exposedbydefault = false
 

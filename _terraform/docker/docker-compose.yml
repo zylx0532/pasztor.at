@@ -3,7 +3,7 @@ version: '3.2'
 services:
   traefik:
     build:
-      context: traefik
+      context: images/traefik
     ports:
       - "80:80"
       - "443:443"
@@ -17,19 +17,19 @@ services:
       - "EXOSCALE_KEY=${EXOSCALE_KEY}"
       - "EXOSCALE_SECRET=${EXOSCALE_SECRET}"
     networks:
-      handbooks:
+      internal:
         ipv4_address: 172.28.1.2
     restart: always
   nginx:
     build:
-      context: nginx
+      context: images/nginx
     volumes:
       - /srv/www:/var/www
     labels:
       traefik.enable: "true"
       traefik.backend: "nginx"
       traefik.frontend.rule: "Host:${DOMAIN}"
-      traefik.port: "8080"
+      traefik.port: "80"
       traefik.protocol: "http"
       traefik.frontend.headers.SSLTemporaryRedirect: "false"
       traefik.frontend.headers.SSLRedirect: "true"
@@ -39,11 +39,11 @@ services:
       traefik.frontend.headers.forceSTSHeader: "false"
     restart: always
     networks:
-      handbooks:
+      internal:
         ipv4_address: 172.28.1.3
   pull:
     build:
-      context: pull
+      context: images/pull
     environment:
       - "PULL_SOURCE=s3://${CONTENT_BUCKET_NAME}"
       - "PULL_ENDPOINT=https://sos-${EXOSCALE_REGION}.exo.io"
@@ -54,12 +54,12 @@ services:
       - /srv/www:/var/www
       - /srv/monitoring/pull:/srv/monitoring
     networks:
-      handbooks:
+      internal:
         ipv4_address: 172.28.1.4
     restart: always
   backup:
     build:
-      context: backup
+      context: images/backup
     environment:
       - "BACKUP_DEST=s3://${ACME_BUCKET_NAME}"
       - "BACKUP_ENDPOINT=https://sos-${EXOSCALE_REGION}.exo.io"
@@ -70,16 +70,16 @@ services:
       - /srv/acme:/srv/acme
       - /srv/monitoring/backup:/srv/monitoring
     networks:
-      handbooks:
+      internal:
         ipv4_address: 172.28.1.5
     restart: always
   nginx-exporter:
     image: nginx/nginx-prometheus-exporter:0.3.0
     command:
       - "-nginx.scrape-uri"
-      - "http://nginx:8080/stub_status"
+      - "http://nginx:80/.well-known/nginx/basic_status"
     networks:
-      handbooks:
+      internal:
         ipv4_address: 172.28.1.6
     restart: always
     depends_on:
@@ -96,7 +96,7 @@ services:
       - "--collector.textfile.directory"
       - "/host/srv/monitoring/*.timestamp"
     networks:
-      handbooks:
+      internal:
         ipv4_address: 172.28.1.7
     restart: always
   container-exporter:
@@ -105,16 +105,16 @@ services:
       - "/sys/fs/cgroup:/cgroup"
       - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
-      handbooks:
+      internal:
         ipv4_address: 172.28.1.8
     restart: always
   prometheus:
     build:
-      context: prometheus
+      context: images/prometheus
     ports:
       - "9090:9090"
     networks:
-      handbooks:
+      internal:
         ipv4_address: 172.28.1.9
     volumes:
       - "/srv/prometheus:/prometheus-data"
@@ -122,8 +122,17 @@ services:
     depends_on:
       - nginx-exporter
       - node-exporter
+  php:
+    build:
+      context: images/php
+    volumes:
+      - /srv/www:/var/www
+    restart: always
+    networks:
+      internal:
+        ipv4_address: 172.28.1.10
 networks:
-  handbooks:
+  internal:
     driver: bridge
     ipam:
         driver: default

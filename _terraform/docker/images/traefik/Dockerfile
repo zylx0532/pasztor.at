@@ -25,9 +25,8 @@ LABEL org.label-schema.vendor="Containous" \
 org.label-schema.docker.schema-version="1.0"
 #endregion
 
-RUN apk add --no-cache bash python py-pip ca-certificates tzdata \
-    && pip install --upgrade pip \
-    && pip install s3cmd \
+RUN apk add --no-cache bash python3 ca-certificates tzdata \
+    && pip3 install s3cmd \
     && rm -fR /etc/periodic
 
 COPY traefik.toml /etc/traefik/traefik.toml

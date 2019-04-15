@@ -16,3 +16,4 @@ api/credentials.php
 terraform.tfstate.backup
 terraform.tfstate.*.backup
 .terraform.tfstate.lock.info
+_terraform/docker.zip

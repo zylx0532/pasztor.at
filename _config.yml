@@ -12,6 +12,9 @@ exclude:
 - CONTRIBUTING.md
 - vendor
 - composer.json
+- Gemfile
+- Gemfile.lock
+- Dockerfile
 - assets/package.json
 - assets/package-loc.json
 - assets/tsconfig.json

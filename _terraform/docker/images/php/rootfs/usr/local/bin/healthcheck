@@ -1,0 +1,3 @@
+#!/bin/bash
+
+test $(SCRIPT_NAME=/.well-known/php/status SCRIPT_FILENAME=/.well-known/php/status REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000 | grep pool | cut -d: -f2 | sed 's/ //g') == www || exit 1

@@ -1,18 +1,12 @@
 FROM alpine:3.9
 
-ARG TRAEFIK_GID
-ARG TRAEFIK_UID
+ARG DEPLOY_GID
+ARG DEPLOY_UID
 
 RUN apk upgrade --no-cache && rm -fR /etc/periodic
-RUN apk add --no-cache bash python py-pip ca-certificates tzdata curl \
-    && pip install --upgrade pip \
-    && pip install s3cmd \
+RUN apk add --no-cache bash python3 ca-certificates tzdata curl \
+    && pip3 install s3cmd \
     && rm -fR /etc/periodic
-
-RUN mkdir -p /srv/acme
-
-COPY rootfs /
-RUN chmod +x /usr/local/bin/*.sh
 
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.8/supercronic-linux-amd64 \
     SUPERCRONIC=supercronic-linux-amd64 \
@@ -24,8 +18,9 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
-RUN echo '* * * * * /usr/local/bin/backup.sh' >/crontab
+COPY rootfs /
+RUN chmod +x /usr/local/bin/*.sh
+
+RUN echo '* * * * * /usr/local/bin/pull.sh' >/crontab
 
 CMD ["/usr/local/bin/init.sh"]
-
-LABEL maintainer="janos@pasztor.at"
