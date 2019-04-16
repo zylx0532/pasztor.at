@@ -61,13 +61,17 @@ services:
     build:
       context: images/backup
     environment:
-      - "BACKUP_DEST=s3://${ACME_BUCKET_NAME}"
+      - "ACME_BACKUP_DEST=s3://${ACME_BUCKET_NAME}"
+      - "GRAFANA_BACKUP_DEST=s3://${GRAFANA_BUCKET_NAME}"
+      - "PROMETHEUS_BACKUP_DEST=s3://${PROMETHEUS_BUCKET_NAME}"
       - "BACKUP_ENDPOINT=https://sos-${EXOSCALE_REGION}.exo.io"
       - "BACKUP_BUCKETURL=%(bucket)s.sos-${EXOSCALE_REGION}.exo.io"
       - "EXOSCALE_KEY=${EXOSCALE_KEY}"
       - "EXOSCALE_SECRET=${EXOSCALE_SECRET}"
     volumes:
       - /srv/acme:/srv/acme
+      - /srv/prometheus:/srv/prometheus
+      - /srv/grafana:/srv/grafana
       - /srv/monitoring/backup:/srv/monitoring
     networks:
       internal:
@@ -117,7 +121,13 @@ services:
       internal:
         ipv4_address: 172.28.1.9
     volumes:
-      - "/srv/prometheus:/prometheus-data"
+      - "/srv/prometheus:/prometheus"
+    environment:
+      - "BACKUP_DEST=s3://${PROMETHEUS_BUCKET_NAME}"
+      - "BACKUP_ENDPOINT=https://sos-${EXOSCALE_REGION}.exo.io"
+      - "BACKUP_BUCKETURL=%(bucket)s.sos-${EXOSCALE_REGION}.exo.io"
+      - "EXOSCALE_KEY=${EXOSCALE_KEY}"
+      - "EXOSCALE_SECRET=${EXOSCALE_SECRET}"
     restart: always
     depends_on:
       - nginx-exporter
@@ -131,6 +141,43 @@ services:
     networks:
       internal:
         ipv4_address: 172.28.1.10
+  grafana:
+    build:
+      context: images/grafana
+    environment:
+      - "GF_SERVER_DOMAIN=monitoring.${DOMAIN}"
+      - "GF_SERVER_ROOT_URL=https://monitoring.${DOMAIN}"
+      - "GF_SERVER_ENFORCE_DOMAIN=true"
+      - "GF_AUTH_DISABLE_LOGIN_FORM=true"
+      - "GF_AUTH_GITHUB_ENABLED=true"
+      - "GF_AUTH_GITHUB_ALLOW_SIGNUP=true"
+      - "GF_AUTH_GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}"
+      - "GF_AUTH_GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}"
+      - "GF_AUTH_GITHUB_ALLOW_ORGANIZATIONS=opsbears"
+      - "GF_ANALYTICS_REPORTING_ENABLED=false"
+      - "BACKUP_DEST=s3://${GRAFANA_BUCKET_NAME}"
+      - "BACKUP_ENDPOINT=https://sos-${EXOSCALE_REGION}.exo.io"
+      - "BACKUP_BUCKETURL=%(bucket)s.sos-${EXOSCALE_REGION}.exo.io"
+      - "EXOSCALE_KEY=${EXOSCALE_KEY}"
+      - "EXOSCALE_SECRET=${EXOSCALE_SECRET}"
+    volumes:
+      - "/srv/grafana:/var/lib/grafana"
+    labels:
+      traefik.enable: "true"
+      traefik.backend: "grafana"
+      traefik.frontend.rule: "Host:monitoring.${DOMAIN}"
+      traefik.port: "3000"
+      traefik.protocol: "http"
+      traefik.frontend.headers.SSLTemporaryRedirect: "false"
+      traefik.frontend.headers.SSLRedirect: "true"
+      traefik.frontend.headers.STSSeconds: "315360000"
+      traefik.frontend.headers.STSIncludeSubdomains: "true"
+      traefik.frontend.headers.STSPreload: "true"
+      traefik.frontend.headers.forceSTSHeader: "false"
+    restart: always
+    networks:
+      internal:
+        ipv4_address: 172.28.1.11
 networks:
   internal:
     driver: bridge

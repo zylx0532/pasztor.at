@@ -103,7 +103,11 @@ set -e
 
 export EXOSCALE_KEY="${var.exoscale_key}"
 export EXOSCALE_SECRET="${var.exoscale_secret}"
-export ACME_BUCKET_NAME="${var.acme_bucket_name}"
+export GITHUB_CLIENT_ID="${var.github_client_id}"
+export GITHUB_CLIENT_SECRET="${var.github_client_secret}"
+export ACME_BUCKET_NAME="${aws_s3_bucket.acme.bucket}"
+export PROMETHEUS_BUCKET_NAME="${aws_s3_bucket.prometheus.bucket}"
+export GRAFANA_BUCKET_NAME="${aws_s3_bucket.grafana.bucket}"
 export EXOSCALE_REGION="at-vie-1"
 export DOMAIN="${local.domain_name}"
 export CONTENT_BUCKET_NAME="${var.content_bucket_name}"
@@ -121,6 +125,10 @@ EOF
     inline = [
       "set -e",
       "set -x",
+      "sudo mkdir -p /srv/grafana",
+      "sudo chmod 0777 /srv/grafana",
+      "sudo mkdir -p /srv/prometheus",
+      "sudo chmod 0777 /srv/prometheus",
       "sudo chown -R root:root .",
       "sudo chmod +x /srv/docker/start.sh",
       "sudo /srv/docker/start.sh",

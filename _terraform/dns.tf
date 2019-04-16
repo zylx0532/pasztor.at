@@ -17,6 +17,13 @@ resource "exoscale_domain_record" "www" {
   content = "${exoscale_ipaddress.vip.ip_address}"
 }
 
+resource "exoscale_domain_record" "monitoring" {
+  domain = "${var.zone_name}"
+  name = "monitoring${local.domain_suffix}"
+  record_type = "A"
+  content = "${exoscale_ipaddress.vip.ip_address}"
+}
+
 resource "exoscale_domain_record" "mx" {
   domain = "${var.zone_name}"
   name = "${local.zone_root}"
