@@ -13,6 +13,7 @@ use_https = True
 " > ~/.s3cfg
     s3cmd sync --host=${BACKUP_ENDPOINT} ${BACKUP_DEST} /prometheus
     rm ~/.s3cfg
+    rm -rf /prometheus/lock
 fi
 
 exec /bin/prometheus $*

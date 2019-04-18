@@ -38,7 +38,7 @@ create_user janoszen "${var.ssh_key_janoszen}"
 DEBIAN_FRONTEND=noninteractive apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy upgrade
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade
-DEBIAN_FRONTEND=noninteractive apt-get install -y rsync htop tcpdump tcpflow unzip
+DEBIAN_FRONTEND=noninteractive apt-get install -y rsync htop tcpdump tcpflow unzip mc
 # endregion
 
 # region Network
@@ -55,6 +55,20 @@ echo 'network:
 # endregion
 
 # region SSH
+echo '${tls_private_key.web-ecdsa.private_key_pem}' >/etc/ssh/ssh_host_ecdsa_key
+echo '${tls_private_key.web-rsa.private_key_pem}' >/etc/ssh/ssh_host_rsa_key
+rm /etc/ssh/ssh_host_dsa_key
+rm /etc/ssh/ssh_host_ed25519_key
+sed -i -e 's/#HostKey \/etc\/ssh\/ssh_host_dsa_key//' /etc/ssh/sshd_config
+sed -i -e 's/#HostKey \/etc\/ssh\/ssh_host_ed25519_key//' /etc/ssh/sshd_config
+sed -i -e 's/#HostKey \/etc\/ssh\/ssh_host_rsa_key/HostKey \/etc\/ssh\/ssh_host_rsa_key/' /etc/ssh/sshd_config
+sed -i -e 's/#HostKey \/etc\/ssh\/ssh_host_ecdsa_key/HostKey \/etc\/ssh\/ssh_host_ecdsa_key/' /etc/ssh/sshd_config
+sed -i -e 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+echo '${tls_locally_signed_cert.web-ecdsa.cert_pem}' >/etc/ssh/ssh_host_ecdsa_cert
+echo '${tls_locally_signed_cert.web-rsa.cert_pem}' >/etc/ssh/ssh_host_rsa_cert
+echo '${tls_self_signed_cert.ca.cert_pem}' >/etc/ssh/ssh_ca_cert
+echo 'HostCertificate /etc/ssh/ssh_host_ecdsa_cert' >>/etc/ssh/sshd_config
+echo 'HostCertificate /etc/ssh/ssh_host_rsa_cert' >>/etc/ssh/sshd_config
 sed -i -e 's/#Port 22/Port ${var.ssh_port}/' /etc/ssh/sshd_config
 # endregion
 
@@ -65,23 +79,38 @@ EOF
 
   provisioner "remote-exec" {
     connection {
+      agent = false
+      type = "ssh"
       user = "ubuntu"
       port = "${var.ssh_port}"
+      private_key = "${tls_private_key.initial.private_key_pem}"
+      #TODO: replace with certificate when 0.12 comes out
+      host_key = "${tls_private_key.web-rsa.public_key_openssh}"
     }
     script = "install-docker.sh"
   }
   provisioner "file" {
     connection {
+      agent = false
+      type = "ssh"
       user = "ubuntu"
       port = "${var.ssh_port}"
+      private_key = "${tls_private_key.initial.private_key_pem}"
+      #TODO: replace with certificate when 0.12 comes out
+      host_key = "${tls_private_key.web-rsa.public_key_openssh}"
     }
     source = "${data.archive_file.docker.output_path}"
     destination = "/srv/docker/docker.zip"
   }
   provisioner "remote-exec" {
     connection {
+      agent = false
+      type = "ssh"
       user = "ubuntu"
       port = "${var.ssh_port}"
+      private_key = "${tls_private_key.initial.private_key_pem}"
+      #TODO: replace with certificate when 0.12 comes out
+      host_key = "${tls_private_key.web-rsa.public_key_openssh}"
     }
     inline = [
       "set -e",
@@ -92,8 +121,13 @@ EOF
   }
   provisioner "file" {
     connection {
+      agent = false
+      type = "ssh"
       user = "ubuntu"
       port = "${var.ssh_port}"
+      private_key = "${tls_private_key.initial.private_key_pem}"
+      #TODO: replace with certificate when 0.12 comes out
+      host_key = "${tls_private_key.web-rsa.public_key_openssh}"
     }
     content = <<EOF
 #!/bin/bash
@@ -111,6 +145,7 @@ export GRAFANA_BUCKET_NAME="${aws_s3_bucket.grafana.bucket}"
 export EXOSCALE_REGION="at-vie-1"
 export DOMAIN="${local.domain_name}"
 export CONTENT_BUCKET_NAME="${var.content_bucket_name}"
+export GRAFANA_SECRET_KEY="${var.grafana_secret_key}"
 cd /srv/docker
 docker-compose build
 docker-compose up -d
@@ -119,8 +154,12 @@ EOF
   }
   provisioner "remote-exec" {
     connection {
+      type = "ssh"
       user = "ubuntu"
       port = "${var.ssh_port}"
+      private_key = "${tls_private_key.initial.private_key_pem}"
+      #TODO: replace with certificate when 0.12 comes out
+      host_key = "${tls_private_key.web-rsa.public_key_openssh}"
     }
     inline = [
       "set -e",

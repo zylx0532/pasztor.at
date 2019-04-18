@@ -10,6 +10,8 @@ RUN apk add --no-cache bash python3 ca-certificates tzdata \
 
 COPY rootfs /
 
+RUN chmod 0777 /home
+
 USER nobody
 
 EXPOSE     9090

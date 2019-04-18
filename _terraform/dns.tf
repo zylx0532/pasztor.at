@@ -84,3 +84,10 @@ resource "exoscale_domain_record" "gverify" {
   record_type = "CNAME"
   content = "gv-il2a7dcbusdnj4.dv.googlehosted.com"
 }
+
+resource "exoscale_domain_record" "status" {
+  domain = "${var.zone_name}"
+  name = "status${local.domain_suffix}"
+  record_type = "CNAME"
+  content = "stats.uptimerobot.com."
+}
