@@ -5,6 +5,13 @@ data "archive_file" "docker" {
   source_dir = "docker/"
 }
 
+data "template_file" "victorops" {
+  template = "${file("victorops.yaml.j2")}"
+  vars {
+    grafana_victorops_url = "${var.grafana_victorops_url}"
+  }
+}
+
 resource "exoscale_compute" "web" {
   display_name = "${var.server_hostname}"
   template = "${var.image}"
@@ -118,6 +125,19 @@ EOF
       "cd /srv/docker",
       "unzip docker.zip",
     ]
+  }
+  provisioner "file" {
+    connection {
+      agent = false
+      type = "ssh"
+      user = "ubuntu"
+      port = "${var.ssh_port}"
+      private_key = "${tls_private_key.initial.private_key_pem}"
+      #TODO: replace with certificate when 0.12 comes out
+      host_key = "${tls_private_key.web-rsa.public_key_openssh}"
+    }
+    content = "${data.template_file.victorops.rendered}"
+    destination = "/srv/docker/images/grafana/root/etc/grafana/provisioning/notifiers/victorops.yaml"
   }
   provisioner "file" {
     connection {

@@ -3,7 +3,7 @@
 set -e
 
 # Restore prometheus data from backup
-if [ ! -d /prometheus/data/ ]; then
+if [ ! -d /prometheus/wal ]; then
     echo "[default]
 host_base = sos-${EXOSCALE_REGION}.exo.io
 host_bucket = ${BACKUP_BUCKETURL}

@@ -42,6 +42,7 @@ locals {
 variable "github_client_id" {}
 variable "github_client_secret" {}
 variable "grafana_secret_key" {}
+variable "grafana_victorops_url" {}
 variable "uptimerobot_api_key" {}
 
 variable "uptimerobot_victorops_url" {}

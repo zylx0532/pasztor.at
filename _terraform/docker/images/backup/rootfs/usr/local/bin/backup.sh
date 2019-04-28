@@ -10,9 +10,9 @@ secret_key = ${EXOSCALE_SECRET}
 use_https = True
 " > ~/.s3cfg
 
-s3cmd sync --host=${BACKUP_ENDPOINT} /srv/acme/ ${ACME_BACKUP_DEST}
-s3cmd sync --host=${BACKUP_ENDPOINT} /srv/prometheus/ ${PROMETHEUS_BACKUP_DEST}
-s3cmd sync --host=${BACKUP_ENDPOINT} /srv/grafana/ ${GRAFANA_BACKUP_DEST}
+s3cmd sync --host=${BACKUP_ENDPOINT} --delete-removed /srv/acme/ ${ACME_BACKUP_DEST}
+s3cmd sync --host=${BACKUP_ENDPOINT} --delete-removed /srv/prometheus/ ${PROMETHEUS_BACKUP_DEST}
+s3cmd sync --host=${BACKUP_ENDPOINT} --delete-removed /srv/grafana/ ${GRAFANA_BACKUP_DEST}
 
 rm ~/.s3cfg
 
