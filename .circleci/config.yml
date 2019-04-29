@@ -19,7 +19,7 @@ jobs:
          docker_layer_caching: true
       - run:
           name: Install system packages
-          command: apt install -y build-essential libgsl-dev graphviz plantuml ruby ruby-dev ruby-bundler ruby-fast-stemmer ruby-posix-spawn ruby-rmagick libmagickwand-dev imagemagick nodejs npm
+          command: apt install -y build-essential libgsl-dev graphviz plantuml ruby ruby-dev ruby-bundler ruby-fast-stemmer ruby-posix-spawn ruby-rmagick libmagickwand-dev imagemagick nodejs npm python3-pip
       - run:
           name: Install reveal-js
           command: npm install -g reveal-md

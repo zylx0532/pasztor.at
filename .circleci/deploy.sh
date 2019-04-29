@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pip install s3cmd
+pip3 install s3cmd
 if [[ $? -ne 0 ]]; then
     exit $?
 fi
