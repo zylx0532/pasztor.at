@@ -14,4 +14,4 @@ s3cmd sync --delete-removed --host=${PULL_ENDPOINT} ${PULL_SOURCE} /var/www/htdo
 
 rm ~/.s3cfg
 
-echo "last_pull $(date +%s)" > /srv/monitoring/last_pull.timestamp
+echo "last_pull $(date +%s)" > /srv/monitoring/last_pull.prom

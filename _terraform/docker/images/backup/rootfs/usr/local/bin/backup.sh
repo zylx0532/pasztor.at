@@ -16,4 +16,4 @@ s3cmd sync --host=${BACKUP_ENDPOINT} --delete-removed /srv/grafana/ ${GRAFANA_BA
 
 rm ~/.s3cfg
 
-echo "last_backup $(date +%s)" > /srv/monitoring/last-backup.timestamp
+echo "last_backup $(date +%s)" > /srv/monitoring/last-backup.prom

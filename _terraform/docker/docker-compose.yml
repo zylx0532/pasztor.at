@@ -52,7 +52,7 @@ services:
       - "EXOSCALE_SECRET=${EXOSCALE_SECRET}"
     volumes:
       - /srv/www:/var/www
-      - /srv/monitoring/pull:/srv/monitoring
+      - /srv/monitoring:/srv/monitoring
     networks:
       internal:
         ipv4_address: 172.28.1.4
@@ -72,7 +72,7 @@ services:
       - /srv/acme:/srv/acme
       - /srv/prometheus:/srv/prometheus
       - /srv/grafana:/srv/grafana
-      - /srv/monitoring/backup:/srv/monitoring
+      - /srv/monitoring:/srv/monitoring
     networks:
       internal:
         ipv4_address: 172.28.1.5
@@ -96,16 +96,20 @@ services:
     command:
       - "--path.rootfs"
       - "/host"
+      - "--collector.systemd"
       - "--collector.textfile"
-      - "--collector.textfile.directory=/host/srv/monitoring/*.timestamp"
+      - "--collector.textfile.directory=/host/srv/monitoring"
       - "--web.listen-address=172.28.0.1:9100"
     network_mode: host
     restart: always
-  container-exporter:
-    image: prom/container-exporter
+  cadvisor:
+    image: google/cadvisor
     volumes:
-      - "/sys/fs/cgroup:/cgroup"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:ro"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+      - "/dev/disk/:/dev/disk:ro"
     networks:
       internal:
         ipv4_address: 172.28.1.8
@@ -183,6 +187,9 @@ services:
       traefik.frontend.headers.STSIncludeSubdomains: "true"
       traefik.frontend.headers.STSPreload: "true"
       traefik.frontend.headers.forceSTSHeader: "false"
+      traefik.frontend.redirect.regex: "^https://monitoring.${DOMAIN}/$$"
+      traefik.frontend.redirect.replacement: "https://monitoring.${DOMAIN}/d/mXFB_yRWz/home?orgId=1"
+      traefik.frontend.redirect.permanent: "true"
     restart: always
     networks:
       internal:

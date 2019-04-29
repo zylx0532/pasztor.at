@@ -89,5 +89,5 @@ resource "exoscale_domain_record" "status" {
   domain = "${var.zone_name}"
   name = "status${local.domain_suffix}"
   record_type = "CNAME"
-  content = "stats.uptimerobot.com."
+  content = "stats.uptimerobot.com"
 }
