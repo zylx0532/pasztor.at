@@ -1,7 +1,7 @@
 ---
 layout:        post
 title:         "We are at war"
-date:          "2019-05-02"
+date:          "2019-05-03"
 categories:    blog
 excerpt:       "There's an invisible war being waged in the IT industry. A war to find out which way is the best to produce code."
 preview:       /assets/img/we-are-at-war.jpg
