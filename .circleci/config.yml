@@ -3,6 +3,8 @@ defaults: &defaults
   working_directory: /tmp/project
   docker:
   - image: ubuntu:18.04
+  environment:
+    TZ: "UTC"
 jobs:
   build:
     <<: *defaults
