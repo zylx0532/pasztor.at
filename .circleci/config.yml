@@ -5,6 +5,7 @@ defaults: &defaults
   - image: ubuntu:18.04
   environment:
     TZ: "UTC"
+    DEBIAN_FRONTEND: noninteractive
 jobs:
   build:
     <<: *defaults
@@ -21,7 +22,7 @@ jobs:
          docker_layer_caching: true
       - run:
           name: Install system packages
-          command: apt install -y build-essential libgsl-dev graphviz plantuml ruby ruby-dev ruby-bundler ruby-fast-stemmer ruby-posix-spawn ruby-rmagick libmagickwand-dev imagemagick nodejs npm python3-pip
+          command: apt install -o Dpkg::Options::="--force-confnew" --force-yes -fuy build-essential libgsl-dev graphviz plantuml ruby ruby-dev ruby-bundler ruby-fast-stemmer ruby-posix-spawn ruby-rmagick libmagickwand-dev imagemagick nodejs npm python3-pip
       - run:
           name: Install reveal-js
           command: npm install -g reveal-md
