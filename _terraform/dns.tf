@@ -1,6 +1,6 @@
 locals {
   domain_suffix = "${var.subdomain==""?"":".${var.subdomain}"}"
-  zone_root = "${var.subdomain==""?"@":"${var.subdomain}"}"
+  zone_root = "${var.subdomain==""?"":"${var.subdomain}"}"
 }
 
 resource "exoscale_domain_record" "service" {

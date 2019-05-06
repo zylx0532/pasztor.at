@@ -12,6 +12,8 @@ twitter_card:  summary_large_image
 tags:          [Docker, DevOps, CDN]
 ---
 
+> **Update one year later:** the CDN is now disabled. If you are curious about the reasons, scroll to the end.
+
 As you can (hopefully) see from this site, I like my pages *fast*. Very, very fast. Now, before we jump into this, let
 me be very clear about it: using a CDN will only get you so far. If your site is slow because of shoddy frontend work,
 a CDN isn't going to help you much. You need to get your frontend work right first. However, once you've optimized
@@ -199,4 +201,29 @@ Oh, and I like to flip Google AMP off because it's a terrible technology. Not th
 ## Build your own
 
 Now it's up to you: do you want to build your own CDN?
-[The source code for mine is right there on my GitHub.](https://github.com/janoszen/pasztor.at) Go nuts!  
+[The source code for mine is right there on my GitHub.](https://github.com/janoszen/pasztor.at/tree/master/_ansible)
+Go nuts!  
+
+## One year later...
+
+One year later I have decided to tear down my CDN. The reasons boil down to the fact that I already mentioned: this 
+system is not production ready. A couple of months ago some of my regular readers pointed out that my page sometimes
+comes back with a 404. Upon closer investigation it turned out that the reason for this 404 was the CPU usage.
+
+Not the CPU usage of my machines but of my &ldquo;neighbors&rdquo;. Logging into my server I saw a CPU steal time of up
+to 90%:
+
+![](/assets/img/steal-time.png)
+
+This high CPU usage caused Traefik to drop the backend due to a timeout, which in turn caused the 404 error. As I
+installed Uptime Robot to check my site I realized that this is quite a common occurrence and happened 3-4 times a week.
+
+One may have misgivings about Amazon Lightsail (the virtualization platform under the CDN), but it point to a larger
+picture: with a distributed system like this monitoring and quality assurance is crucial. My conversations with other
+engineers running globally distributed systems confirmed this: there is absolutely no magic in building a CDN like
+this. Running it, however, realing with the underlying platform performance, or network performance, is the hard part
+that requires constant effort and maintenance.
+
+As a result I have rebuilt my setup on a single server, with an
+[immutable infrastructure](https://pasztor.at/blog/immutable-infrastructure) and proper monitoring, with Terraform. The
+source code, of course, [is available](https://github.com/janoszen/pasztor.at/tree/master/_terraform).
