@@ -34,7 +34,7 @@ The same goes for dynamic versus static typing. Or writing unit tests versus int
 I, personally, love static typing. It saves me a lot of headaches. As such, you might expect me to say that weak or 
 dynamic typing is not good, it won't work. But that's not true.
 
-IT as an industry is growing up. It started out with enthusiasts, and then evolved with enthusiasts. These were the 
+IT as an industry is growing up. It started out with enthusiasts, and then evolved with small teams. These were the 
 individual heroes, cowboy coders, who worked alone and relied on their own personal genius to make sure the code works
 as intended.
 
