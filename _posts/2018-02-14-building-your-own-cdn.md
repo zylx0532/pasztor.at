@@ -213,7 +213,7 @@ comes back with a 404. Upon closer investigation it turned out that the reason f
 Not the CPU usage of my machines but of my &ldquo;neighbors&rdquo;. Logging into my server I saw a CPU steal time of up
 to 90%:
 
-![](/assets/img/steal-time.png)
+<figure><img src="/assets/img/steal-time.png" alt="" /></figure>
 
 This high CPU usage caused Traefik to drop the backend due to a timeout, which in turn caused the 404 error. As I
 installed Uptime Robot to check my site I realized that this is quite a common occurrence and happened 3-4 times a week.
