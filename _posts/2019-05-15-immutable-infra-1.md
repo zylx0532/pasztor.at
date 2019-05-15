@@ -1,7 +1,7 @@
 ---
 layout:        post
 title:         "Immutable Infrastructure in Practice — Part 1"
-date:          "2019-05-17"
+date:          "2019-05-15"
 categories:    blog
 excerpt:       "Recently I rebuilt the infrastructure that hosts this website following the principles of immutable infrastructure. Let's see how that works!"
 preview:       /assets/img/immutable-infra-1.jpg
@@ -9,7 +9,7 @@ fbimage:       /assets/img/immutable-infra-1.png
 twitterimage:  /assets/img/immutable-infra-1.png
 googleimage:   /assets/img/immutable-infra-1.png
 twitter_card:  summary_large_image
-tags:          [Development, Clean Code]
+tags:          [DevOps]
 sharing:
   twitter:  "I rebuilt the server for my #blog using #immutable #infrastructure. Want to see how? #devops"
   facebook: "I rebuilt the server for my #blog using #immutable #infrastructure. Want to see how? #devops"
