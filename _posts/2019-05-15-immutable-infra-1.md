@@ -1,6 +1,6 @@
 ---
 layout:        post
-title:         "Immutable Infrastructure in Practice &mdash; Part 1"
+title:         "Immutable Infrastructure in Practice — Part 1"
 date:          "2019-05-17"
 categories:    blog
 excerpt:       "Recently I rebuilt the infrastructure that hosts this website following the principles of immutable infrastructure. Let's see how that works!"
@@ -36,7 +36,9 @@ need to be stored in some sort of a persistent storage.
 
 ## Designing the system
 
-My blog is built using [Jekyll](https://jekyllrb.com/), an engine that generates static HTML files. This makes the while
+![](/assets/img/website-architecture.svg)
+
+My blog is built using [Jekyll](https://jekyllrb.com/), an engine that generates static HTML files. This makes the whole
 ordeal much simpler as I can just simply generate content and copy it to the new server as it comes up. I don't need to
 worry about persisting data from one server to the next. If I was using [Wordpress](https://wordpress.org/), for
 example, I would have to build some sort of a redundant database on multiple servers. I would then have to perform a
@@ -45,7 +47,7 @@ example, I would have to build some sort of a redundant database on multiple ser
 So the content is not a problem. However, as I realized, monitoring data is. I am using
 [Prometheus](https://prometheus.io) as a primary monitoring and metrics collection system, and it would be nice if I
 didn't lose all my monitoring data when I update my servers. If you are wondering, yes, I am running Prometheus on the
-same server my web content is on, but I have an external monitoring setup to. We'll get to that in a minute.
+same server my web content is on, but I have an external monitoring setup too. We'll get to that in a minute.
 
 If my cloud provider had support for network block storage, I could have put the prometheus data on such a volume. When 
 I needed to replace the server, I could simply detach it from one server and attach it to the next. However, since a
