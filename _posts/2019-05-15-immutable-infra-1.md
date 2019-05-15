@@ -33,6 +33,7 @@ need to be stored in some sort of a persistent storage.
 > **Note:** This article will use Exoscale as a cloud provider. The company I work for as a day job (A1 Digital) is a
 > majority shareholder of Exoscale. This blog is my own and does not represent A1 Digital or Exoscale in any way and the
 > thoughts expressed here are my own. The contents of these article can be replicated on any IaaS cloud provider.
+> Later in this article I will describe how to port this system to AWS.
 
 ## Designing the system
 
@@ -378,6 +379,27 @@ data "archive_file" "docker" {
   source_dir = "docker/"
 }
 ```
+
+## Porting it to AWS
+
+OK, I picked a relatively small cloud provider, as described. So how would you go about building this on AWS? And the
+answer is simpler than you may think. AWS, like Exoscale and many others, supports Infrastructure as a Service (IaaS),
+and even uses much of the same terminology. Instances are called
+[EC2 instances](https://www.terraform.io/docs/providers/aws/d/instance.html), security groups are called
+[security groups](https://www.terraform.io/docs/providers/aws/d/security_group.html), elastic IPs are called
+[elastic IPs](https://www.terraform.io/docs/providers/aws/d/eip.html), etc.
+
+However, unlike Exoscale the AWS networking model is a bit more complicated. In order to set up an instance you need to
+create a couple of pre-requisites with Terraform:
+
+- A [VPC](https://www.terraform.io/docs/providers/aws/d/vpc.html)
+- At least one [subnet](https://www.terraform.io/docs/providers/aws/d/subnet.html)
+- An [internet gateway](https://www.terraform.io/docs/providers/aws/d/instances.html)
+- A [routing table](https://www.terraform.io/docs/providers/aws/d/route_table.html)
+
+It takes a bit of fiddling, but most of the things work just as well on any other provider.
+
+**Note:** Elastic IPs on AWS do not need to be added to the machine like on Exoscale, they are forwarded automatically.
 
 ## Next up: Docker
 
