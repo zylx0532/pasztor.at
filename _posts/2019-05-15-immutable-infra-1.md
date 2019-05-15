@@ -4,10 +4,10 @@ title:         "Immutable Infrastructure in Practice — Part 1"
 date:          "2019-05-17"
 categories:    blog
 excerpt:       "Recently I rebuilt the infrastructure that hosts this website following the principles of immutable infrastructure. Let's see how that works!"
-preview:       /assets/img/immutable-infrastructure-1.jpg
-fbimage:       /assets/img/immutable-infrastructure-1.png
-twitterimage:  /assets/img/immutable-infrastructure-1.png
-googleimage:   /assets/img/immutable-infrastructure-1.png
+preview:       /assets/img/immutable-infra-1.jpg
+fbimage:       /assets/img/immutable-infra-1.png
+twitterimage:  /assets/img/immutable-infra-1.png
+googleimage:   /assets/img/immutable-infra-1.png
 twitter_card:  summary_large_image
 tags:          [Development, Clean Code]
 sharing:
