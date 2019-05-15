@@ -26,15 +26,6 @@ resource "aws_s3_bucket" "prometheus" {
   }
 }
 
-resource "aws_s3_bucket" "grafana" {
-  bucket = "${var.grafana_bucket_name}"
-  lifecycle {
-    ignore_changes = [
-      "object_lock_configuration"
-    ]
-  }
-}
-
 resource "null_resource" "site" {
   provisioner "local-exec" {
     environment {

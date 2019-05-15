@@ -3,7 +3,6 @@ variable "exoscale_secret" {}
 variable "content_bucket_name" {}
 variable "acme_bucket_name" {}
 variable "prometheus_bucket_name" {}
-variable "grafana_bucket_name" {}
 variable "image" {
   default = "Linux Ubuntu 18.04 LTS 64-bit"
 }
