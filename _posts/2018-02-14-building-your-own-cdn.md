@@ -225,5 +225,5 @@ this. Running it, however, realing with the underlying platform performance, or 
 that requires constant effort and maintenance.
 
 As a result I have rebuilt my setup on a single server, with an
-[immutable infrastructure](https://pasztor.at/blog/immutable-infrastructure) and proper monitoring, with Terraform. The
-source code, of course, [is available](https://github.com/janoszen/pasztor.at/tree/master/_terraform).
+[immutable infrastructure](https://pasztor.at/blog/immutable-infrastructure) and proper monitoring, with Terraform. If
+you want to know more about [how I did it, read the article here](/blog/immutable-infra-1).
