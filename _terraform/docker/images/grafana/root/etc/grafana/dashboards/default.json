@@ -54,7 +54,7 @@
                     "unit": "none"
                 }
             },
-            "pluginVersion": "6.1.4",
+            "pluginVersion": "6.1.6",
             "targets": [
                 {
                     "expr": "time() - last_pull",
@@ -105,7 +105,7 @@
                     "unit": "none"
                 }
             },
-            "pluginVersion": "6.1.4",
+            "pluginVersion": "6.1.6",
             "targets": [
                 {
                     "expr": "time() - last_backup",
@@ -157,7 +157,7 @@
                     "unit": "percent"
                 }
             },
-            "pluginVersion": "6.1.4",
+            "pluginVersion": "6.1.6",
             "targets": [
                 {
                     "expr": "100*max(increase(node_cpu_seconds_total{mode!=\"idle\"}[1m])/60)",
@@ -208,7 +208,7 @@
                     "unit": "percent"
                 }
             },
-            "pluginVersion": "6.1.4",
+            "pluginVersion": "6.1.6",
             "targets": [
                 {
                     "expr": " 100 - 100*node_filesystem_avail_bytes{device=\"/dev/vda1\"}/node_filesystem_size_bytes{device=\"/dev/vda1\"}",
@@ -259,7 +259,7 @@
                     "unit": "percent"
                 }
             },
-            "pluginVersion": "6.1.4",
+            "pluginVersion": "6.1.6",
             "targets": [
                 {
                     "expr": "100*(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes",
@@ -310,7 +310,7 @@
                     "unit": "none"
                 }
             },
-            "pluginVersion": "6.1.4",
+            "pluginVersion": "6.1.6",
             "targets": [
                 {
                     "expr": "nginx_connections_active",
@@ -361,7 +361,7 @@
                     "unit": "none"
                 }
             },
-            "pluginVersion": "6.1.4",
+            "pluginVersion": "6.1.6",
             "targets": [
                 {
                     "expr": "sum(traefik_backend_server_up)",
@@ -413,7 +413,7 @@
                     "unit": "none"
                 }
             },
-            "pluginVersion": "6.1.4",
+            "pluginVersion": "6.1.6",
             "targets": [
                 {
                     "expr": "sum(up)",
@@ -1079,7 +1079,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "avg(container_memory_max_usage_bytes{name != \"\"}) by (name)",
+                    "expr": "min(container_memory_usage_bytes - container_memory_cache{name != \"\"}) by (name)",
                     "format": "time_series",
                     "intervalFactor": 1,
                     "legendFormat": "{{ name }}",
