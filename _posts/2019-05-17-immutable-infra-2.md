@@ -60,7 +60,7 @@ services:
       - "EXOSCALE_KEY=${EXOSCALE_KEY}"
       - "EXOSCALE_SECRET=${EXOSCALE_SECRET}"
     restart: always
-``
+```
 
 As mentioned in the previous article, the idea here is that the ACME (certificate) file will be backed up every minute,
 and when the server starts the certificate file will be restored. This is important because LetsEncrypt has
