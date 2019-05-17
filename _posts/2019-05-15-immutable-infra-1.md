@@ -403,5 +403,5 @@ It takes a bit of fiddling, but most of the things work just as well on any othe
 
 ## Next up: Docker
 
-In the next part of this series I will set up the whole Docker world on top of this server and explain how to work with
-Prometheus, Grafana, exporters and so on. Subscribe on any of the social media channels to get notified. ;)
+In the [next part of this series](/blog/immutable-infra-2) I will set up the whole Docker world on top of this server
+and explain how to work with Prometheus, Grafana, exporters and so on. [Keep on reading!](/blog/immutable-infra-2)

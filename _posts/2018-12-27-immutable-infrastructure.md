@@ -77,6 +77,7 @@ go back to the old image.
 
 ## Conclusion
 
-Don't update. Version and replace. If the new version fails, go back to the old one.
+Don't update. Version and replace. If the new version fails, go back to the old one. This is, of course, easier said
+than done, but in the long run it pays off.
 
-This is, of course, easier said than done, but in the long run it pays off.
+[**Curious how it works in practice? Click here!**](/blog/immutable-infra-1)
