@@ -21,8 +21,9 @@ sharing:
 In the 1950's a bananas looked much different than today. They were straight instead of curved, and they didn't have the
 signature bright yellow color todays bananas have. That's because in the 50's most of the worlds bananas were from the
 [Big Michel or Big Mike](https://en.wikipedia.org/wiki/Gros_Michel_banana) variant. By the 60's, however, this kind of
-banana was all but gone. It was attacked by a particular kind of fungus called the Panama disease that this variant was
-susceptible to and was replaced by the Cavendish, the banana we know and love (or hate) today.
+banana was all but gone. It was attacked by a particular kind of [fungus](https://youtu.be/9H0dy8fv33M) called the
+Panama disease that this variant was susceptible to and was replaced by the Cavendish, the banana we know and love (or
+hate) today.
 
 The demise of the Big Mike was attributed to the fact that it was a *monoculture*. It was the single kind of banana
 grown in large quantities, making it easy for the fungus in question to spread.
