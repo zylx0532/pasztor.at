@@ -37,7 +37,7 @@ need to be stored in some sort of a persistent storage.
 
 ## Designing the system
 
-![](/assets/img/website-architecture.svg)
+<figure><img src="/assets/img/website-architecture.svg" alt="" /></figure>
 
 My blog is built using [Jekyll](https://jekyllrb.com/), an engine that generates static HTML files. This makes the whole
 ordeal much simpler as I can just simply generate content and copy it to the new server as it comes up. I don't need to
