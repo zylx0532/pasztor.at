@@ -62,7 +62,6 @@ services:
       context: images/backup
     environment:
       - "ACME_BACKUP_DEST=s3://${ACME_BUCKET_NAME}"
-      - "GRAFANA_BACKUP_DEST=s3://${GRAFANA_BUCKET_NAME}"
       - "PROMETHEUS_BACKUP_DEST=s3://${PROMETHEUS_BUCKET_NAME}"
       - "BACKUP_ENDPOINT=https://sos-${EXOSCALE_REGION}.exo.io"
       - "BACKUP_BUCKETURL=%(bucket)s.sos-${EXOSCALE_REGION}.exo.io"
@@ -168,7 +167,6 @@ services:
       - "GF_SECURITY_COOKIE_SECURE=true"
       - "GF_SECURITY_COOKIE_SAMESITE=true"
       - "GF_ANALYTICS_REPORTING_ENABLED=false"
-      - "BACKUP_DEST=s3://${GRAFANA_BUCKET_NAME}"
       - "BACKUP_ENDPOINT=https://sos-${EXOSCALE_REGION}.exo.io"
       - "BACKUP_BUCKETURL=%(bucket)s.sos-${EXOSCALE_REGION}.exo.io"
       - "EXOSCALE_KEY=${EXOSCALE_KEY}"
