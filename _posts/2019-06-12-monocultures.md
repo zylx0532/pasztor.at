@@ -117,3 +117,5 @@ pronounced as even big banks are feeling the pressure to move into the cloud.
 I think we need to learn from what happened to nature and avoid monocultures. They are prone to diseases, just as our
 IT monocultures are susceptible to outages and attacks.
 
+Bananas!
+
