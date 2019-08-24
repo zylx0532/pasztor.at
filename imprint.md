@@ -11,17 +11,9 @@ This site is operated by:
 {%raw%}
 <div class="table">
 <table>
-<tr><th>Company name:</th><td>Opsbears e.U.</td></tr>
-<tr><th>Proprietor:</th><td>Janos Pasztor</td></tr>
-<tr><th>Legal form:</th><td>Sole proprietorship (Einzelunternehmen)</td></tr>
-<tr><th>Line of Business:</th><td>IT Services (IT-Dienstleistung)</td></tr>
-<tr><th>EU VAT ID:</th><td>ATU68310348</td></tr>
-<tr><th>Commercial register:</th><td>FN 406446s</td></tr>
-<tr><th>Jurisdiction:</th><td>Commercial Court Vienna (Handelsgericht Wien)</td></tr>
-<tr><th>Authority:</th><td>Magistratisches Bezirksamt des IV. Bezirkes</td></tr>
-<tr><th>Phone:</th><td><a href="tel:+43720230065">+43.720.230065</a></td></tr>
-<tr><th>E-mail:</th><td>&#106;&#097;&#110;&#111;&#115;&#064;&#112;&#097;&#115;&#122;&#116;&#111;&#114;&#046;&#097;&#116;</td></tr>
-<tr><th>Postal address:</th><td>Opsbears e.U.<br />Graf-Starhemberg-Gasse 47/6<br />1040 Wien<br />Austria</td></tr>
+<tr><th>Name:</th><td>Janos Pasztor</td></tr>
+<tr><th>E-mail:</th><td><a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#x6F;&#x3A;&#x6A;&#x61;&#x6E;&#x6F;&#x73;&#x40;&#x70;&#x61;&#x73;&#x7A;&#x74;&#x6F;&#x72;&#x2E;&#x61;&#x74;">&#x6A;&#x61;&#x6E;&#x6F;&#x73;&#x40;&#x70;&#x61;&#x73;&#x7A;&#x74;&#x6F;&#x72;&#x2E;&#x61;&#x74;</a></td></tr>
+<tr><th>Postal address:</th><td>Contact <a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#x6F;&#x3A;&#x6A;&#x61;&#x6E;&#x6F;&#x73;&#x40;&#x70;&#x61;&#x73;&#x7A;&#x74;&#x6F;&#x72;&#x2E;&#x61;&#x74;">&#x6A;&#x61;&#x6E;&#x6F;&#x73;&#x40;&#x70;&#x61;&#x73;&#x7A;&#x74;&#x6F;&#x72;&#x2E;&#x61;&#x74;</a> for a legally servable address.</td></tr>
 </table>
 </div>
 {% endraw %}

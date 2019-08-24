@@ -15,7 +15,7 @@ Feel free to learn from then and build your own!
     <title>{% if page.title %}{{ page.title | escape }}{% if page.eventName %} &mdash; {{ page.eventName }}{% endif %} &mdash; {{ site.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
     {% assign pagecss = layout.sass %}
     <style>{% capture include_to_scssify %}{% include {{ pagecss }} %}{% endcapture %}{{ include_to_scssify | scssify }}</style>
-    <meta name="description" content="{{ page.description | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}" />
+    <meta name="description" content="{{ page.meta.description | strip_html | normalize_whitespace | truncate: 160 | escape }}" />
     <link rel="canonical" href="{{ page.url | replace:'/index.html','' | absolute_url }}" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ "/feed.xml" | relative_url }}" />
 

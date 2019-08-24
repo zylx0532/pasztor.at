@@ -11,7 +11,7 @@ variable "instance_type" {
 }
 
 variable "instance_disk" {
-  default = 50
+  default = 100
 }
 variable "zone_name" {}
 variable "subdomain" {
