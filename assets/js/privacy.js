@@ -41,7 +41,7 @@ var privacyFeatures = [
     }
 ];
 
-var privacyPolicyUpdated = new Date('2018-11-12');
+var privacyPolicyUpdated = new Date('2019-08-24');
 
 var getCookie = function(cookieName) {
     var value = "; " + document.cookie;
