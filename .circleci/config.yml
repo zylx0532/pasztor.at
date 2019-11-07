@@ -2,28 +2,13 @@ version: 2
 defaults: &defaults
   working_directory: /tmp/project
   docker:
-  - image: ubuntu:18.04
-  environment:
-    TZ: "UTC"
-    DEBIAN_FRONTEND: noninteractive
+  - image: janoszen/pasztor.at-build
 jobs:
   build:
     <<: *defaults
     steps:
-      - run:
-          name: Update package list
-          command: apt-get -y update
-      - run:
-          name: Install git
-          command: apt-get install -y git
       - checkout
       - add_ssh_keys
-      - run:
-          name: Install system packages
-          command: apt install -o Dpkg::Options::="--force-confnew" --force-yes -fuy build-essential libgsl-dev graphviz plantuml ruby ruby-dev ruby-bundler ruby-fast-stemmer ruby-posix-spawn ruby-rmagick libmagickwand-dev imagemagick nodejs npm python3-pip
-      - run:
-          name: Install reveal-js
-          command: npm install -g reveal-md
       - run:
           name: Install dependencies
           command: JEYKLL_ENV=prod bundle install --jobs=4 --retry=3 --path vendor/bundle
@@ -45,12 +30,6 @@ jobs:
     <<: *defaults
     parallelism: 1
     steps:
-      - run:
-          name: Update packages
-          command: apt-get update -y
-      - run:
-          name: Install tools
-          command: apt-get install -o Dpkg::Options::="--force-confnew" --force-yes -fuy ca-certificates s3cmd
       - attach_workspace:
           at: /tmp/project
       - run:
@@ -72,7 +51,9 @@ workflows:
             - build
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - production
             tags:
               ignore: /.*/
   daily:
@@ -89,7 +70,9 @@ workflows:
             - build
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - production
             tags:
               ignore: /.*/
     triggers:
@@ -98,4 +81,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - production
