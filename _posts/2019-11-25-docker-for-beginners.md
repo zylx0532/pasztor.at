@@ -561,3 +561,134 @@ CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
 
 Wow! That's it! If we now start this container and open [http://localhost/](http://localhost) we will see the default
 nginx page come up. Cool!
+
+Now on to the meat of the matter, let's add a website. Let's create an `index.html` to that end:
+
+```html
+<html><body><h1>Hello world!</h1></body></html>
+``` 
+
+Then we can copy the file into the container:
+
+```Dockerfile
+FROM ubuntu
+RUN apt update && \
+    apt install -y nginx && \
+    rm -rf /var/lib/apt/lists/*
+EXPOSE 80
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+COPY index.html /var/www/html/index.html
+```
+
+> **Note:** we issue the `COPY` command last so when we change the HTML file we don't need to reinstall nginx and allow
+> Docker to use the already built layers.
+
+Ok, so we have our website in the container.
+
+> **Note:** if you `Ctrl+C` out of `docker run`, the container will stop. If you want to run the container in
+> background, use the `-d` flag.
+
+How about if we want to change the configuration file? Let's do a bit of 
+digging. Let's enter the running container. To do that we will first find the container ID of the running nginx
+container, which we can do using `docker ps`:
+
+```
+C:\Users\janoszen\nginx>docker ps
+CONTAINER ID   IMAGE      COMMAND                  CREATED         STATUS          PORTS                NAMES
+cd19c4cf8d71   my-nginx   "/usr/sbin/nginx -g …"   4 minutes ago   Up 4 minutes    0.0.0.0:80->80/tcp   nostalgic_turing
+```
+
+> **Note:** You can *name* your containers using the `--name` parameter for run, but you should not rely on naming
+> containers as you will delete and recreate them a lot.
+
+Now that you have the container ID, you can actually launch a shell into the running container:
+
+```
+C:\Users\janoszen\nginx>docker exec -ti cd19c4cf8d71 /bin/bash
+root@cd19c4cf8d71:/#
+```
+
+If your container is not running, you can alternatively override the `CMD` when running the container:
+
+```
+C:\Users\janoszen\nginx>docker run -ti my-nginx /bin/bash
+```
+
+This will start the container with a shell in it. Either way, we can now poke around in the container to find
+the configuration files. Let's go to `/etc/nginx` to take a look:
+
+```
+root@cd19c4cf8d71:/# cd /etc/nginx
+root@cd19c4cf8d71:/etc/nginx# find
+.
+./fastcgi.conf
+./modules-enabled
+./modules-enabled/50-mod-stream.conf
+./modules-enabled/50-mod-http-image-filter.conf
+./modules-enabled/50-mod-http-xslt-filter.conf
+./modules-enabled/50-mod-mail.conf
+./modules-enabled/50-mod-http-geoip.conf
+./mime.types
+./sites-available
+./sites-available/default
+./koi-utf
+./scgi_params
+./win-utf
+./sites-enabled
+./sites-enabled/default
+./conf.d
+./koi-win
+./modules-available
+./nginx.conf
+./snippets
+./snippets/snakeoil.conf
+./snippets/fastcgi-php.conf
+./uwsgi_params
+./proxy_params
+./fastcgi_params
+```
+
+You can see that there are multiple configuration files. The base config file is `nginx.conf`. If you use
+`cat nginx.conf`, you can see that this configuration file also pulls in other config files:
+
+```
+include /etc/nginx/conf.d/*.conf;
+include /etc/nginx/sites-enabled/*;
+```
+
+This is significant because other software often do this. If we keep digging around we will find that the default 
+virtual host is located in `/etc/nginx/sites-available/default`, where we will find roughly the following content:
+
+```
+root@cd19c4cf8d71:/etc/nginx/sites-available# cat default 
+##
+# You should look at the following URL's in order to grasp a solid understanding
+# ...
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	root /var/www/html;
+
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+
+	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files $uri $uri/ =404;
+	}
+}
+```
+
+Now, if you have used `docker exec` to get into the running container you can change this config file and run
+`kill -HUP 1` to reload the nginx config. Other software, like Apache, will need a different technique to reload
+the config while running.
+
+> **Note:** since we are not running in a real operating system, management services like systemd, are not running, so
+> you can't simply restart a service.
+
+Now that you have the config file changed, you can transfer the changes outside the container. Simply create
+a file next to your `Dockerfile` called `default` and use the `COPY` operation to move the config file in the
+container.
