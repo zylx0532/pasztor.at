@@ -409,12 +409,22 @@ and it output what we requested.
 
 Now, let's talk about `CMD` a little. You may see two forms of `CMD`:
 
-- `CMD ["/hello.sh", "--parameter1", "--paramater2"]`
-- `CMD /hello-sh --parameter1 --parameter2`
+- `CMD ["/your/application", "--parameter1", "--paramater2"]`
+- `CMD /your/application --parameter1 --parameter2`
 
-My recommendation is that you *always* use the former. The reason for that is that the second one starts an extra shell
-(bash) before it launches your program, which will cause all sorts of issues later, for example the container will
-refuse to stop properly.
+My recommendation is that you *always* use the former. Let's take a look what happens if you use the latter:
+
+```
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.7  0.0   4628   868 ?        Ss   16:32   0:00 /bin/sh -c /your/application --parameter1 --parameter2
+root         2  0.0  0.0 141108 10480 ?        S    16:32   0:00 /your/application --parameter1 --parameter2
+```
+
+If you observe carefully, your program (`hello.sh`) is running as PID 2, and the first process ID belongs to `/bin/sh`.
+This will result in an issue when you try to stop a container because the `SIGTERM` signal that asks a program to stop
+will be sent to PID 1, which will promptly ignore the signal. Your application will never receive a signal to please
+finish what it does and exit gracefully. Instead Docker will then wait around 10 seconds and finally send a `SIGKILL` to
+the container, which will kill the application, probably in the middle of saving something.
 
 ## Creating a webserver
 
@@ -675,8 +685,6 @@ server {
 	server_name _;
 
 	location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to displaying a 404.
 		try_files $uri $uri/ =404;
 	}
 }
@@ -692,3 +700,249 @@ the config while running.
 Now that you have the config file changed, you can transfer the changes outside the container. Simply create
 a file next to your `Dockerfile` called `default` and use the `COPY` operation to move the config file in the
 container.
+
+## Development environment with Volumes
+
+Now, if you think about working on developing a website or web application, building a container image every time is
+a bit of a hassle, so it would be desirable to be able to dynamically edit the files.
+
+This can be achieved with *volumes*. Volumes in the container world are basically folders that are stored outside
+of the container and can be used to persist data when a container is replaced. These volumes can be either a folder
+shared with the host machine, but in a cloud environment they can also be a block storage offered by the cloud provider.
+
+For our development environment we will mount a folder from the host machine:
+
+```
+C:\Users\janoszen\nginx>docker run -p 80:80 -v C:\Users\janoszen\nginx\html:/var/www/html my-nginx
+```
+
+Now we can edit the files in `C:\Users\janoszen\nginx\html` and they will show up directly in the container.
+
+In a production environment you could use volumes to store data permanently, for example you would put your MySQL
+data directory in a volume so you can upgrade a container (by replacing it).
+
+## Initialization script in containers
+
+So far we have only run a single program in a container and I strictly warned you before about using the `CMD` the wrong
+way. What if you wanted to run an initialization script, for example, to dynamically generate a config file?
+
+Let's say we wanted to generate a dynamic nginx configuration as described above. First of all, we create an `init.sh`
+next to our `Dockerfile`. (Don't do it this way, I will explain in a second.)
+
+```bash
+#!/bin/bash
+
+set -e
+
+cat << EOF > /etc/nginx/sites-enabled/default
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+    server_name ${DOMAIN_NAME};
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+EOF
+
+/usr/sbin/nginx -g 'daemon off;'
+```
+
+Next, we modify the `Dockerfile`:
+
+```Dockerfile
+FROM ubuntu
+RUN apt update && \
+    apt install -y nginx && \
+    rm -rf /var/lib/apt/lists/*
+EXPOSE 80
+COPY init.sh /init.sh
+RUN chmod +x /init.sh
+CMD ["/init.sh"]
+COPY index.html /var/www/html/index.html
+```
+
+This will cause the init script to be run instead of nginx directly. However, this image will have the same problem
+as using `CMD` incorrectly: the first PID will be the shell script, not nginx, and shell scripts, by default, ignore
+signals sent to them. In other words, you won't be able to stop the container gracefully.
+
+To fix this issue we will have to fix the last line of the shell script to read:
+
+```bash
+exec /usr/sbin/nginx -g 'daemon off;'
+```
+
+The `exec` stanza in this case tells Bash to, instead of running nginx as a subprocess, nginx will *replace* the process
+of the shell script. As a side effect, any commands written after the `exec` line will not be executed.
+
+## Running multiple services in a container
+
+The next tricky question is, how do you run multiple services in a single container? For example, how do you run nginx
+and PHP-FPM next to each other?
+
+Note that in general **it is advisable to not run more than one service in container**, but sometimes best practice
+takes a back seat to practicality.
+
+Talking about practicalities, if we run nginx and PHP-FPM, which process will be PID 1? Also, what will happen if one
+of the two dies? Obviously these are scenarios we need to handle, and since we have these as a consideration, a simple 
+shell script that runs both will not cut it.
+
+My advice for you in this case is to use [supervisord](http://supervisord.org/), a daemon management software. It is not
+a 100% what we will need, but can be made to do our bidding. So let's create a Dockerfile that installs nginx, php-fpm
+and supervisord:
+
+```Dockerfile
+FROM ubuntu:18.04
+
+RUN apt-get update -y && \
+    apt-get install -y locales supervisor php7.2-fpm nginx && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir /run/php && chown www-data:www-data /run/php && \
+    mkdir /var/log/php && chown www-data:www-data /var/log/php
+    
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisor.conf"]
+```
+
+Now we need to create the supervisord configuration, let's call this `supervisord.conf`
+
+```
+[supervisord]
+nodaemon=true
+
+[program:php7.2]
+command=/usr/sbin/php-fpm7.2 -F
+redirect_stderr=true
+numprocs=1
+autostart=true
+autorestart=true
+priority=10
+
+[program:nginx]
+command=/usr/sbin/nginx -g 'daemon off;'
+redirect_stderr=true
+numprocs=1
+autostart=true
+autorestart=true
+priority=10
+
+[eventlistener:quit_on_failure]
+events=PROCESS_STATE_FATAL
+command=/usr/local/bin/manage-supervisord
+```
+
+As you can see this is basically a configuration to run the different programs. What's important is the last bit. The
+`[eventlistener:quit_on_failure]` section directs supervisord to run a little program called
+`/usr/local/bin/manage-supervisord` every time when one of the other programs die. This is important because this little
+helper program will then kill supervisord, preventing nginx from running without PHP and vice versa. This program is 
+can be written in Python like this:
+
+```python
+#!/usr/bin/python
+import sys
+import os
+import signal
+
+def write_stdout(s):
+    sys.stdout.write(s)
+    sys.stdout.flush()
+
+def write_stderr(s):
+    sys.stderr.write(s)
+    sys.stderr.flush()
+
+def main():
+    while 1:
+        write_stdout('READY\n')
+        line = sys.stdin.readline()
+        os.kill(1, signal.SIGTERM)
+        write_stdout('RESULT 2\nOK')
+
+if __name__ == '__main__':
+    main()
+    import sys
+``` 
+
+Let's save it next to the `Dockerfile` as `manage-supervisord` and modify the `Dockerfile` like this:
+
+```Dockerfile
+FROM ubuntu:18.04
+
+RUN apt-get update -y && \
+    apt-get install -y locales supervisor php7.2-fpm nginx && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir /run/php && chown www-data:www-data /run/php && \
+    mkdir /var/log/php && chown www-data:www-data /var/log/php
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisor.conf"]
+
+COPY supervisor.conf /etc/supervisor/supervisor.conf
+COPY manage-supervisord /usr/local/bin/manage-supervisord
+RUN chmod +x /usr/local/bin/manage-supervisord
+```
+
+If we now run our container we will see the processes being started successfully:
+
+```
+C:\Users\janoszen\nginx>docker run -p 80:80 my-nginx-php
+2019-11-18 17:14:24,011 CRIT Supervisor running as root (no user in config file)
+2019-11-18 17:14:24,013 INFO supervisord started with pid 1
+2019-11-18 17:14:25,016 INFO spawned: 'quit_on_failure' with pid 8
+2019-11-18 17:14:25,019 INFO spawned: 'nginx' with pid 9
+2019-11-18 17:14:25,020 INFO spawned: 'php7.2' with pid 10
+2019-11-18 17:14:26,050 INFO success: quit_on_failure entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2019-11-18 17:14:26,051 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2019-11-18 17:14:26,051 INFO success: php7.2 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+```
+
+Now, as a bit of an exercise, let's get the PHP processing actually working. First of all let's create an `index.php` file:
+
+```php
+<?php
+echo("Hello world!");
+```
+
+Next, let's create the nginx config file named `default`:
+
+```
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	root /var/www/html;
+	index index.php index.html index.htm index.nginx-debian.html;
+	server_name _;
+	location / {
+		try_files $uri $uri/ =404;
+	}
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+	}
+}
+```
+
+Finally, let's amend the `Dockerfile`:
+
+```Dockerfile
+FROM ubuntu:18.04
+
+RUN apt-get update -y && \
+    apt-get install -y locales supervisor php7.2-fpm nginx && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir /run/php && chown www-data:www-data /run/php && \
+    mkdir /var/log/php && chown www-data:www-data /var/log/php
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisor.conf"]
+
+COPY supervisor.conf /etc/supervisor/supervisor.conf
+COPY manage-supervisord /usr/local/bin/manage-supervisord
+RUN chmod +x /usr/local/bin/manage-supervisord
+
+COPY index.php /var/www/html/index.php
+COPY default /etc/nginx/sites-available/default
+```
+
+And that's it! If you did everything correctly you will see `Hello world!` on the website, being served through nginx by
+PHP-FPM.
+
