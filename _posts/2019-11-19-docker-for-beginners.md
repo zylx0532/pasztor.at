@@ -429,7 +429,7 @@ the container, which will kill the application, probably in the middle of saving
 ## Creating a webserver
 
 Now that we have the basics sorted, let's create a more complex example by
-<del>dockerizing</del><ins>containerizing</ins> a webserver. We start by creating a Dockerfile based on Ubuntu:
+<del>dockerizing</del> <ins>containerizing</ins> a webserver. We start by creating a Dockerfile based on Ubuntu:
 
 ```Dockerfile
 FROM ubuntu
