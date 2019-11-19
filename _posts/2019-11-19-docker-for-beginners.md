@@ -1,7 +1,7 @@
 ---
 layout:        post
 title:         "Getting started with Docker for the Inquisitive Mind"
-date:          "2019-11-25"
+date:          "2019-11-19"
 categories:    blog
 excerpt:       "There are a million Docker tutorials out on the Internet, but few explain what's actually going on behind the scenes when you issue your first commands. So let's take a look!"
 preview:       /assets/img/docker-for-beginners.jpg
@@ -797,7 +797,7 @@ and supervisord:
 FROM ubuntu:18.04
 
 RUN apt-get update -y && \
-    apt-get install -y locales supervisor php7.2-fpm nginx && \
+    apt-get install -y supervisor php7.2-fpm nginx && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir /run/php && chown www-data:www-data /run/php && \
     mkdir /var/log/php && chown www-data:www-data /var/log/php
@@ -946,3 +946,151 @@ COPY default /etc/nginx/sites-available/default
 And that's it! If you did everything correctly you will see `Hello world!` on the website, being served through nginx by
 PHP-FPM.
 
+## Running multiple containers with docker-compose
+
+Since I mentioned that running PHP and nginx in a single container is not exactly ideal let's take a look at tool that
+is maintained by the Docker developers, but is still a separate tool: `docker-compose`. As the name suggests,
+`docker-compose` is a tool to *compose* multiple containers into a single unit.
+
+First of all, let's split up our project. Let's create two folders, `php` and `nginx` and a `Dockerfile` in each of
+them. The nginx `Dockerfile` will look like this:
+
+```Dockerfile
+FROM ubuntu:18.04
+
+RUN apt-get update -y && \
+    apt-get install -y nginx && \
+    rm -rf /var/lib/apt/lists/*
+
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+
+COPY default /etc/nginx/sites-available/default
+```
+
+The appropriate `default` file will look like this:
+
+```
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.php index.html index.htm index.nginx-debian.html;
+    server_name _;
+    location / {
+        try_files $uri $uri/ =404;
+    }
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass php:9000;
+    }
+}
+```
+
+Notice the `fastcgi_pass` line. It references the host name of the server running PHP-FPM. `php`, in this case, will be
+the host name of the PHP container, which will be accessible by the container name.
+
+So let's create the `Dockerfile` for the PHP container. It will look very similar to the previous one, except we will
+need to change the PHP-FPM configuration, so one more `COPY` is added:
+
+```Dockerfile
+FROM ubuntu:18.04
+
+RUN apt-get update -y && \
+    apt-get install -y php7.2-fpm && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir /run/php && chown www-data:www-data /run/php && \
+    mkdir /var/log/php && chown www-data:www-data /var/log/php
+
+CMD ["/usr/sbin/php-fpm7.2","-F"]
+
+COPY www.conf /etc/php/7.2/fpm/pool.d/www.conf
+```
+
+The pool configuration (`www.conf`) will need to be modified as we want it to listen on the network instead of a local
+socket so nginx can connect it:
+
+```
+[www]
+user = www-data
+group = www-data
+listen = 0.0.0.0:9000
+listen.owner = www-data
+listen.group = www-data
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+```
+
+Now that we have all our components in place, let's create the our `docker-compose.yaml` file:
+
+```yaml
+version: '3.2'
+services:
+    nginx:
+        build: nginx
+        ports:
+          - "80:80"
+        volumes:
+          - ./src:/var/www/html
+    php:
+        build: php
+        volumes:
+          - ./src:/var/www/html
+```
+
+Before we launch, you will have to create a directory called `src` and move `index.php` into that directory as it 
+will be mounted as a volume into both containers for development purposes.
+
+Now you can [download docker-compose](https://docs.docker.com/compose/install/) and run `docker-compose build` and then
+`docker-compose up` to run your containers. This does nothing differently than your normal way of starting containers,
+but if a container is changed it automatically relaunches them with the newer version. You can also run
+`docker-compose down` to completely tear down the infrastructure.
+
+In other words, docker-compose is just a nice way to save you from having to type a bunch of CLI commands to launch
+containers. Later on you will, of course, move to something like Kubernetes deployments, but this is the most basic tool
+to help you launch containers in conjunction and it is a very useful tool to bring even small scale production
+deployments up. 
+
+## Container orchestrators
+
+Finally, before we wrap this up, let's talk about container orchestrators like Kubernetes and Docker Swarm. Until now
+we have just deployed containers on a single machine: your laptop, or some server. When we want to move to using
+multiple servers, suddenly a lot of problems crop up. These problems are addressed by systems like Kubernetes or 
+Docker Swarm. Let's take a look at these problems and how they are solved.
+
+First of all, networking. In our docker-compose example the nginx and PHP containers talked to each other using an
+internal network. Under the hood this was implemented by a *network bridge*. If we now want to run our containers 
+on multiple servers, we would have to *somehow* connect their internal networks. This is quite a difficult problem to
+solve, especially in a cloud environment where you can't just simply bridge networks together as you see fit.
+Orchestrators solve this problem by employing what they dub *overlay networks*. Basically, they are glorified 
+mesh VPNs connecting every host with every other host and simulating a network for the containers without regards to
+which host they are running on.
+
+In addition to the inter-container network orchestrators also provide *ingress* networking for published services. In
+plain English this means that if you publish, say, port 80 for a service, it does not matter which hosts IP address
+you enter in your browser, your request will always end up with the correct container. This is often coupled with a
+cloud providers load balancer functionality, where the load balancer is configured to send traffic to all nodes 
+participating in a Kubernetes or Swarm cluster and let the orchestrator sort out where to send the traffic. If a node
+for some reason goes down, the load balancers health check will discover it and not send any more requests that way.
+
+What's more, some orchestrators like Kubernetes even allow you to define *network policies*, effectively configuring
+a firewall between your containers. This is especially useful when defending against attacks like [Server Side Request
+Forgery](/blog/what-is-ssrf).
+
+The other tricky aspect of containerization in the cloud is *data storage*. Data storage is a problem because if a
+container that stores data in a persistent fashion (such as a MySQL server) is moved from one host to another, the
+volume isn't automatically transferred with it. In fact, if a host server goes down the data may even be lost and the
+container will be restarted with an empty data directory. This can, of course, somewhat be mitigated by clustering the
+database server, but a better way to deal with this issue is what Kubernetes, for example, calls *persistent volumes*.
+These persistent volumes are a way to integrate with your cloud provider. Every time a service is launched that requires
+a persistent volume the cloud provider API is called and a new network block storage is provisioned. This network block
+storage is attached to the host the container runs on. If the container is moved, the network block storage is
+reattached.
+
+Needless to say, there are many many more features that orchestrators bring with them. It is also worth mentioning that
+all this fancyness has its price: the system is hugely complex. Docker Swarm is one of the simpler ones, but 
+Kubernetes is a straight up nightmare to deploy in a production-grade fashion. Yes, you can *install* it, but that 
+won't be production grade. Therefore, it is best to leave the Kubernetes deployment to the cloud provider and use it as
+a service if possible.
