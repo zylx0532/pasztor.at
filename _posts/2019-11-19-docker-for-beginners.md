@@ -137,6 +137,9 @@ This is an important lesson to learn: as soon as the program that you started in
 stops. In contrast to *real* virtual machines, containers do not have a real operating system running, only the single
 application you want to run.
 
+> **Note:** There is nothing special about the `ubuntu` image apart from it being maintained as part of the official
+> image library.
+
 ## Container lifecycle
 
 Containers in Docker can have four states:
@@ -158,6 +161,10 @@ Additionally, it is worth noting that `docker run` is just a shorthand for `dock
 
 You can, of course, start a container in the background without attaching the console using
 `docker run yourimage -d` 
+
+> **Hint:** Running out of space? If you just want to clear all the unused images and containers off your machine
+> you can use `docker system prune` to do that. But be careful, this removes a lot of stuff!
+
 
 ## Investigating the container
 
@@ -450,6 +457,17 @@ will be sent to PID 1, which will promptly ignore the signal. Your application w
 finish what it does and exit gracefully. Instead Docker will then wait around 10 seconds and finally send a `SIGKILL` to
 the container, which will kill the application, probably in the middle of saving something.
 
+## Manipulating images
+
+Before we continue on, I would like to talk about the commands that you can use to manipulate your images:
+
+- `docker image ls` lists all images on the current host
+- `docker image rm imagename` deletes an image
+- `docker push` or `docker image push` pushes an image to a registry.
+- `docker pull` or `docker image pull` pulls an image from a registry. This is implicitly done when the image is not
+  available locally.
+- `docker image save` saves an image as a tar file. This is used
+
 ## Creating a webserver
 
 Now that we have the basics sorted, let's create a more complex example by
@@ -647,6 +665,9 @@ If your container is not running, you can alternatively override the `CMD` when 
 ```
 C:\Users\janoszen\nginx>docker run -ti my-nginx:1.0.1 /bin/bash
 ```
+
+> **Hint:** don't assume a third party image contains `/bin/bash`! Sometimes the image is very (very) minimalistic to 
+> save space. See the Advanced Debugging section at the end of this article for details how to get around that!
 
 This will start the container with a shell in it. Either way, we can now poke around in the container to find
 the configuration files. Let's go to `/etc/nginx` to take a look:
@@ -1013,6 +1034,8 @@ RUN apt-get update -y && \
     apt-get install -y nginx && \
     rm -rf /var/lib/apt/lists/*
 
+EXPOSE 80
+
 CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
 
 COPY default /etc/nginx/sites-available/default
@@ -1107,6 +1130,189 @@ containers. Later on you will, of course, move to something like Kubernetes depl
 to help you launch containers in conjunction and it is a very useful tool to bring even small scale production
 deployments up. 
 
+## Advanced debugging
+
+Sometimes the above techniques are not enough to debug a container. So let's go through some techniques to dissect a
+container.
+
+When something doesn't work, first take a look at the output of `docker inspect`. There is a lot of detail in there,
+so it's easy to get lost at first, but it often contains useful information about your containers state.
+
+Next, if you need to access some data inside the container, you can use the `docker cp` command. Let's say your
+application has written a log file and you have forgotten to put it on a volume. No problem, you can just grab the file
+using the `docker cp` command:
+
+```
+docker cp 4f8e38980308:/var/log/nginx/error.log errorlog
+``` 
+
+This will copy the file to your current directory. You can, of course, also reverse the order to move a file into a 
+container for debugging.
+
+How about if the log files are not enough? I have previously written about [strace](/blog/debugging-applications-with-strace)
+as an amazing Linux debugging tool. Unfortunately if you try to run strace in a normal container you will get this:
+
+```
+strace: ptrace(PTRACE_TRACEME, ...): Operation not permitted
++++ exited with 1 +++
+```
+
+This has to do with the fact that Docker restricts containers from using system calls. Now, you really don't want to
+run a production container, such as nginx, with elevated privileges, but you can launch a companion container with
+elevated privileges such as this:
+
+```bash
+TARGET=main-container-id-here
+docker run \
+  --pid container:$TARGET \
+  --net container:$TARGET \
+  --cap-add NET_RAW \
+  --cap-add NET_ADMIN \
+  --cap-add SYS_PTRACE \
+  -ti \
+  ubuntu
+```
+
+This will launch the ubuntu container in the same process and network *namespace* as the main container, but with
+more privileges. This will let you see the processes of the other container and also run `strace` on them. Similarly,
+because the network namespace is also shared and you have the `NET_RAW` and `NET_ADMIN` capabilities, you can also do a
+`tcpdump` to capture packets.
+
+> **Warning!** Tutorials on the Internet often advise you to run a container with `--privileged`. This basically runs
+> your container without security constraints and is usually a pretty bad idea.
+
+> **Further reading:** If you want to know how namespaces work, give my [Under the hood of Docker](/blog/under-the-hood-of-docker)
+> post a read.
+
+Let's say this all resulted in nothing and you need to take a look what's going on in the container. In this case you
+could also use the `docker export` command to dump the contents of a container into a tar file that you can then
+inspect. Alternatively, you could use `docker commit` to create a new image of a running container with all its 
+modifications and use it to launch a second container from it with a shell to inspect the changes. Needless to say,
+don't do this for a production container.
+
+## Making containers production grade
+
+### Security
+
+Talking about production grade, there are a few things we haven't talked about so far, one of them being security.
+If you have noticed, we are always `root` in the container. Of course, Docker restricts the containers somewhat, but
+you have to remember that `root` is `root` and some local exploits may work despite Dockers best efforts.
+
+So in general it is a pretty bad idea to run a container as root. So bad that some container orchestrators don't allow
+containers running as root by default. For a good production-grade image we should change our container to run as a
+non-root user. For example, our `nginx` container could be modified:
+
+```Dockerfile
+FROM ubuntu:18.04
+
+RUN apt-get update -y && \
+    apt-get install -y nginx && \
+    rm -rf /var/lib/apt/lists/*
+    
+EXPOSE 8080
+
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+
+COPY default /etc/nginx/sites-available/default
+```
+
+We had to change port 80 to port 8080 since ports below 1024 can only be opened if we have the `NET_ADMIN` capability,
+which, by default, only root has. We will also need to change our `default` file to read:
+
+```
+server {
+    listen 8080 default_server;
+    listen [::]:8080 default_server;
+    root /var/www/html;
+    index index.php index.html index.htm index.nginx-debian.html;
+    server_name _;
+    location / {
+        try_files $uri $uri/ =404;
+    }
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass php:9000;
+    }
+}
+```
+
+The port change itself is not a problem since we can simply publish the port on the host as port 80:
+
+```
+docker run -p 80:8080 my-nginx:1.0.2
+```
+
+With this simple step we have mitigated a lot of attacks that would otherwise work.
+
+Another important aspect of security is protecting the Docker socket. A lot of vendor images ask you to expose
+`/var/run/docker.sock` in the container. While this may have legitimate uses when the image really needs to interact
+with the Docker engine itself, it basically means that you are giving the container root access to your host machine.
+
+Let's do a little exercise:
+
+```
+docker run -v /var/run/docker.sock:/var/run/docker.sock:ro -ti ubuntu /bin/bash
+# We are now in a container, let's install Docker
+root@fbf9a9767805:/# apt update -y && apt install -y docker.io
+# And here comes the escape out of the container.
+root@fbf9a9767805:/# docker run --privileged --net=host --pid=host -ti -v /:/root ubuntu
+root@janoszen-laptop:/# cat /root/etc/shadow 
+```
+
+And I now have your password hashes on the host machine. What happened here is that I installed Docker in the container
+and then used the mounted Docker socket to launch a container outside, mounting the host filesystem in a folder.
+Since I have access to the Docker socket I was able to do this and I can now read the entire host filesystem. 
+Furthermore, I launched a privileged container with the host networking and pid namespace, so I have complete
+control over your host system. Ouch!
+
+So be very, very, *very* careful which container you entrust with your Docker socket. Some container orchestrators, like
+Kubernetes, mitigate this with RBAC (Role-Based Access Control), but in general keep in mind that having direct access
+to your Docker socket, or Kubernetes Kubelet equals a really really bad day. Really bad.
+
+### Health checks
+
+Now, how about stability? How do we know our container is *actually* working? What if the software dies and is left
+running only in a half-working state, just enough to keep the container running? Docker addresses this by implementing
+health checks. These are simple scripts that periodically run and check if the service is still running.
+
+Let's say we extend our PHP container with the following:
+
+```Dockerfile
+FROM ubuntu:18.04
+
+RUN apt-get update -y && \
+    apt-get install -y nginx curl && \
+    rm -rf /var/lib/apt/lists/*
+
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+
+COPY default /etc/nginx/sites-available/default
+
+COPY healthcheck /usr/local/bin/healthcheck
+RUN chmod +x /usr/local/bin/healthcheck
+HEALTHCHECK --interval=10s --timeout=10s --start-period=30s --retries=3 CMD /usr/local/bin/healthcheck
+``` 
+
+Our healthcheck script can then be something simple as:
+
+```bash
+#!/bin/bash
+
+set -e
+
+curl http://localhost:8080
+```
+
+This script will run inside the container every 10 seconds, testing if the webserver is still up and serving content
+with a successful status code. Our `docker ps` output will show us as much:
+
+```
+CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS                    PORTS                NAMES
+bc4535b061c0   nginxphp_nginx   "/usr/sbin/nginx -g …"   14 seconds ago   Up 12 seconds (healthy)   0.0.0.0:80->80/tcp   nginxphp_nginx_1
+```
+
+In Kubernetes you have something similar with [Liveness, Readiness and Startup probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
+
 ## Container orchestrators
 
 Finally, before we wrap this up, let's talk about container orchestrators like Kubernetes and Docker Swarm. Until now
@@ -1148,3 +1354,14 @@ all this fancyness has its price: the system is hugely complex. Docker Swarm is 
 Kubernetes is a straight up nightmare to deploy in a production-grade fashion. Yes, you can *install* it, but that 
 won't be production grade. Therefore, it is best to leave the Kubernetes deployment to the cloud provider and use it as
 a service if possible.
+
+## Integrating containers into your life
+
+As I mentioned, it is strongly recommended to integrate your container workflow into your CI/CD pipeline. Part of the
+reason behind this is that containers will need to be rebuilt regularly for security updates. For a good example
+you could take a look at the [CI/CD configuration behind this website](https://github.com/janoszen/pasztor.at-containers/blob/master/.circleci/config.yml)
+for an example.
+
+As a conclusion I would recommend that you give yourself time to learn. Sure enough, it is easy to launch your first
+container, but really grasping how the whole container ecosystem works and writing efficient containers takes practice.
+ 
