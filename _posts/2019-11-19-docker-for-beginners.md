@@ -851,7 +851,7 @@ to bash.
 The next tricky question is, how do you run multiple services in a single container? For example, how do you run nginx
 and PHP-FPM next to each other?
 
-Note that in general **it is advisable to not run more than one service in container**, but sometimes best practice
+Note that in general **it is advisable not to run more than one service in container**, but sometimes best practice
 takes a back seat to practicality.
 
 Talking about practicalities, if we run nginx and PHP-FPM, which process will be PID 1? Also, what will happen if one
@@ -1020,7 +1020,7 @@ PHP-FPM.
 
 ## Running multiple containers with docker-compose
 
-Since I mentioned that running PHP and nginx in a single container is not exactly ideal let's take a look at tool that
+Since I mentioned that running PHP and nginx in a single container is not exactly ideal let's take a look at a tool that
 is maintained by the Docker developers, but is still a separate tool: `docker-compose`. As the name suggests,
 `docker-compose` is a tool to *compose* multiple containers into a single unit.
 
