@@ -297,7 +297,7 @@ Ideally, the image build process is integrated in your CI/CD pipeline, such that
 the image is automatically rebuilt and pushed to your company registry. But more on that later.
 
 So, let's get started with out `Dockerfile`. Our first command will be the `FROM` command. This command will tell Docker
-when base image to use. For example, you could use `ubuntu`, which will pull in the latest Ubuntu, or even a specific
+which base image to use. For example, you could use `ubuntu`, which will pull in the latest Ubuntu, or even a specific
 version, such as `ubuntu:18.04`. Needless to say, you can also say `FROM scratch`, which will start from an empty
 container image, but this is only useful if you are working in a language like Go.
 
