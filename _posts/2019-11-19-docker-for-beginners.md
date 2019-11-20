@@ -36,7 +36,7 @@ connects to `dockerd` on your behalf and asks it to run a container (almost a VM
 master* to create a copy from. This copy then becomes the *container* itself. (There is a lot more stuff going on behind
 the scenes, but let's keep it simple for now.)
 
-> **Hint for WSL:** If you are trying to access your Docker Desktop on WSL1 (Windows), you will have to enable
+> **Hint for Windows Subsystem for Linux:** If you are trying to access your Docker Desktop on WSL1 (Windows), you will have to enable
 > *Expose daemon on tcp://localhost:2375 without TLS* and run docker as `docker -H tcp://localhost:2375` in order to
 > use the Docker Desktop daemon. WSL2 will fix this by allowing you to run Docker natively within WSL.
 
@@ -69,6 +69,8 @@ docker run ubuntu
 ```
 
 > **Remember:** If you are on WSL1, you will need to run `docker -H tcp://localhost:2375 run ubuntu` here!
+
+> **Hint:** You can pull in a specific Ubuntu version by typing `docker run ubuntu:16.04` here. More on versions later.
 
 You will see something like this:
 
@@ -117,12 +119,12 @@ C:\Users\janoszen>docker run -ti ubuntu
 root@f549dcd7db3c:/#
 ```
 
-Much better! As you can see with the `-ti` added we are now get a Bash prompt where we can type Linux commands. Feel
-free to use this to run any Linux commands you want, but keep in mind, this container is running separated from the 
-machine you are running it on and you won't have access to any data that you may have on the host machine. We will fix
-that later. When you are done, hit `Ctrl+D` to exit the prompt.
+Much better! As you can see with the `-ti` added we are now get a Bash prompt where we can type Linux commands
+(interactive and TTY mode). Feel free to use this to run any Linux commands you want, but keep in mind, this container
+is running separated from the machine you are running it on and you won't have access to any data that you may have on
+the host machine. We will fix that later. When you are done, hit `Ctrl+D` to exit the prompt.
 
-If you now run `docker ps -a` you will now see that there are two stopped containers:
+If you now run `docker ps -a` (`-a` for all) you will now see that there are two stopped containers:
 
 ```
 C:\Users\janoszen>docker ps -a
@@ -132,8 +134,30 @@ f549dcd7db3c   ubuntu   "/bin/bash"   5 minutes ago   Exited (0) 5 seconds ago  
 ```
 
 This is an important lesson to learn: as soon as the program that you started in a container quits, your container
-dies. In contrast to *real* virtual machines, containers do not have a real operating system running, only the single
+stops. In contrast to *real* virtual machines, containers do not have a real operating system running, only the single
 application you want to run.
+
+## Container lifecycle
+
+Containers in Docker can have four states:
+
+- Created: after a container has just been created, but has never been launched
+- Running: when it is running
+- Stopped: when it has been stopped
+- Paused: when it has been paused (rarely used)
+
+You can easily change the states using the following commands, respectively:
+
+- `docker start`
+- `docker stop`
+- `docker pause`
+- `docker unpause`
+
+Additionally, it is worth noting that `docker run` is just a shorthand for `docker create`, `docker start` and then
+`docker attach` to attach the console of the running container in the background.
+
+You can, of course, start a container in the background without attaching the console using
+`docker run yourimage -d` 
 
 ## Investigating the container
 
@@ -267,7 +291,7 @@ the image is automatically rebuilt and pushed to your company registry. But more
 
 So, let's get started with out `Dockerfile`. Our first command will be the `FROM` command. This command will tell Docker
 when base image to use. For example, you could use `ubuntu`, which will pull in the latest Ubuntu, or even a specific
-version, such as `ubuntu:16.04`. Needless to say, you can also say `FROM scratch`, which will start from an empty
+version, such as `ubuntu:18.04`. Needless to say, you can also say `FROM scratch`, which will start from an empty
 container image, but this is only useful if you are working in a language like Go.
 
 Be careful though, anyone can create and publish an image on the Docker Hub. Even official images often have flaws and 
@@ -277,7 +301,7 @@ images by other people.
 So, let's get started:
 
 ```Dockerfile
-FROM ubuntu
+FROM ubuntu:18.04
 ```
 
 So far so good. Let's build it, run the following in the directory you saved your `Dockerfile`:
@@ -285,7 +309,7 @@ So far so good. Let's build it, run the following in the directory you saved you
 ```
 C:\Users\janoszen\docker-test>docker build .
 Sending build context to Docker daemon  2.048kB
-Step 1/1 : FROM ubuntu
+Step 1/1 : FROM ubuntu:18.04
  ---> 775349758637
 Successfully built 775349758637
 ```
@@ -325,7 +349,7 @@ Instead, we should always *tag* our images with a name:
 ```
 C:\Users\janoszen\docker-test>docker build -t my-first-image .
 Sending build context to Docker daemon  2.048kB
-Step 1/1 : FROM ubuntu
+Step 1/1 : FROM ubuntu:18.04
  ---> 775349758637
 Successfully built 775349758637
 Successfully tagged my-first-image:latest
@@ -369,7 +393,7 @@ I know, I should really come up with something more creative. Anyway, let's copy
 during the build process:
 
 ```
-FROM ubuntu
+FROM ubuntu:18.04
 COPY hello.sh /hello.sh
 ```
 
@@ -380,7 +404,7 @@ Ok, so the script has been added, but it doesn't do anything yet. As a next step
 so it can be executed:
 
 ```
-FROM ubuntu
+FROM ubuntu:18.04
 COPY hello.sh /hello.sh
 RUN chmod +x /hello.sh
 ```
@@ -389,7 +413,7 @@ Finally, we need to state that instead of running an interactive shell, we shoul
 using the `CMD` command:
 
 ```
-FROM ubuntu
+FROM ubuntu:18.04
 COPY hello.sh /hello.sh
 RUN chmod +x /hello.sh
 CMD ["/hello.sh"]
@@ -432,13 +456,13 @@ Now that we have the basics sorted, let's create a more complex example by
 <del>dockerizing</del> <ins>containerizing</ins> a webserver. We start by creating a Dockerfile based on Ubuntu:
 
 ```Dockerfile
-FROM ubuntu
+FROM ubuntu:18.04
 ``` 
 
 Next we want to install Ubuntu. We do this by first updating the package cache, then installing nginx:
 
 ```Dockerfile
-FROM ubuntu
+FROM ubuntu:18.04
 RUN apt update
 RUN apt install -y nginx
 ```
@@ -449,7 +473,7 @@ container that we don't need when we run it, making the image unnecessarily larg
 pull these layers together and remove the APT cache in the same step:
 
 ```Dockerfile
-FROM ubuntu
+FROM ubuntu:18.04
 RUN apt update && \
     apt install -y nginx && \
     rm -rf /var/lib/apt/lists/*
@@ -461,7 +485,7 @@ be recorded in the image.
 Now that we have nginx installed we can document that this server will be listening on port 80:
 
 ```Dockerfile
-FROM ubuntu
+FROM ubuntu:18.04
 RUN apt update && \
     apt install -y nginx && \
     rm -rf /var/lib/apt/lists/*
@@ -475,9 +499,9 @@ Now that that's sorted, let's add the `CMD`. How do we know what the proper CMD 
 build and start the image we have so far in interactive mode:
 
 ```
-C:\Users\janoszen\nginx>docker build -t my-nginx .
+C:\Users\janoszen\nginx>docker build -t my-nginx:1.0.0 .
 ...
-C:\Users\janoszen\nginx>docker run -ti my-nginx
+C:\Users\janoszen\nginx>docker run -ti my-nginx:1.0.0
 ```
 
 Now let's take a look at the installed `nginx` package contents:
@@ -531,7 +555,7 @@ this is the program we will want to run, so let's add the `CMD` part to the Dock
 
 
 ```Dockerfile
-FROM ubuntu
+FROM ubuntu:18.04
 RUN apt update && \
     apt install -y nginx && \
     rm -rf /var/lib/apt/lists/*
@@ -542,9 +566,9 @@ CMD ["/usr/sbin/nginx"]
 Ok, let's build and run this container, this time *publishing* port 80 on the host so we can actually access it:
 
 ```
-C:\Users\janoszen\nginx>docker build -t my-nginx .
+C:\Users\janoszen\nginx>docker build -t my-nginx:1.0.1 .
 ...
-C:\Users\janoszen\nginx>docker run -p 80:80 my-nginx
+C:\Users\janoszen\nginx>docker run -p 80:80 my-nginx:1.0.1
 ```
 
 ... aaaand the container stops immediately. Womp womp. Now you can go about spending a great deal of time debugging
@@ -561,7 +585,7 @@ the main process to give back control. So, in order to run nginx in a container 
 daemonizing. After a bit of googling let's change our `CMD` to do just that:
 
 ```Dockerfile
-FROM ubuntu
+FROM ubuntu:18.04
 RUN apt update && \
     apt install -y nginx && \
     rm -rf /var/lib/apt/lists/*
@@ -581,7 +605,7 @@ Now on to the meat of the matter, let's add a website. Let's create an `index.ht
 Then we can copy the file into the container:
 
 ```Dockerfile
-FROM ubuntu
+FROM ubuntu:18.04
 RUN apt update && \
     apt install -y nginx && \
     rm -rf /var/lib/apt/lists/*
@@ -604,8 +628,8 @@ container, which we can do using `docker ps`:
 
 ```
 C:\Users\janoszen\nginx>docker ps
-CONTAINER ID   IMAGE      COMMAND                  CREATED         STATUS          PORTS                NAMES
-cd19c4cf8d71   my-nginx   "/usr/sbin/nginx -g …"   4 minutes ago   Up 4 minutes    0.0.0.0:80->80/tcp   nostalgic_turing
+CONTAINER ID   IMAGE            COMMAND                  CREATED         STATUS          PORTS                NAMES
+cd19c4cf8d71   my-nginx:1.0.1   "/usr/sbin/nginx -g …"   4 minutes ago   Up 4 minutes    0.0.0.0:80->80/tcp   nostalgic_turing
 ```
 
 > **Note:** You can *name* your containers using the `--name` parameter for run, but you should not rely on naming
@@ -621,7 +645,7 @@ root@cd19c4cf8d71:/#
 If your container is not running, you can alternatively override the `CMD` when running the container:
 
 ```
-C:\Users\janoszen\nginx>docker run -ti my-nginx /bin/bash
+C:\Users\janoszen\nginx>docker run -ti my-nginx:1.0.1 /bin/bash
 ```
 
 This will start the container with a shell in it. Either way, we can now poke around in the container to find
@@ -713,7 +737,7 @@ shared with the host machine, but in a cloud environment they can also be a bloc
 For our development environment we will mount a folder from the host machine:
 
 ```
-C:\Users\janoszen\nginx>docker run -p 80:80 -v C:\Users\janoszen\nginx\html:/var/www/html my-nginx
+C:\Users\janoszen\nginx>docker run -p 80:80 -v C:\Users\janoszen\nginx\html:/var/www/html my-nginx:1.0.1
 ```
 
 Now we can edit the files in `C:\Users\janoszen\nginx\html` and they will show up directly in the container.
@@ -753,7 +777,7 @@ EOF
 Next, we modify the `Dockerfile`:
 
 ```Dockerfile
-FROM ubuntu
+FROM ubuntu:18.04
 RUN apt update && \
     apt install -y nginx && \
     rm -rf /var/lib/apt/lists/*
@@ -776,6 +800,30 @@ exec /usr/sbin/nginx -g 'daemon off;'
 
 The `exec` stanza in this case tells Bash to, instead of running nginx as a subprocess, nginx will *replace* the process
 of the shell script. As a side effect, any commands written after the `exec` line will not be executed.
+
+### Advanced scripting with `ENTRYPOINT`
+
+Sometimes you want to make your initialization script easy to parametrize. Let's say you want to enable someone
+using your container like this: `docker run -ti your-nginx /bin/bash`. Unfortunately in this case your initialization
+script will not run. To fix that we can use `ENTRYPOINT`. This command is used in conjunction with `CMD` and
+the two are basically concatenated together.
+
+Let's say we change the above script to read:
+
+```bash
+exec "$@"
+```
+
+And then we change our `Dockerfile` to read:
+
+```Dockerfile
+ENTRYPOINT ["/init.sh"]
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+```
+
+In this case the default run will launch `/init.sh /usr/sbin/nginx -g 'daemon off;'`, but if we use `docker run` with
+a modified `CMD` it will read `/init.sh /bin/bash`, which will still run our init script, but then hand off control
+to bash.
 
 ## Running multiple services in a container
 
@@ -869,14 +917,17 @@ Let's save it next to the `Dockerfile` as `manage-supervisord` and modify the `D
 ```Dockerfile
 FROM ubuntu:18.04
 
+# Install everything and create the directories PHP needs
 RUN apt-get update -y && \
     apt-get install -y locales supervisor php7.2-fpm nginx && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir /run/php && chown www-data:www-data /run/php && \
     mkdir /var/log/php && chown www-data:www-data /var/log/php
 
+# Set supervisord as a CMD
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisor.conf"]
 
+# Copy the config and the manage-supervisord config
 COPY supervisor.conf /etc/supervisor/supervisor.conf
 COPY manage-supervisord /usr/local/bin/manage-supervisord
 RUN chmod +x /usr/local/bin/manage-supervisord
@@ -885,7 +936,7 @@ RUN chmod +x /usr/local/bin/manage-supervisord
 If we now run our container we will see the processes being started successfully:
 
 ```
-C:\Users\janoszen\nginx>docker run -p 80:80 my-nginx-php
+C:\Users\janoszen\nginx>docker run -p 80:80 my-nginx-php:1.0.0
 2019-11-18 17:14:24,011 CRIT Supervisor running as root (no user in config file)
 2019-11-18 17:14:24,013 INFO supervisord started with pid 1
 2019-11-18 17:14:25,016 INFO spawned: 'quit_on_failure' with pid 8
@@ -995,14 +1046,17 @@ need to change the PHP-FPM configuration, so one more `COPY` is added:
 ```Dockerfile
 FROM ubuntu:18.04
 
+# Install PHP-FPM and create the directories it needs
 RUN apt-get update -y && \
     apt-get install -y php7.2-fpm && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir /run/php && chown www-data:www-data /run/php && \
     mkdir /var/log/php && chown www-data:www-data /var/log/php
 
+# Set PHP-FPM as CMD
 CMD ["/usr/sbin/php-fpm7.2","-F"]
 
+# Copy the pool configuration
 COPY www.conf /etc/php/7.2/fpm/pool.d/www.conf
 ```
 
