@@ -477,7 +477,7 @@ Now that we have the basics sorted, let's create a more complex example by
 FROM ubuntu:18.04
 ``` 
 
-Next we want to install Ubuntu. We do this by first updating the package cache, then installing nginx:
+Next we want to install nginx. We do this by first updating the package cache, then installing nginx:
 
 ```Dockerfile
 FROM ubuntu:18.04
