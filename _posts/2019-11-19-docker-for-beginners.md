@@ -466,7 +466,7 @@ Before we continue on, I would like to talk about the commands that you can use 
 - `docker push` or `docker image push` pushes an image to a registry.
 - `docker pull` or `docker image pull` pulls an image from a registry. This is implicitly done when the image is not
   available locally.
-- `docker image save` saves an image as a tar file. This is used
+- `docker image save` saves an image as a tar file.
 
 ## Creating a webserver
 
