@@ -297,7 +297,7 @@ Ideally, the image build process is integrated in your CI/CD pipeline, such that
 the image is automatically rebuilt and pushed to your company registry. But more on that later.
 
 So, let's get started with out `Dockerfile`. Our first command will be the `FROM` command. This command will tell Docker
-when base image to use. For example, you could use `ubuntu`, which will pull in the latest Ubuntu, or even a specific
+which base image to use. For example, you could use `ubuntu`, which will pull in the latest Ubuntu, or even a specific
 version, such as `ubuntu:18.04`. Needless to say, you can also say `FROM scratch`, which will start from an empty
 container image, but this is only useful if you are working in a language like Go.
 
@@ -466,7 +466,7 @@ Before we continue on, I would like to talk about the commands that you can use 
 - `docker push` or `docker image push` pushes an image to a registry.
 - `docker pull` or `docker image pull` pulls an image from a registry. This is implicitly done when the image is not
   available locally.
-- `docker image save` saves an image as a tar file. This is used
+- `docker image save` saves an image as a tar file.
 
 ## Creating a webserver
 
@@ -477,7 +477,7 @@ Now that we have the basics sorted, let's create a more complex example by
 FROM ubuntu:18.04
 ``` 
 
-Next we want to install Ubuntu. We do this by first updating the package cache, then installing nginx:
+Next we want to install nginx. We do this by first updating the package cache, then installing nginx:
 
 ```Dockerfile
 FROM ubuntu:18.04
@@ -851,7 +851,7 @@ to bash.
 The next tricky question is, how do you run multiple services in a single container? For example, how do you run nginx
 and PHP-FPM next to each other?
 
-Note that in general **it is advisable to not run more than one service in container**, but sometimes best practice
+Note that in general **it is advisable not to run more than one service in container**, but sometimes best practice
 takes a back seat to practicality.
 
 Talking about practicalities, if we run nginx and PHP-FPM, which process will be PID 1? Also, what will happen if one
@@ -1020,7 +1020,7 @@ PHP-FPM.
 
 ## Running multiple containers with docker-compose
 
-Since I mentioned that running PHP and nginx in a single container is not exactly ideal let's take a look at tool that
+Since I mentioned that running PHP and nginx in a single container is not exactly ideal let's take a look at a tool that
 is maintained by the Docker developers, but is still a separate tool: `docker-compose`. As the name suggests,
 `docker-compose` is a tool to *compose* multiple containers into a single unit.
 
