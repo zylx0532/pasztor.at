@@ -31,7 +31,7 @@ description: Read the CV of Janos Pasztor
 
 ## Career overview
 
-- **Solution Architect @ A1 Digital** (*Since 2016*)
+- **Solution Architect @ A1 Digital/Exoscale** (*Since 2018*)
 - **CTO @ Entrecloud** (*2016 &mdash; 2018*)
 - **Development Lead @ IXOLIT** (*2016 &mdash; 2017*)
 - **Software Developer @ IXOLIT** (*2011 &mdash; 2016*)
@@ -59,7 +59,7 @@ description: Read the CV of Janos Pasztor
 
 ## Career in Detail
 
-### Solution Architect @ A1 Digital
+### Solution Architect @ A1 Digital/Exoscale
 
 - Create educational materials (handbooks, slide decks, animated and screencast videos) for the Exoscale cloud product.
 - Train sales and technical personnel across several countries in the usage of Exoscale.
