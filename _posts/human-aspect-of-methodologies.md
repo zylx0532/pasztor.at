@@ -70,3 +70,38 @@ half-baked idea, find the right words to explain what exactly one means. It will
 master brings up the topic in the conversation and the team member in with the idea knows that they don't have to stand
 up for themselves and risk being alone in the room. After all, they have the at least one other voice in the room
 thinking that their idea is worth listening to.
+
+## The New Boss and Restructuring
+
+One unfortunate situation a team and their leader, scrum master, or other person of influence can get into is when
+someone who does not enjoy the trust of the team gets put into a position of power. This may be an external scrum master
+or agile coach who is now supposed to tell a team how to structure their work, or a hired team lead. Anyhow, when
+a new team member is hired, especially into a leadership position, it takes a while until this new team member gets
+their bearings and knows how the team &ldquo;ticks&rdquo;. The team also needs to bond and learn to trust the new
+member or leader.
+
+This inevitably causes friction in the team, especially if the new leader starts changing things immediately, which
+leads to a loss of efficiency. It can also lead to a feeling of frustration if the team members feel steamrolled by
+the new direction. A good leader can somewhat soften the blow by listening to the team a lot in the initial few months.
+The listening process will speed up the assimilation into the team, and being accepted as a cooperative team member.
+This, of course, is not an option for an agile coach as they are usually hired for a limited amount of time.
+
+An even larger disruption can be caused if not only a single person is changed, but a larger chunk of the company is
+reorganized. Such a reorganization, even if the roles are defined in a crystal clear fashion, still cause a disruption
+of work, since the people involved need to get their bearings.
+
+Often times a small-scale trial of the new system can provide a positive input for the time when the larger roll-out is
+happening later on. For example, say, you roll out TDD (Test Driven Development) across your development teams. If this
+is done in such a way that only a single team starts testing in this fashion, inevitably, this team will have a learning
+curve and will need to figure out how to do things under the new rule. However, this team, by going through this
+learning curve will have the experience to help the other teams later on. They will, hopefully, be the torchbearers that
+the new method really works and really increases productivity and quality over time. Or, in contrast, you might discover
+issues with the new methodology and this way, the negative impact will be limited to one team instead of tanking the
+whole company for a few weeks or months.
+
+Similarly, the roll-out of the new methodology can be limited to a certain bit of the project itself. TDD, for example, 
+can be used and experimented with on a very complex part of the codebase. Similarly, an agile methodology can be
+limited to a single project, as long as that piece of code or project is allowed the time to go through the speed
+impact associated with the learning curve.
+
+   
