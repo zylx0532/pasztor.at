@@ -131,3 +131,53 @@ You can also offer that you are there for them if they have issues with the new 
 you will go through the new thing with them, personally. If this sounds like it won't scale, here's the trick: most
 people won't make use of your offer, but having the safety net of you being there to support them gives them confidence
 and ease of mind to look at the change ahead with a lighter heart.
+
+## The Learning Experience
+
+Moving to a new methodology is usually paired with some learning. Usually, if you think about the classic scenario, 
+people will be called into a meeting room or a school-like room and someone will stand in front explaining how the hot
+new thing will work. After having gone through this session (or multiple sessions) people will go back to their work,
+taking some fraction of the discussed material with them.
+
+The level of retention depends on many factors, including how good the educator is, how interested the audience is, and
+last but not least, how this frontal learning style suits the people in the audience.
+
+Having taught a number of classes I can safely say, not everyone learns the same. Some people prefer to understand the
+overall concept first, others want to grasp one part of the whole first. Some people love to listen and take notes,
+others can't sit still and listen if their life depends on it. (Like yours truly.) Some people want to listen to the
+material, some prefer to read and again others need graphical representations.
+
+The art, or shall I say, science of teaching is beyond the scope of this post, but suffice it to say, there is no one
+way of learning, and if the audience fails to retain the learned material that is, in my experience, a failure of
+motivation or teaching method, rather than the audience.
+
+When it comes to motivation, specifically, I will have to circle back to what I already said about the personal benefit:
+if the audience is not personally interested in the change, the teacher will have to do some extra legwork in order to
+even get them to a level where they are willing to take in the information. Ignoring this will surely lead to a spotty
+information retention.
+
+## Wording matters
+
+Many methodologies come with varying levels of documentation which describes several roles and concepts related to the 
+methodology. Usually these *words* are then described as to what they mean.
+
+My experience with these wordings are that they are almost universally awful. Take Scrum for example. There is a role
+called *scrum master*, which is a person who is supposed to facilitate and help along the process of scrum. However, if
+you failed to read the big fat book on Scrum, then the word *master* implies some sort of leadership role.
+
+Those of you who know Scrum will now shout at the top of your lungs that that's not what it means, and *I know*. But
+I lost count of how many times I saw the bosses of the old world take up the role of *master* because, after all, they
+are the boss, completely misunderstanding the point of the whole thing.
+
+The same goes for other terms, such as *project owner*. Does this mean that we, the workers, who have put in our sweat,
+blood and tears, no longer own the project? Now some fancy pants suit guy will get to own it?
+
+I know, I know, that's not what it means, but even if you explain these things words can cause emotions and cause
+disenfranchisement. If the person in this role is conscious of this, they can help the process by behaving in a way that
+furthers trust, but in contrast, that person can also ruin the whole thing by behaving in the negative ways that is
+expected of them.
+
+As with code, in roles and terminology *wording matters a lot*.
+
+## Overformalizing
+
