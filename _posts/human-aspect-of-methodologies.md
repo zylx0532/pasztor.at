@@ -62,7 +62,7 @@ how we should do things in the future are exhausting and are usually won by the 
 A good boss, scrum master or agile coach can do a lot to help the individual team members in this situations, making 
 their voice heard. However, not like you might think. Imposing some rules on the discussions, such as everyone gets to
 talk for five minutes (yet more process) will not alleviate our fears. As much as my colleagues wouldn't think so, I
-absolutely *hate* speaking in a group if I'm not a 100% sure about what I'm saying.
+*hate* speaking in a group if I'm not a 100% sure about what I'm saying.
 
 I'm much more comfortable discussing my opinions in private over a coffee. Yes, the coffee machine in the office can be
 a great project management tool. It is much easier to open up in a one on one conversation, trying to flesh out a 
@@ -70,6 +70,9 @@ half-baked idea, find the right words to explain what exactly one means. It will
 master brings up the topic in the conversation and the team member in with the idea knows that they don't have to stand
 up for themselves and risk being alone in the room. After all, they have the at least one other voice in the room
 thinking that their idea is worth listening to.
+
+> **Note:** Coffee is not a thing for everyone. Make sure you know what the person you are talking to considers a
+> comfortable and safe environment.
 
 ## The New Boss and Restructuring
 
@@ -104,4 +107,27 @@ can be used and experimented with on a very complex part of the codebase. Simila
 limited to a single project, as long as that piece of code or project is allowed the time to go through the speed
 impact associated with the learning curve.
 
-   
+## Personal Benefit
+
+Another important aspect of implementing new methodologies is the question of *personal benefit*. A new methodology
+inevitably means that the people involved will have either more work to do, or needing to do some work which is outside
+their usual line of work.
+
+The human brain works in such a way that familiar tasks seem easy, while new, unfamiliar ones are hard and needs a while
+for people to get into. This means that we judge new things that need doing much harder and much more time consuming
+than things we are already used to. This, in my experience, is more prevalent the longer the person in question has been
+doing the same thing. If you see people who held the same job and have been doing the same thing for 10 or 20 years and
+then you ask them to learn or do something new, you will have a very hard time convincing them that this is a good
+thing.
+
+One way to ease the transition to the new system is on an *emotional* level. Make the new task seem easier, or smoother.
+Take the fear of the new. 
+
+For example, show the person in question how exactly the new thing will make their life easier or better. When you do
+that, make sure you don't fall in the trap of just using the same generic sales pitch, it won't work. Instead, tell
+them, personally, how the new system will benefit them, personally.
+
+You can also offer that you are there for them if they have issues with the new thing. They can come to you any time and
+you will go through the new thing with them, personally. If this sounds like it won't scale, here's the trick: most
+people won't make use of your offer, but having the safety net of you being there to support them gives them confidence
+and ease of mind to look at the change ahead with a lighter heart.
