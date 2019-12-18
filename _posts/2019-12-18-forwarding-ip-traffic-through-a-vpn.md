@@ -62,12 +62,12 @@ docker exec -ti server-b /bin/sh -c "apt update && apt install -y tcpdump iprout
 Let's check if our servers have the correct IP addresses:
 
 ```
-# docker exec -ti server-a ip addr show dev eth0
+$ docker exec -ti server-a ip addr show dev eth0
 36: eth0@if37: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
     link/ether 02:42:c0:a8:00:01 brd ff:ff:ff:ff:ff:ff link-netnsid 0
     inet 192.168.0.1/24 brd 192.168.0.255 scope global eth0
        valid_lft forever preferred_lft forever
-# docker exec -ti server-b ip addr show dev eth0
+$ docker exec -ti server-b ip addr show dev eth0
 38: eth0@if39: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
     link/ether 02:42:c0:a8:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0
     inet 192.168.0.2/24 brd 192.168.0.255 scope global eth0
@@ -78,7 +78,7 @@ If your IP's are different at this point, note them and adjust them accordingly.
 http://192.168.0.2 from the host machine:
 
 ```
-curl http://192.168.0.2
+$ curl http://192.168.0.2
 ```
 
 The result should be the source code of the default nginx page. Now, our goal is to be able to access the webserver
@@ -90,7 +90,7 @@ Let's look at it from the perspective of `server-a`. You can run a `tcpdump` to 
 connection is attempted:
 
 ```
-# docker exec -ti server-a tcpdump -i eth0 -n port 80
+$ docker exec -ti server-a tcpdump -i eth0 -n port 80
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on any, link-type LINUX_SLL (Linux cooked), capture size 262144 bytes
 22:15:17.405131 IP 192.168.0.254.56988 > 192.168.0.1.80: Flags [S], seq 1891979943, win 29200, options [mss 1460,sackOK,TS val 1916994860 ecr 0,nop,wscale 7], length 0
@@ -109,7 +109,7 @@ docker exec -ti server-a iptables -t nat -A PREROUTING -d 192.168.0.1 -p tcp --d
 After this let's run the test again and try to query `http://192.168.0.1`, this is the result:
 
 ```
-# docker exec -ti server-a tcpdump -i eth0 -n port 80
+$ docker exec -ti server-a tcpdump -i eth0 -n port 80
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
 22:18:24.217281 IP 192.168.0.254.57022 > 192.168.0.1.80: Flags [S], seq 2407047481, win 29200, options [mss 1460,sackOK,TS val 1917181674 ecr 0,nop,wscale 7], length 0
@@ -125,7 +125,7 @@ the source IP is called a source NAT. Destination and source NAT together give a
 Now, this is all cool, but it still isn't working, so let's take a look what's happening in the mean time on server B:
 
 ```
-# docker exec -ti server-b tcpdump -i eth0 -n port 80
+$ docker exec -ti server-b tcpdump -i eth0 -n port 80
 docker exec -ti server-b tcpdump -i eth0 -n port 80
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
@@ -184,3 +184,133 @@ This way the routing will be reconfigured on server B such that it can only send
 everything else goes over server A. This way server A acts as a router for server B and translates the packets back to
 the IP address of server A.
 
+However, if you observe closely, you will not have internet access on server B now. So let's fix that. First of all, 
+let's find out what's going on. First, let's open a `tcpdump` on server B, but this time around let's use the `-e` flag
+to show us the mac addresses too:
+
+```
+$ docker exec -ti server-b tcpdump -i eth0 -n -e
+```
+
+Then, while leaving the terminal open, on a second terminal let's run an update:
+
+```
+$ docker exec -ti server-b apt update
+```
+
+In the first terminal we will see the outgoing packets, and, if you observe closely, the destination MAC address
+of server A:
+
+```
+$ docker exec -ti server-b tcpdump -i eth0 -n -e
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+08:17:05.040445 02:42:c0:a8:00:02 > 02:42:c0:a8:00:01, ethertype IPv4 (0x0800), length 74: 192.168.0.2.34374 > 212.211.132.250.80: Flags [S], seq 3602023972, win 29200, options [mss 1460,sackOK,TS val 2680231590 ecr 0,nop,wscale 7], length 0
+```
+
+You will also see that there are no return packets, nothing. It seems as if server A would just simply swallow the 
+packets and do nothing with them. We can check this when looking at the whole thing from server A and running the
+update again. Let's take a look:
+
+```
+$ docker exec t-i server-a tcpdump -i eth0 -n -e
+[...]
+08:21:43.772877 02:42:c0:a8:00:01 > 02:42:c0:a8:00:02, ethertype IPv4 (0x0800), length 102: 192.168.0.1 > 192.168.0.2: ICMP redirect 151.101.14.133 to host 192.168.0.254, length 68
+```
+
+As you can see, the response is an ICMP redirect. This is supposed to indicate to server B that it should send the 
+packet directly to the router, but since server B has a different network configuration, this won't work. So let's
+disable ICMP redirects. Since we are running in a Dockerized environment, we will need to do this on the host machine:
+
+```
+sudo sysctl net.ipv4.conf.all.send_redirects=0
+```
+
+This, however, will not result in a working setup. The incoming packets will still be swallowed.
+
+## Building a VPN
+
+Before things get too complicated, let's move this setup a bit into the real world. Normally, in a real world
+setup, you won't be able to manipulate packets this way. Normally hosting providers filter packages going out with
+the wrong IP address.
+
+> **Warning!** This section demonstrates a very simple way to build a VPN with OpenVPN, but this is not production
+> grade. Please look up how to configure OpenVPN properly!
+
+So in order to actually make this work, we will need a private connection between the two servers. To simulate this, 
+let's remove and re-create the two containers:
+
+```
+$ docker rm -f server-a server-b
+$ docker run --cap-add NET_RAW --cap-add NET_ADMIN --device /dev/net/tun:/dev/net/tun --name server-a --network test --ip 192.168.0.1 -dti ubuntu
+$ docker run --cap-add NET_RAW --cap-add NET_ADMIN --device /dev/net/tun:/dev/net/tun --name server-b --network test --ip 192.168.0.2 -d nginx
+$ docker exec -ti server-a /bin/sh -c "apt update && apt install -y tcpdump iproute2 iptables openvpn"
+$ docker exec -ti server-b /bin/sh -c "apt update && apt install -y tcpdump iproute2 iptables openvpn"
+```
+
+Now that we have our two servers ready, let's create the OpenVPN server on server A:
+
+```
+$ cat <<EOF | docker exec -i server-a /bin/sh -c "cat >/etc/openvpn/openvpn.conf"
+dev tun
+ifconfig 10.8.0.1 10.8.0.2
+secret /etc/openvpn/static.key
+EOF
+```
+
+Let's also create the VPN client on server B:
+
+```
+$ cat <<EOF | docker exec -i server-b /bin/sh -c "cat >/etc/openvpn/openvpn.conf"
+remote 192.168.0.1
+dev tun
+ifconfig 10.8.0.2 10.8.0.1
+secret /etc/openvpn/static.key
+EOF
+```
+
+Now we can create the secret key that will be used to authenticate the tunnel:
+
+```
+$ docker exec -ti server-a openvpn --genkey --secret /etc/openvpn/static.key
+$ docker cp server-a:/etc/openvpn/static.key static.key
+$ docker cp static.key server-b:/etc/openvpn/static.key
+```
+
+We can now start the VPN on the two ends:
+
+```
+$ docker exec -dti server-a openvpn /etc/openvpn/openvpn.conf
+$ docker exec -dti server-b openvpn /etc/openvpn/openvpn.conf
+```
+
+This way we now have a private point to point connection between the two servers. Our goal is now to NAT port 80
+to the private address of server B (`10.8.0.2`) and any outgoing packets from server B from this address should also
+go via the tunnel instead of going to the default gateway.
+
+First the rules for server A:
+
+```
+$ docker exec -ti server-a iptables -t nat -A PREROUTING -d 192.168.0.1 -p tcp --dport 80 -j DNAT --to 10.8.0.2
+```
+
+Now comes the tricky part, server B. Normally all packets are routed according to the default routing table:
+
+```
+$ docker exec -ti server-b ip route
+default via 192.168.0.254 dev eth0 
+10.8.0.1 dev tun0 proto kernel scope link src 10.8.0.2 
+192.168.0.0/24 dev eth0 proto kernel scope link src 192.168.0.2
+```
+
+Now we will add a second routing table on server B, specifically instructing it to send all traffic via the VPN to 
+server A:
+
+```
+$ docker exec -ti server-b /bin/sh -c "echo \"1   test\" >> /etc/iproute2/rt_tables"
+$ docker exec -ti server-b ip rule add from 10.8.0.2 table test
+$ docker exec -ti server-b ip route add default via 10.8.0.1 dev tun0 table test
+$ ip route flush cache
+```
+
+That's it! Now you should see your webserver on `http://192.168.0.1` and the source address should be preserved!
