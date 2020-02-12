@@ -6,12 +6,6 @@ description: Terms of Use for pasztor.at
 
 # Terms of Use
 
-This site is operated by:<br />
-<strong>Janos Pasztor</strong><br />
-Graf-Starhemberg-Gasse 47/6<br />
-1040 Wien<br />
-Austria
-
 ## Copyright
 
 **All materials on this website are protected by copyright.** Text, design and program code are owned by Janos Pasztor.
@@ -80,4 +74,4 @@ There are no oral side agreements to these terms. All changes to the terms are m
 Any disputes are subject to Austrian law (Austrian domestic law under exclusion of the referral norms
 and UN commercial law), legal proceedings shall be held exclusively in Vienna, Austria.
 
-This document has last been updated: November 12, 2018
+This document has last been updated: August 24, 2019

@@ -60,17 +60,8 @@ to send me encrypted e-mail, please use GPG. My key [can be found here](/gpg.txt
  
 ## Complaints, Information and Deletion Requests
 
-Complaints, Information and Deletion Requests regarding the privacy policy may be sent via postal mail to:
-
-**Janos Pasztor**<br />
-Opsbears e.U.<br />
-Graf-Starhemberg-Gasse 47/6<br />
-1040 Wien<br />
-Austria
-
-{%raw%}
-<p>Or electronically to: &#106;&#097;&#110;&#111;&#115;&#064;&#112;&#097;&#115;&#122;&#116;&#111;&#114;&#046;&#097;&#116;</p>
-{%endraw%}
+Complaints, Information and Deletion Requests regarding the privacy policy may be sent to the contacts on
+[the imprint page](/imprint.md)
 
 Please allow for 30 days of processing time. All correspondence related to information and deletion requests may be
 kept for up to 8 years for the purposes of a legal track record.
@@ -92,4 +83,4 @@ The author of this website reserves the right to change this policy at any time,
 is enabled in your browser, and you have not installed extensions that block cookie notices, you may receive a 
 notification about the updated privacy policy when you next visit this site.
 
-This document has last been updated: November 12, 2018
+This document has last been updated: August 24, 2019

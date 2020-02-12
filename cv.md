@@ -6,17 +6,12 @@ description: Read the CV of Janos Pasztor
 
 # About me
 
-> **Notice to recruiters:** I know, your job is hard, so let's respect each others time: I am working as a freelancer,
-> and I am not looking for a job. I am also not going to help your candidate get a job. There is no sense in trying to
-> contact me about either issue, or to enter my details into your company's database for later use. I don't
-> work with recruiters off the internet.
-
 ## Basic details
 
 <div class="content__table">
 <table>
     <tr><th>Name:</th><td>Janos Pasztor</td></tr>
-    <tr><th>Residence:</th><td>Vienna, Austria</td></tr>
+    <tr><th>Residence:</th><td>Austria</td></tr>
     <tr><th>Born:</th><td>1984</td></tr>
     <tr><th>Nationality:</th><td>German, Hungarian</td></tr>
     <tr><th>Languages:</th><td>English, German, Hungarian</td></tr>
@@ -36,7 +31,8 @@ description: Read the CV of Janos Pasztor
 
 ## Career overview
 
-- **CTO @ Entrecloud** (*Since 2016*)
+- **Solution Architect @ A1 Digital/Exoscale** (*Since 2018*)
+- **CTO @ Entrecloud** (*2016 &mdash; 2018*)
 - **Development Lead @ IXOLIT** (*2016 &mdash; 2017*)
 - **Software Developer @ IXOLIT** (*2011 &mdash; 2016*)
 - **DevOps Team Lead @ DotRoll** (*2010 &mdash; 2011*)
@@ -63,10 +59,17 @@ description: Read the CV of Janos Pasztor
 
 ## Career in Detail
 
+### Solution Architect @ A1 Digital/Exoscale
+
+- Create educational materials (handbooks, slide decks, animated and screencast videos) for the Exoscale cloud product.
+- Train sales and technical personnel across several countries in the usage of Exoscale.
+- Develop new products on top of Exoscale, complete with a modern web frontend.
+
 ### CTO @ Entrecloud
 
-- Design and development of a large-scale, scalable hosting infrastructure for Wordpress on Docker
-- Various, large scale consulting projects
+- Design and development of a large-scale, scalable hosting infrastructure for Wordpress on Docker, running more than
+  1000 containers in production and a shared file system.
+- Various, large scale consulting projects.
 
 ### Development Lead @ IXOLIT
 

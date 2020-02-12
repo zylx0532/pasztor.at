@@ -10,7 +10,7 @@ description: Contact Janos Pasztor via social media
 
 {%raw%}
 <p>If you are organizing a conference, workshop event something alike, I'm always up for a new speaking or teaching
-opportunity. Please contact me at &#106;&#097;&#110;&#111;&#115;&#064;&#112;&#097;&#115;&#122;&#116;&#111;&#114;&#046;&#097;&#116; for more information.</p>
+opportunity. Please contact me at <a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#x6F;&#x3A;&#x6A;&#x61;&#x6E;&#x6F;&#x73;&#x40;&#x70;&#x61;&#x73;&#x7A;&#x74;&#x6F;&#x72;&#x2E;&#x61;&#x74;">&#x6A;&#x61;&#x6E;&#x6F;&#x73;&#x40;&#x70;&#x61;&#x73;&#x7A;&#x74;&#x6F;&#x72;&#x2E;&#x61;&#x74;</a> for more information.</p>
 {%endraw%}
 
 ## Community chat
@@ -22,6 +22,7 @@ By far the most effective way of getting my attention is by <a href="/discord" d
 You can [contribute to this website on Github](https://github.com/janoszen/pasztor.at).
 
 ## Social networks
+
 For other matters please feel free to contact me on any of the following platforms:
 
 <div class="content__table">
@@ -31,25 +32,15 @@ For other matters please feel free to contact me on any of the following platfor
 </table>
 </div>
 
-## Job offers
-
-I work as a freelance DevOps engineer and **I'm not interested in any job offers**. If you are a recruitment company,
-I hereby object to my data being added to your database, or you contacting me about a job offer in any form whatsoever.
-(Y'know, EU privacy laws and stuff apply.)
-
 ## Privacy Complaints and Information Requests
 
 {%raw%}
-<p>
-  Data protection inqueries may be directed to me via e-mail to
-  &#106;&#097;&#110;&#111;&#115;&#064;&#112;&#097;&#115;&#122;&#116;&#111;&#114;&#046;&#097;&#116;
-  or via postal mail to:<br />
-  Opsbears e.U.<br />
-  Graf-Starhemberg-Gasse 47/6<br />
-  1040 Wien<br />
-  Austria
-</p>
-<p>
-  Please allow for 14 days plus postal shipping for processing your request.
-</p>
-{%endraw%}
+<div class="table">
+<table>
+<tr><th>Name:</th><td>Janos Pasztor</td></tr>
+<tr><th>E-mail:</th><td><a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#x6F;&#x3A;&#x6A;&#x61;&#x6E;&#x6F;&#x73;&#x40;&#x70;&#x61;&#x73;&#x7A;&#x74;&#x6F;&#x72;&#x2E;&#x61;&#x74;">&#x6A;&#x61;&#x6E;&#x6F;&#x73;&#x40;&#x70;&#x61;&#x73;&#x7A;&#x74;&#x6F;&#x72;&#x2E;&#x61;&#x74;</a></td></tr>
+<tr><th>Postal address:</th><td>Contact <a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#x6F;&#x3A;&#x6A;&#x61;&#x6E;&#x6F;&#x73;&#x40;&#x70;&#x61;&#x73;&#x7A;&#x74;&#x6F;&#x72;&#x2E;&#x61;&#x74;">&#x6A;&#x61;&#x6E;&#x6F;&#x73;&#x40;&#x70;&#x61;&#x73;&#x7A;&#x74;&#x6F;&#x72;&#x2E;&#x61;&#x74;</a> for a legally servable address.</td></tr>
+</table>
+</div>
+{% endraw %}
+

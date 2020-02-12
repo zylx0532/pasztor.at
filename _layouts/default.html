@@ -15,7 +15,7 @@ Feel free to learn from then and build your own!
     <title>{% if page.title %}{{ page.title | escape }}{% if page.eventName %} &mdash; {{ page.eventName }}{% endif %} &mdash; {{ site.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
     {% assign pagecss = layout.sass %}
     <style>{% capture include_to_scssify %}{% include {{ pagecss }} %}{% endcapture %}{{ include_to_scssify | scssify }}</style>
-    <meta name="description" content="{{ page.description | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}" />
+    <meta name="description" content="{{ page.meta.description | strip_html | normalize_whitespace | truncate: 160 | escape }}" />
     <link rel="canonical" href="{{ page.url | replace:'/index.html','' | absolute_url }}" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ "/feed.xml" | relative_url }}" />
 
@@ -46,7 +46,7 @@ Feel free to learn from then and build your own!
         <meta property="og:type" content="article" />
         <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}"/>
         <meta property="article:author" content="https://facebook.com/janoszen" />
-        <meta property="article:publisher" content="https://facebook.com/opsbears"/>
+        <meta property="article:publisher" content="https://facebook.com/janoszen"/>
         <meta property="article:tag" content="{{ page.categories | sort | join: ', ' }}"/>
     {% endif %}
     {% else %}
@@ -84,35 +84,6 @@ Feel free to learn from then and build your own!
       "gender": "Male",
       "jobTitle": "DevOps Engineer",
       "image": "{{ "/assets/avatar.jpg" | absolute_url }}",
-      "address": {
-        "@type":"PostalAddress",
-        "streetAddress":"Graf-Starhemberg-Gasse 47/6",
-        "postalCode":"1040",
-        "addressLocality":"Wien",
-        "addressCountry":"AT"
-      },
-      "memberOf": {
-        "@type": "Organization",
-        "name": "Opsbears",
-        "legalName": "Opsbears e.U.",
-        "logo": "{{ "/assets/img/opsbears-logo.svg" | absolute_url }}",
-        "address": {
-          "@type":"PostalAddress",
-          "streetAddress":"Graf-Starhemberg-Gasse 47/6",
-          "postalCode":"1040",
-          "addressLocality":"Wien",
-          "addressCountry":"AT"
-        },
-        "taxID": "FN 406446s",
-        "vatID": "ATU68310348",
-        "url":"https://www.opsbears.com",
-        "mainEntityOfPage": "https://opsbears.com/",
-        "sameAs": [
-          "https://facebook.com/opsbears",
-          "https://twitter.com/opsbears",
-          "https://github.com/opsbears"
-        ]
-      },
       "url": "https://pasztor.at/",
       "sameAs": [
         "https://facebook.com/{{site.facebook_username}}",

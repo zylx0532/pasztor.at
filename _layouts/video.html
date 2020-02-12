@@ -54,11 +54,6 @@ sass: contentpage.scss
                     <span itemprop="keywords">{{ tagscommas }}</span>
                 </span>
                 {% endif %}
-                <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                    <meta itemprop="name" content="Opsbears" />
-                    <meta itemprop="url" content="https://opsbears.com/" />
-                    <meta itemprop="logo" content="{{ "/assets/img/opsbears-logo.svg" | absolute_url }}" />
-                </span>
                 <meta itemprop="height" content="1920" />
                 <meta itemprop="width" content="1080" />
                 <meta itemprop="thumbnailUrl" content="{{ page.googleimage | default: "/assets/avatar.jpg" | absolute_url}}" />
